@@ -23,7 +23,8 @@ const processor =
       if (action.type === reloadBidableCollectionsAction.type) {
         const openseaColls = await openseaGetCollections();
         const bidableColls = openseaColls.map(coll => {
-          return mockBidableFromOpenseaCollection(coll);
+          const bColl = mockBidableFromOpenseaCollection(coll);
+          return bColl;
         });
         dispatch(bidableCollectionsUpdatedAction(bidableColls));
       } else if (action.type === currentSignerAddressUpdatedAction.type) {
@@ -60,7 +61,10 @@ const processor =
 const reloadCreatorNFTCollections = async (dispatch, getState, ownerAddress) => {
   const openseaColls = await openseaGetCollections(ownerAddress);
   if (openseaColls.length > 5 && ownerAddress !== LOCAL_OWNER_ADDRESS_TO_SKIP) {
-    const revefinColls = openseaColls.map(getRevefinFromOpenseaCollection);
+    const revefinColls = openseaColls.map(coll => {
+      const rColl = getRevefinFromOpenseaCollection(coll);
+      return rColl;
+    });
     dispatch(creatorCollectionsUpdatedAction(revefinColls));
   } else {
     //TODO: remove this hack
@@ -68,7 +72,10 @@ const reloadCreatorNFTCollections = async (dispatch, getState, ownerAddress) => 
     //For demo purpose, sub the collections from a test ownerAddress instead
     log("reloadCreatorNFTCollections with DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS", DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS);
     const openseaColls = await openseaGetCollections(DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS);
-    const revefinColls = openseaColls.map(getRevefinFromOpenseaCollection);
+    const revefinColls = openseaColls.map(coll => {
+      const rColl = getRevefinFromOpenseaCollection(coll);
+      return rColl;
+    });
     dispatch(creatorCollectionsUpdatedAction(revefinColls));
   }
 };

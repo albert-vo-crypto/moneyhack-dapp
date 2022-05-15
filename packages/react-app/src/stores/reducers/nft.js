@@ -1,28 +1,35 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { getTestNFTProjects } from "../../models/nftproject";
+import { createSlice, createAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  projects: getTestNFTProjects(),
-  selectedProject: null,
+  creatorCollections: [],
+  bidableCollections: [],
+  selectedCollection: null,
 };
 
 const slice = createSlice({
   name: "nft",
   initialState,
   reducers: {
-    projectsUpdatedAction: (state, action) => {
-      state.projects = action.payload;
+    creatorCollectionsUpdatedAction: (state, action) => {
+      state.creatorCollections = action.payload;
     },
-    selectedProjectUpdatedAction: (state, action) => {
-      state.selectedProject = action.payload;
+    bidableCollectionsUpdatedAction: (state, action) => {
+      state.bidableCollections = action.payload;
+    },
+    selectedCollectionUpdatedAction: (state, action) => {
+      state.selectedCollection = action.payload;
     },
   },
 });
 
-export const { projectsUpdatedAction, selectedProjectUpdatedAction } = slice.actions;
+export const { creatorCollectionsUpdatedAction, bidableCollectionsUpdatedAction, selectedCollectionUpdatedAction } =
+  slice.actions;
+export const reloadBidableCollectionsAction = createAction("nft/reloadBidableCollectionsAction");
+export const addBidableCollectionAction = createAction("nft/addBidableCollectionAction");
 
 export const nftStateSelector = state => state.nft;
-export const nftProjectsSelector = state => state.nft.projects;
-export const nftSelectedProjectSelector = state => state.nft.selectedProject;
+export const nftCreatorCollectionsSelector = state => state.nft.creatorCollections;
+export const nftBidableCollectionsSelector = state => state.nft.bidableCollections;
+export const nftselectedCollectionSelector = state => state.nft.selectedCollection;
 
 export default slice.reducer;

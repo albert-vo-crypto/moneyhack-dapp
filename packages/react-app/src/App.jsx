@@ -39,6 +39,7 @@ import CreatorNFTCollectionsView from "./views/CreatorNFTCollectionsView";
 import AddNFTView from "./views/AddNFTView";
 import { useDispatch } from "react-redux";
 import { currentSignerAddressUpdatedAction } from "./stores/reducers/appContext";
+import { reloadBidableCollectionsAction } from "./stores/reducers/nft";
 
 const { ethers } = require("ethers");
 /*
@@ -89,6 +90,9 @@ function App(props) {
   const location = useLocation();
 
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(reloadBidableCollectionsAction());
+  }, []);
 
   const targetNetwork = NETWORKS[selectedNetwork];
 
