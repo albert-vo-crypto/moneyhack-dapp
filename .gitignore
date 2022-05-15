@@ -66,3 +66,7 @@ yarn-error.log*
 
 # doc directory
 /doc
+
+#tailwindcss
+packages/react-app/src/output.css
+

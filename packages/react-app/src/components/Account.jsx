@@ -49,7 +49,7 @@ export default function Account({
   localProvider,
   mainnetProvider,
   price,
-  minimized,
+  minimized = true,
   web3Modal,
   loadWeb3Modal,
   logoutOfWeb3Modal,
@@ -62,28 +62,25 @@ export default function Account({
   if (web3Modal) {
     if (web3Modal.cachedProvider) {
       modalButtons.push(
-        <Button
-          key="logoutbutton"
-          style={{ verticalAlign: "top", marginLeft: 8, marginTop: 4 }}
-          shape="round"
-          size="large"
+        <button
           onClick={logoutOfWeb3Modal}
+          type="button"
+          class="h-10 w-10 inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-white bg-gray hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
         >
-          logout
-        </Button>,
+          <svg class="h-full w-full text-black" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </button>,
       );
     } else {
       modalButtons.push(
-        <Button
-          key="loginbutton"
-          style={{ verticalAlign: "top", marginLeft: 8, marginTop: 4 }}
-          shape="round"
-          size="large"
-          /* type={minimized ? "default" : "primary"}     too many people just defaulting to MM and having a bad time */
+        <button
           onClick={loadWeb3Modal}
+          type="button"
+          class="inline-flex items-center px-4 py-2 border border-black text-sm font-medium rounded-md shadow-sm text-black hover:text-white hover:border-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white focus:text-white"
         >
-          connect
-        </Button>,
+          Connect Wallet
+        </button>,
       );
     }
   }

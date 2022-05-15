@@ -62,7 +62,7 @@
     "@apollo/client": "^3.3.21",
     "@testing-library/dom": "^6.12.2",
     "@types/react": "^16.9.19",
-    "autoprefixer": "^10.2.4",
+    "autoprefixer": "^10.4.7",
     "chalk": "^4.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -72,9 +72,11 @@
     "gulp-less": "^4.0.1",
     "gulp-postcss": "^9.0.0",
     "less-plugin-npm-import": "^2.1.0",
+    "postcss": "^8.4.13",
     "prettier": "^2.0.5",
     "s3-folder-upload": "^2.3.1",
-    "surge": "^0.21.5"
+    "surge": "^0.21.5",
+    "tailwindcss": "^3.0.24"
   },
   "eslintConfig": {
     "extends": [
@@ -89,7 +91,7 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "prestart": "node ./scripts/create_contracts.js",
-    "start": "react-scripts start",
+    "start": "yarn build:css && react-scripts start",
     "test": "react-scripts test",
     "lint": "eslint --config ./.eslintrc.js --ignore-path ./.eslintignore ./src/**/*",
     "ipfs": "node ./scripts/ipfs.js",
@@ -98,6 +100,7 @@
     "ship": "yarn surge",
     "theme": "npx gulp less",
     "watch": "node ./scripts/watch.js",
-    "prettier": "npx prettier --write . '!(node_module|build)/**/*'"
+    "prettier": "npx prettier --write . '!(node_module|build)/**/*'",
+    "build:css": "npx tailwindcss -i ./src/index.css -o ./src/output.css"
   }
 }
