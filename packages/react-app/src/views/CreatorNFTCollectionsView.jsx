@@ -16,7 +16,7 @@ const CreatorNFTCollectionsView = () => {
       {address ? (
         _.size(nftCollections) > 0 ? (
           <div>
-            <HeaderText children="My NFT Collections" />
+            <HeaderText children="Select your NFT Collections to list on ReveFin" />
             <NFTCollectionCardsList nftCollections={nftCollections} />
           </div>
         ) : (
