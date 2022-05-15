@@ -270,17 +270,17 @@ function App(props) {
               <Link class="text-base font-medium text-navtext hover:text-highlight" to="/">
                 <img class="h-10 w-auto" src="logo_black_48.png" alt=""></img>
               </Link>
-              <div class="hidden ml-10 space-x-8 lg:block">
+              <div class="ml-10 space-x-8 sm:block md:block lg:block">
                 <Link class="text-base font-medium text-navtext hover:text-highlight" to="/explore">
                   Explore
                 </Link>
               </div>
-              <div class="hidden ml-10 space-x-8 lg:block">
+              <div class="ml-10 space-x-8 md:block lg:block">
                 <Link class="text-base font-medium text-navtext hover:text-highlight" to="/creatornftcollections">
                   Get Capital
                 </Link>
               </div>
-              <div class="hidden ml-10 space-x-8 lg:block">
+              <div class="ml-10 space-x-8 lg:block">
                 <Link class="text-base font-medium text-navtext hover:text-highlight" to="/dashboard">
                   Dashboard
                 </Link>
