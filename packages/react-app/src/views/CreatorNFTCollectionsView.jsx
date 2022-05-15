@@ -13,20 +13,20 @@ const CreatorNFTCollectionsView = () => {
 
   return (
     <div>
+      <HeaderText children="Select your NFT Collections to list on ReveFin" />
       {address ? (
         _.size(nftCollections) > 0 ? (
           <div>
-            <HeaderText children="Select your NFT Collections to list on ReveFin" />
             <NFTCollectionCardsList nftCollections={nftCollections} />
           </div>
         ) : (
-          <div class="grid place-items-center h-[80vh]">
+          <div class="grid place-items-center h-[70vh]">
             <HeaderText children="Loading NFT collections" />
           </div>
         )
       ) : (
-        <div class="grid place-items-center h-[80vh]">
-          <HeaderText children="Please connect wallet with NFT collection owner account first" />
+        <div class="grid place-items-center h-[70vh]">
+          <HeaderText children="Please connect wallet with owner account" />
         </div>
       )}
     </div>
