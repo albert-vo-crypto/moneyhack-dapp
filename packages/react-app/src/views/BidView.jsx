@@ -12,10 +12,10 @@ import { getFormatedCurrencyValue } from "../utils/commons";
 const BidView = () => {
   const selectedNFTCollection = useSelector(nftselectedCollectionSelector);
   const [bidAmount, setBidAmount] = useState(selectedNFTCollection?.estAnnRev);
-  const [bidPercentage, setBidPercentage] = useState(DEFAULT_BID_SLIDER_PERCENTAGE);
+  //const [bidPercentage, setBidPercentage] = useState(DEFAULT_BID_SLIDER_PERCENTAGE);
 
   const onSliderValueChange = value => {
-    setBidPercentage(value);
+    //setBidPercentage(value);
     setBidAmount((value / 100) * selectedNFTCollection?.estAnnRev * selectedNFTCollection?.fractionForSale);
   };
 

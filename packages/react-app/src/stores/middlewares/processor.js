@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import {
   reloadBidableCollectionsAction,
   bidableCollectionsUpdatedAction,
@@ -60,7 +62,7 @@ const processor =
 
 const reloadCreatorNFTCollections = async (dispatch, getState, ownerAddress) => {
   const openseaColls = await openseaGetCollections(ownerAddress);
-  if (openseaColls.length > 5 && ownerAddress !== LOCAL_OWNER_ADDRESS_TO_SKIP) {
+  if (_.size(openseaColls) > 5 && ownerAddress !== LOCAL_OWNER_ADDRESS_TO_SKIP) {
     const revefinColls = openseaColls.map(coll => {
       const rColl = getRevefinFromOpenseaCollection(coll);
       return rColl;
@@ -82,6 +84,7 @@ const reloadCreatorNFTCollections = async (dispatch, getState, ownerAddress) => 
 
 const addBidableCollection = async (dispatch, getState, collection, ownerAddress, fractionForSale) => {
   const bidableColl = getBidableFromRevefinCollection(collection, ownerAddress, fractionForSale);
+  log("addBidableCollection", bidableColl);
   dispatch(bidableCollectionsUpdatedAction([...getState().nft.bidableCollections, bidableColl]));
 };
 

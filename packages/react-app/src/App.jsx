@@ -264,23 +264,23 @@ function App(props) {
   return (
     <div className="App">
       <header class="bg-primary">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
+        <nav class="max-w-full mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
           <div class="w-full py-3 flex items-center justify-between border-b border-primary lg:border-none">
             <div class="flex items-center">
               <Link class="text-base font-medium text-navtext hover:text-highlight" to="/">
                 <img class="h-10 w-auto" src="logo_black_48.png" alt=""></img>
               </Link>
-              <div class="hidden ml-10 space-x-8 lg:block">
+              <div class="ml-10 space-x-8 sm:block md:block lg:block">
                 <Link class="text-base font-medium text-navtext hover:text-highlight" to="/explore">
                   Explore
                 </Link>
               </div>
-              <div class="hidden ml-10 space-x-8 lg:block">
+              <div class="ml-10 space-x-8 md:block lg:block">
                 <Link class="text-base font-medium text-navtext hover:text-highlight" to="/creatornftcollections">
                   Get Capital
                 </Link>
               </div>
-              <div class="hidden ml-10 space-x-8 lg:block">
+              <div class="ml-10 space-x-8 lg:block">
                 <Link class="text-base font-medium text-navtext hover:text-highlight" to="/dashboard">
                   Dashboard
                 </Link>

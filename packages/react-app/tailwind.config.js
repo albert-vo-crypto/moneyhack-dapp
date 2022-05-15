@@ -6,6 +6,7 @@ module.exports = {
         navtext: "#041727",
         navbg: "#f4f5f5",
         highlight: "#4F46E5",
+        hightlightlight: "#818CF8",
         textonhighlight: "#041727",
         primary: "#f4f5f5",
         primarytext: "#f4f5f5",

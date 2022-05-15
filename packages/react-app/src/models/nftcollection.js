@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { log } from "../utils/commons";
 
 import {
   DEFAULT_NFT_COLL_IMAGE_SRC,
@@ -10,18 +11,21 @@ import {
 } from "../constants";
 
 export const getRevefinFromOpenseaCollection = coll => {
+  const name = _.get(coll, "name", DEFAULT_NFT_COLL_NAME);
+  const imageSrc = _.get(coll, "banner_image_url", DEFAULT_NFT_COLL_IMAGE_SRC);
+  const description = _.get(coll, "description", DEFAULT_NFT_COLL_DES);
   const estAnnRev = coll?.stats?.market_cap * 1000000 || DEFAULT_NFT_COLL_EST_ANN_REV;
-  return _.assign(coll, {
-    name: _.get(coll, "name", DEFAULT_NFT_COLL_NAME),
-    imageSrc: _.get(coll, "banner_image_url", DEFAULT_NFT_COLL_IMAGE_SRC),
-    description: _.get(coll, "description", DEFAULT_NFT_COLL_DES),
+  return _.assign(_.cloneDeep(coll), {
+    name: _.size(name) > 0 ? name : DEFAULT_NFT_COLL_NAME,
+    imageSrc: _.size(imageSrc) > 0 ? imageSrc : DEFAULT_NFT_COLL_IMAGE_SRC,
+    description: _.size(description) > 0 ? description : DEFAULT_NFT_COLL_DES,
     estAnnRev,
   });
 };
 
 export const getBidableFromRevefinCollection = (coll, ownerAddress, fractionForSale) => {
   const listedAt = Date.now();
-  return _.assign(coll, {
+  return _.assign(_.cloneDeep(coll), {
     isActive: true,
     fractionForSale,
     listedAt,

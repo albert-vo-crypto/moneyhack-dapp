@@ -75,7 +75,7 @@ const ListNFTView = () => {
           </div>
         </div>
       ) : (
-        <div class="grid place-items-center h-[80vh]">
+        <div class="grid place-items-center h-[70vh]">
           <HeaderText children="Please select a valid NFT collection that you own first" />
         </div>
       )}
