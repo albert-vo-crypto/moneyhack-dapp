@@ -35,7 +35,11 @@ import { useStaticJsonRPC } from "./hooks";
 import "./output.css";
 import ExploreView from "./views/ExploreView";
 import BidView from "./views/BidView";
+import CreatorNFTCollectionsView from "./views/CreatorNFTCollectionsView";
 import AddNFTView from "./views/AddNFTView";
+import { useDispatch } from "react-redux";
+import { currentSignerAddressUpdatedAction } from "./stores/reducers/appContext";
+import { reloadBidableCollectionsAction } from "./stores/reducers/nft";
 
 const { ethers } = require("ethers");
 /*
@@ -85,6 +89,11 @@ function App(props) {
   const [selectedNetwork, setSelectedNetwork] = useState(networkOptions[0]);
   const location = useLocation();
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(reloadBidableCollectionsAction());
+  }, []);
+
   const targetNetwork = NETWORKS[selectedNetwork];
 
   // 🔭 block explorer URL
@@ -102,6 +111,7 @@ function App(props) {
   if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
 
   const logoutOfWeb3Modal = async () => {
+    dispatch(currentSignerAddressUpdatedAction(null));
     await web3Modal.clearCachedProvider();
     if (injectedProvider && injectedProvider.provider && typeof injectedProvider.provider.disconnect == "function") {
       await injectedProvider.provider.disconnect();
@@ -125,6 +135,7 @@ function App(props) {
       if (userSigner) {
         const newAddress = await userSigner.getAddress();
         setAddress(newAddress);
+        dispatch(currentSignerAddressUpdatedAction(newAddress));
       }
     }
     getAddress();
@@ -238,6 +249,7 @@ function App(props) {
       console.log(code, reason);
       logoutOfWeb3Modal();
     });
+
     // eslint-disable-next-line
   }, [setInjectedProvider]);
 
@@ -264,7 +276,7 @@ function App(props) {
                 </Link>
               </div>
               <div class="hidden ml-10 space-x-8 lg:block">
-                <Link class="text-base font-medium text-navtext hover:text-highlight" to="/addnft">
+                <Link class="text-base font-medium text-navtext hover:text-highlight" to="/creatornftcollections">
                   Get Capital
                 </Link>
               </div>
@@ -311,6 +323,9 @@ function App(props) {
         </Route>
         <Route exact path="/bid">
           <BidView />
+        </Route>
+        <Route exact path="/creatornftcollections">
+          <CreatorNFTCollectionsView />
         </Route>
         <Route exact path="/addnft">
           <AddNFTView />

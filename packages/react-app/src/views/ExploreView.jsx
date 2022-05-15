@@ -1,17 +1,20 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import { activeNftProjectsSelector } from "../stores";
-import NFTProjectCardsList from "../components/NFTProject/NFTProjectCardsList";
+//import { reloadBidableCollectionsAction } from "../stores/reducers/nft";
+import { activeBidableNftCollectionsSelector } from "../stores";
+import NFTCollectionCardsList from "../components/NFT/NFTCollectionCardsList";
 import HeaderText from "../components/Commons/HeaderText";
 
 const ExploreView = () => {
-  const activeNftProjects = useSelector(activeNftProjectsSelector);
+  //const dispatch = useDispatch();
+
+  const nftCollections = useSelector(activeBidableNftCollectionsSelector);
 
   return (
     <div>
-      <HeaderText children="NFT Collections" />
-      <NFTProjectCardsList nftProjects={activeNftProjects} />
+      <HeaderText children="NFT Collections With Investment Opportunity" />
+      <NFTCollectionCardsList nftCollections={nftCollections} />
     </div>
   );
 };

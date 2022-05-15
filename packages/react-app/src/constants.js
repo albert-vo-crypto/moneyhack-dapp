@@ -213,6 +213,18 @@ export const NETWORK = chainId => {
 
 export const DEFAULT_EST_ANN_REVENUE = 1000000;
 export const DEFAULT_BID_SLIDER_PERCENTAGE = 80;
-export const BID_SLIDER_MIN_PERCENTAGE = 10;
+export const DEFAULT_LIST_SLIDER_PERCENTAGE = 50;
+export const BID_SLIDER_MIN_PERCENTAGE = 1;
 export const BID_SLIDER_MAX_PERCENTAGE = 200;
 export const COLOR_WHITE = "#f4f5f5";
+
+export const DEFAULT_NFT_COLL_IMAGE_SRC =
+  "https://images.unsplash.com/photo-1582053433976-25c00369fc93?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80";
+export const DEFAULT_NFT_COLL_NAME = "NFT Collection";
+export const DEFAULT_NFT_COLL_DES = "Amazing !";
+export const DEFAULT_NFT_COLL_EST_ANN_REV = 1000000;
+export const DEFAULT_NFT_COLL_REV_FRACTION_FOR_SALE = 0.5;
+
+export const DEMO_NFT_COLL_OWNER_ADDRESS = "0x3143Cd41B70B6a21538E20b7012a0757186D1afe";
+export const DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS = "0x3143Cd41B70B6a21538E20b7012a0757186D1afe";
+export const LOCAL_OWNER_ADDRESS_TO_SKIP = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";

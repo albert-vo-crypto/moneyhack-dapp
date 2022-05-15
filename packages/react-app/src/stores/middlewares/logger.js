@@ -1,5 +1,7 @@
+import { log } from "../../utils/commons";
+
 const logger = store => next => action => {
-  console.log("dispatching", action);
+  log("dispatching", action);
   next(action);
 };
 
