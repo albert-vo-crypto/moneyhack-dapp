@@ -1,4 +1,5 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
+import _ from "lodash";
 
 const initialState = {
   creatorCollections: [],
@@ -11,13 +12,13 @@ const slice = createSlice({
   initialState,
   reducers: {
     creatorCollectionsUpdatedAction: (state, action) => {
-      state.creatorCollections = action.payload;
+      state.creatorCollections = action?.payload && _.size(action.payload) > 0 ? [...action.payload] : [];
     },
     bidableCollectionsUpdatedAction: (state, action) => {
-      state.bidableCollections = action.payload;
+      state.bidableCollections = action?.payload && _.size(action.payload) > 0 ? [...action.payload] : [];
     },
     selectedCollectionUpdatedAction: (state, action) => {
-      state.selectedCollection = action.payload;
+      state.selectedCollection = action?.payload ? _.cloneDeep(action.payload) : null;
     },
   },
 });

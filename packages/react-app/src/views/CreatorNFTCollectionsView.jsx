@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import _ from "lodash";
 
 import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appContext";
 import { nftCreatorCollectionsSelector } from "../stores/reducers/nft";
@@ -13,7 +14,7 @@ const CreatorNFTCollectionsView = () => {
   return (
     <div>
       {address ? (
-        nftCollections?.length > 0 ? (
+        _.size(nftCollections) > 0 ? (
           <div>
             <HeaderText children="My NFT Collections" />
             <NFTCollectionCardsList nftCollections={nftCollections} />
