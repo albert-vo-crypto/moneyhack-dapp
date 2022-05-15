@@ -15,10 +15,9 @@ const NFTProjectCard = ({ nftProject }) => {
   const dispatch = useDispatch();
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-redundant-roles
-    <li class="relative">
+    <div class="relative">
       <div
-        class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden"
+        class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-primary overflow-hidden"
         onClick={async () => {
           await dispatch(selectedProjectUpdatedAction(nftProject));
           history.push("/bid");
@@ -42,7 +41,7 @@ const NFTProjectCard = ({ nftProject }) => {
       <p class="block text-sm font-medium text-gray-500 pointer-events-none">
         Revenue: {nftProject?.estAnnualizedRevenue || defaultEstAnnualizedRevenue}
       </p>
-    </li>
+    </div>
   );
 };
 

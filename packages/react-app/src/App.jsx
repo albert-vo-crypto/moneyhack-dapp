@@ -35,6 +35,7 @@ import { useStaticJsonRPC } from "./hooks";
 import "./output.css";
 import ExploreView from "./views/ExploreView";
 import BidView from "./views/BidView";
+import AddNFTView from "./views/AddNFTView";
 
 const { ethers } = require("ethers");
 /*
@@ -252,23 +253,23 @@ function App(props) {
     <div className="App">
       <header class="bg-primary">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
-          <div class="w-full py-2 flex items-center justify-between border-b border-primary lg:border-none">
+          <div class="w-full py-3 flex items-center justify-between border-b border-primary lg:border-none">
             <div class="flex items-center">
-              <Link class="text-base font-medium text-black hover:text-white" to="/">
+              <Link class="text-base font-medium text-navtext hover:text-highlight" to="/">
                 <img class="h-10 w-auto" src="logo_black_48.png" alt=""></img>
               </Link>
               <div class="hidden ml-10 space-x-8 lg:block">
-                <Link class="text-base font-medium text-black hover:text-white" to="/explore">
+                <Link class="text-base font-medium text-navtext hover:text-highlight" to="/explore">
                   Explore
                 </Link>
               </div>
               <div class="hidden ml-10 space-x-8 lg:block">
-                <Link class="text-base font-medium text-black hover:text-white" to="/register">
+                <Link class="text-base font-medium text-navtext hover:text-highlight" to="/addnft">
                   Get Capital
                 </Link>
               </div>
               <div class="hidden ml-10 space-x-8 lg:block">
-                <Link class="text-base font-medium text-black hover:text-white" to="/dashboard">
+                <Link class="text-base font-medium text-navtext hover:text-highlight" to="/dashboard">
                   Dashboard
                 </Link>
               </div>
@@ -311,8 +312,8 @@ function App(props) {
         <Route exact path="/bid">
           <BidView />
         </Route>
-        <Route exact path="/register">
-          <h3>Get Capital</h3>
+        <Route exact path="/addnft">
+          <AddNFTView />
         </Route>
         <Route exact path="/dashboard">
           <h3>Dashboard</h3>

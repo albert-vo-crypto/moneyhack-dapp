@@ -210,3 +210,9 @@ export const NETWORK = chainId => {
     }
   }
 };
+
+export const DEFAULT_EST_ANN_REVENUE = 1000000;
+export const DEFAULT_BID_SLIDER_PERCENTAGE = 80;
+export const BID_SLIDER_MIN_PERCENTAGE = 10;
+export const BID_SLIDER_MAX_PERCENTAGE = 200;
+export const COLOR_WHITE = "#f4f5f5";
