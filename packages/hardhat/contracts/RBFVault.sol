@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/finance/PaymentSplitter.sol";
+import "./PaymentSplitter.sol";
+
 //import "@openzeppelin/contracts/access/Ownable.sol";
 
 interface ICollectionContract {
@@ -14,8 +15,8 @@ contract RBFVault is PaymentSplitter {
 
     constructor(
         address _collectionAddress,
-        address[2] _parties,
-        uint256[2] _shares
+        address[2] memory _parties,
+        uint256[2] memory _shares
     ) PaymentSplitter(_parties, _shares) {
         collectionAddress = _collectionAddress;
         collectionOwner = _parties[1];
