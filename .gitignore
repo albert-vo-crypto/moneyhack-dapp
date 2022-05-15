@@ -70,3 +70,5 @@ yarn-error.log*
 #tailwindcss
 packages/react-app/src/output.css
 
+packages/react-app/.vscode/settings.json
+

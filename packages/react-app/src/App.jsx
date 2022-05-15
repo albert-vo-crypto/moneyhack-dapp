@@ -33,6 +33,8 @@ import { Home, ExampleUI, Hints, Subgraph } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 
 import "./output.css";
+import ExploreView from "./views/ExploreView";
+import BidView from "./views/BidView";
 
 const { ethers } = require("ethers");
 /*
@@ -248,37 +250,27 @@ function App(props) {
 
   return (
     <div className="App">
-      {/* ✏️ Edit the header and change the title to your project name */}
-
-      {/*
-      <Header />
-      */}
-
       <header class="bg-primary">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
           <div class="w-full py-2 flex items-center justify-between border-b border-primary lg:border-none">
             <div class="flex items-center">
-              <a href="/">
-                <span class="sr-only">ReveFin</span>
+              <Link class="text-base font-medium text-black hover:text-white" to="/">
                 <img class="h-10 w-auto" src="logo_black_48.png" alt=""></img>
-              </a>
+              </Link>
               <div class="hidden ml-10 space-x-8 lg:block">
-                <a href="/explore" class="text-base font-medium text-black hover:text-white">
-                  {" "}
-                  Explore{" "}
-                </a>
+                <Link class="text-base font-medium text-black hover:text-white" to="/explore">
+                  Explore
+                </Link>
               </div>
               <div class="hidden ml-10 space-x-8 lg:block">
-                <a href="/register" class="text-base font-medium text-black hover:text-white">
-                  {" "}
-                  Get Capital{" "}
-                </a>
+                <Link class="text-base font-medium text-black hover:text-white" to="/register">
+                  Get Capital
+                </Link>
               </div>
               <div class="hidden ml-10 space-x-8 lg:block">
-                <a href="/dashboard" class="text-base font-medium text-black hover:text-white">
-                  {" "}
-                  Dashboard{" "}
-                </a>
+                <Link class="text-base font-medium text-black hover:text-white" to="/dashboard">
+                  Dashboard
+                </Link>
               </div>
             </div>
             <div class="ml-10 space-x-4">
@@ -307,31 +299,23 @@ function App(props) {
         logoutOfWeb3Modal={logoutOfWeb3Modal}
         USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
       />
-      <Menu style={{ textAlign: "center", marginTop: 12 }} selectedKeys={[location.pathname]} mode="horizontal">
-        <Menu.Item key="/">
-          <Link to="/">App Home</Link>
-        </Menu.Item>
-        <Menu.Item key="/debug">
-          <Link to="/debug">Debug Contracts</Link>
-        </Menu.Item>
-        <Menu.Item key="/hints">
-          <Link to="/hints">Hints</Link>
-        </Menu.Item>
-        <Menu.Item key="/exampleui">
-          <Link to="/exampleui">ExampleUI</Link>
-        </Menu.Item>
-        <Menu.Item key="/mainnetdai">
-          <Link to="/mainnetdai">Mainnet DAI</Link>
-        </Menu.Item>
-        <Menu.Item key="/subgraph">
-          <Link to="/subgraph">Subgraph</Link>
-        </Menu.Item>
-      </Menu>
 
       <Switch>
         <Route exact path="/">
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
           <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
+        </Route>
+        <Route exact path="/explore">
+          <ExploreView />
+        </Route>
+        <Route exact path="/bid">
+          <BidView />
+        </Route>
+        <Route exact path="/register">
+          <h3>Get Capital</h3>
+        </Route>
+        <Route exact path="/dashboard">
+          <h3>Dashboard</h3>
         </Route>
         <Route exact path="/debug">
           {/*
@@ -406,9 +390,9 @@ function App(props) {
           <h3>ok</h3>
         </Route>
       </Switch>
-
+      {/*
       <ThemeSwitch />
-
+      */}
       {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
       <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
         <div style={{ display: "flex", flex: 1, alignItems: "center" }}>

@@ -6,6 +6,9 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.css";
 
+import { Provider } from "react-redux";
+import { store } from "./stores";
+
 const themes = {
   dark: `${process.env.PUBLIC_URL}/dark-theme.css`,
   light: `${process.env.PUBLIC_URL}/light-theme.css`,
@@ -22,11 +25,13 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <ThemeSwitcherProvider themeMap={themes} defaultTheme={prevTheme || "dark"}>
-      <BrowserRouter>
-        <App subgraphUri={subgraphUri} />
-      </BrowserRouter>
-    </ThemeSwitcherProvider>
+    <Provider store={store}>
+      <ThemeSwitcherProvider themeMap={themes} defaultTheme={prevTheme || "dark"}>
+        <BrowserRouter>
+          <App subgraphUri={subgraphUri} />
+        </BrowserRouter>
+      </ThemeSwitcherProvider>
+    </Provider>
   </ApolloProvider>,
   document.getElementById("root"),
 );
