@@ -58,7 +58,8 @@ contract RBFVaultFactory {
         address investorAddress,
         uint256 investorShare
     )
-        external
+        public
+        payable
         collectionVaultDoesntExist(collectionAddress)
         isValidAddress(collectionAddress, collectionOwner, investorAddress)
         sharesIsValid(investorShare)
@@ -68,6 +69,17 @@ contract RBFVaultFactory {
         RBFVault vault = new RBFVault(collectionAddress, parties, shares);
         collectionVault[collectionAddress] = address(vault);
 
+        Address.sendValue(address(vault), msg.value);
         emit RBFVaultCreated(collectionAddress, address(vault));
+    }
+
+    //TODO - Remove, use with remix js vm accounts
+    function createTestVault() public payable {
+        createVault(
+            0xD7ACd2a9FD159E69Bb102A1ca21C9a3e3A5F771B,
+            0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2,
+            0x5B38Da6a701c568545dCfcB03FcB875f56beddC4,
+            50
+        );
     }
 }
