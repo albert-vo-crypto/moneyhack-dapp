@@ -10,6 +10,7 @@ module.exports = {
         textonhighlight: "#041727",
         primary: "#f4f5f5",
         primarytext: "#f4f5f5",
+        primaryoff: "#F3F4F6",
         secondary: "#4F46E5",
         secondarylight: "#f7bb29",
         black: "#041727",
