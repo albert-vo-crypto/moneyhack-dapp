@@ -34,7 +34,7 @@ contract PaymentSplitter is Context {
     );
     event PaymentReceived(address from, uint256 amount);
 
-    uint256 private constant _totalShares = 100;
+    uint256 private constant TOTAL_SHARES = 100;
     uint256 private _totalReleased;
 
     mapping(address => uint256) private _shares;
@@ -74,14 +74,7 @@ contract PaymentSplitter is Context {
      */
     receive() external payable virtual {
         emit PaymentReceived(_msgSender(), msg.value);
-    }
-
-    /**
-     * @dev Getter for the total shares held by payees.
-     */
-    function totalShares() public view returns (uint256) {
-        return _totalShares;
-    }
+    } 
 
     /**
      * @dev Getter for the total amount of Ether already released.
@@ -189,7 +182,7 @@ contract PaymentSplitter is Context {
         uint256 alreadyReleased
     ) private view returns (uint256) {
         return
-            (totalReceived * _shares[account]) / _totalShares - alreadyReleased;
+            (totalReceived * _shares[account]) / TOTAL_SHARES - alreadyReleased;
     }
 
     /**
