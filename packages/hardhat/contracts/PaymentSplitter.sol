@@ -3,9 +3,9 @@
 
 pragma solidity ^0.8.0;
 
-import "../token/ERC20/utils/SafeERC20.sol";
-import "../utils/Address.sol";
-import "../utils/Context.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/utils/Address.sol";
+import "@openzeppelin/contracts/utils/Context.sol";
 
 /**
  * @title PaymentSplitter
@@ -34,7 +34,7 @@ contract PaymentSplitter is Context {
     );
     event PaymentReceived(address from, uint256 amount);
 
-    uint256 private constant _totalShares;
+    uint256 private constant _totalShares = 100;
     uint256 private _totalReleased;
 
     mapping(address => uint256) private _shares;
