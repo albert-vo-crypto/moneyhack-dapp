@@ -49,12 +49,23 @@ contract RBFVault is PaymentSplitter {
         return ICollectionContract(collectionAddress).owner() == address(this);
     }
 
-    function Activate() external {
+    function activate() external {
         // TODO - verify collection payout address using oracle
         require(
             isVaultOwnsTheCollection(),
             "Vault: Collection isn't owned by vault"
         );
         status = Status.Active;
+    }
+
+    function getVaultBalance() public pure returns (int256) {
+        return address(this).balance;
+    }
+
+     /**
+     * @return The current state of the vault.
+     */
+    function state() public view returns (State) {
+        return _state;
     }
 }
