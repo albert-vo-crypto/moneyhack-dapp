@@ -4,6 +4,11 @@ pragma solidity ^0.8.0;
 //import "@openzeppelin/contracts/access/Ownable.sol";
 import "./RBFVault.sol";
 
+/**
+ * @title RBFVaultFactory
+ * @notice Contract allows to create vaults which allows Lender to secure royalty revenue streams from a NFT collection of borrower and split payments between them based on agreed terms
+ * @dev Should be deployed once for the app
+ */
 contract RBFVaultFactory {
     event RBFVaultCreated(
         address indexed collectionAddress,
@@ -53,6 +58,15 @@ contract RBFVaultFactory {
         _;
     }
 
+    /**
+     *
+     * @dev Configure data for the vault
+     * @param collectionAddress NFT collection's contract address
+     * @param collectionOwner Address of collection Owner
+     * @param investorAddress Address of Investor
+     * @param investorShare Investor's share of the total revenue. Valid value 1-100
+     *
+     */
     function createVault(
         address collectionAddress,
         address collectionOwner,
@@ -75,15 +89,5 @@ contract RBFVaultFactory {
         collectionVault[collectionAddress] = address(vault);
 
         emit RBFVaultCreated(collectionAddress, address(vault));
-    }
-
-    //TODO - Remove, use with remix js vm accounts
-    function createTestVault() public payable {
-        createVault(
-            0xD7ACd2a9FD159E69Bb102A1ca21C9a3e3A5F771B,
-            0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2,
-            0x5B38Da6a701c568545dCfcB03FcB875f56beddC4,
-            50
-        );
     }
 }

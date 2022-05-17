@@ -11,6 +11,11 @@ interface ICollectionContract {
     function owner() external view returns (address);
 }
 
+/**
+ * @title RBFVault
+ * @notice Contract allowing Lender to secure royalty revenue streams from a NFT collection of borrower and split payments between them based on agreed terms
+ * @dev Should be deployed per NFT collection.
+ */
 contract RBFVault is PaymentSplitter {
     enum Status {
         Pending,
@@ -24,6 +29,14 @@ contract RBFVault is PaymentSplitter {
     uint256 public price;
     Status public status;
 
+    /**
+     *
+     * @dev Configure data for revenue shares
+     * @param _collectionAddress NFT collection's contract address
+     * @param _parties array of parties involved. 0:Investor 1:Collection Owner
+     * @param _shares array of parties corresponding shares in the revenue. 0:Investor's share, 1: Collection owner's share
+     *
+     */
     constructor(
         address _collectionAddress,
         address[2] memory _parties,
@@ -41,23 +54,33 @@ contract RBFVault is PaymentSplitter {
         _;
     }
 
+    /**
+     * @dev Return ownership of the NFT collection back to original owner after the contract's term is satisfied
+     */
     function returnOwnershipToCollectionOwner() external termsSatisfied {
         ICollectionContract(collectionAddress).transferOwnership(
             collectionOwner
         );
     }
 
+    /**
+     * @dev Check if the ownership of the collection is transferred to this vault
+     */
     function isVaultOwnsTheCollection() public view returns (bool) {
         return ICollectionContract(collectionAddress).owner() == address(this);
     }
 
+    /**
+     * @dev Activates the vault after the onwership has been transferred to this vault. Also sends the agreed payment to the collection owner.
+     After this any royalty recieved by this collection will be shared between both the party according to agreement
+     */
     function activate() external {
         // TODO - verify collection payout address using oracle
         require(
             isVaultOwnsTheCollection(),
             "Vault: Transfer collection ownership to the the vault"
         );
-         require(
+        require(
             status == Status.Pending,
             "Vault: Only vault with'Pending' can be activated"
         );
@@ -76,18 +99,28 @@ contract RBFVault is PaymentSplitter {
         return status;
     }
 
+    /**
+     * @dev Allows lender or borrower to withdrawn their portion of the revenue
+     * @param account Address of the lender/borrower
+     */
     function release(address payable account) public override {
         require(status == Status.Active, "Vault: vault is not active");
         super.release(account);
     }
 
+    /**
+     * @dev Allows the lender to withdrawn deposited money if vault doesn't get activated on agreed upon time
+     */
     function refundTheLender() external {
         require(
             !isVaultOwnsTheCollection(),
             "Vault: Collection already owned by the vault"
         );
 
-        require(status == Status.Pending, "Refund only available when vault is in 'Pending' status ");
+        require(
+            status == Status.Pending,
+            "Refund only available when vault is in 'Pending' status "
+        );
         status = Status.Canceled;
         Address.sendValue(payable(_payees[0]), price);
     }
