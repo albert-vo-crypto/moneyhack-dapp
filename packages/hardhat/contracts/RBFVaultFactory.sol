@@ -13,9 +13,10 @@ contract RBFVaultFactory {
     mapping(address => address) public collectionVault;
     modifier collectionVaultDoesntExist(address collectionAddress) {
         require(
-            collectionAddress != address(0),
+            collectionVault[collectionAddress] == address(0),
             "Vault for this collection already exist"
         );
+
         _;
     }
 
@@ -66,10 +67,13 @@ contract RBFVaultFactory {
     {
         address[2] memory parties = [investorAddress, collectionOwner];
         uint256[2] memory shares = [investorShare, 100 - investorShare];
-        RBFVault vault = new RBFVault(collectionAddress, parties, shares);
+        RBFVault vault = new RBFVault{value: msg.value}(
+            collectionAddress,
+            parties,
+            shares
+        );
         collectionVault[collectionAddress] = address(vault);
 
-        Address.sendValue(address(vault), msg.value);
         emit RBFVaultCreated(collectionAddress, address(vault));
     }
 

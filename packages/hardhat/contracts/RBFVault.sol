@@ -8,12 +8,12 @@ import "./PaymentSplitter.sol";
 interface ICollectionContract {
     function transferOwnership(address newOwner) external;
 
-    function owner() public view returns (address);
+    function owner() external view returns (address);
 }
 
 contract RBFVault is PaymentSplitter {
     enum Status {
-        Initialized,
+        Pending,
         Active,
         Expired,
         Canceled
@@ -21,16 +21,18 @@ contract RBFVault is PaymentSplitter {
 
     address public collectionOwner;
     address public collectionAddress;
+    uint256 public price;
     Status public status;
 
     constructor(
         address _collectionAddress,
         address[2] memory _parties,
         uint256[2] memory _shares
-    ) PaymentSplitter(_parties, _shares) {
+    ) payable PaymentSplitter(_parties, _shares) {
         collectionAddress = _collectionAddress;
         collectionOwner = _parties[1];
-        status = Status.Initialized;
+        status = Status.Pending;
+        price = msg.value;
     }
 
     modifier termsSatisfied() {
@@ -45,7 +47,7 @@ contract RBFVault is PaymentSplitter {
         );
     }
 
-    function isVaultOwnsTheCollection() public returns (bool) {
+    function isVaultOwnsTheCollection() public view returns (bool) {
         return ICollectionContract(collectionAddress).owner() == address(this);
     }
 
@@ -53,19 +55,40 @@ contract RBFVault is PaymentSplitter {
         // TODO - verify collection payout address using oracle
         require(
             isVaultOwnsTheCollection(),
-            "Vault: Collection isn't owned by vault"
+            "Vault: Transfer collection ownership to the the vault"
+        );
+         require(
+            status == Status.Pending,
+            "Vault: Only vault with'Pending' can be activated"
         );
         status = Status.Active;
+        Address.sendValue(payable(_payees[1]), price);
     }
 
-    function getVaultBalance() public pure returns (int256) {
+    function getVaultBalance() public view returns (uint256) {
         return address(this).balance;
     }
 
-     /**
+    /**
      * @return The current state of the vault.
      */
-    function state() public view returns (State) {
-        return _state;
+    function vaultStatus() public view returns (Status) {
+        return status;
+    }
+
+    function release(address payable account) public override {
+        require(status == Status.Active, "Vault: vault is not active");
+        super.release(account);
+    }
+
+    function refundTheLender() external {
+        require(
+            !isVaultOwnsTheCollection(),
+            "Vault: Collection already owned by the vault"
+        );
+
+        require(status == Status.Pending, "Refund only available when vault is in 'Pending' status ");
+        status = Status.Canceled;
+        Address.sendValue(payable(_payees[0]), price);
     }
 }
