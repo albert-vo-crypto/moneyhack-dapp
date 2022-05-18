@@ -35,6 +35,8 @@ export const openseaGetCollectionsWithAddress = async (ownerAddress = DEMO_NFT_C
       c.primary_asset_contracts &&
       c.primary_asset_contracts.length > 0 &&
       c.primary_asset_contracts[0].address &&
+      (c.primary_asset_contracts[0].opensea_seller_fee_basis_points > 0 ||
+        c.primary_asset_contracts[0].dev_seller_fee_basis_points > 0) &&
       c.primary_asset_contracts[0].asset_contract_type === "non-fungible"
     );
   });

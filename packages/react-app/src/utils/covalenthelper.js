@@ -11,7 +11,7 @@ import { log, logErr } from "./commons";
 const { ethers } = require("ethers");
 
 axiosRetry(axios, {
-  retries: 1,
+  retries: 0,
   retryDelay: retryCount => {
     log(`retry attempt: ${retryCount}`);
     return retryCount * 2000;
@@ -83,8 +83,17 @@ export const getTwelveMonthStatsFromItems = (items, percRoyaltyCreator) => {
   return twelveMonthStats;
 };
 
-export const covalentGetCollectionDetail = async (collAddress, opensea_seller_fee_basis_points = 500) => {
+export const covalentGetCollectionDetail = async (contract, contractIndex) => {
   try {
+    if (contractIndex >= contract.length) {
+      return null;
+    }
+    const collAddress = contract[contractIndex].address;
+    const seller_fee_basis_points =
+      contract[contractIndex].opensea_seller_fee_basis_points ||
+      contract[contractIndex].dev_seller_fee_basis_points ||
+      500;
+    log("covalentGetCollectionDetail", { state: "start", contractIndex, collAddress, seller_fee_basis_points });
     const resp = await axios.get(
       `https://api.covalenthq.com/v1/${COVALENT_TARGET_BLOCKCHAIN_ID}/nft_market/collection/${collAddress}/`,
       {
@@ -92,7 +101,7 @@ export const covalentGetCollectionDetail = async (collAddress, opensea_seller_fe
       },
     );
 
-    const percRoyaltyCreator = opensea_seller_fee_basis_points / (100 * 100);
+    const percRoyaltyCreator = seller_fee_basis_points / (100 * 100);
     const stats = getTwelveMonthStatsFromItems(resp?.data?.data?.items, percRoyaltyCreator);
     log("covalentGetCollectionDetail", { stats });
 
@@ -105,23 +114,19 @@ export const covalentGetCollectionDetail = async (collAddress, opensea_seller_fe
     return detail;
   } catch (err) {
     logErr(err);
+    const detail = await covalentGetCollectionDetail(contract, contractIndex + 1);
+    return detail;
   }
 };
 
 export const covalentGetCollectionsWithHistorialDatas = async colls => {
   const collsWithHistoricalDatas = await Promise.all(
     colls.map(async coll => {
-      if (
-        coll &&
-        coll.primary_asset_contracts &&
-        coll.primary_asset_contracts.length > 0 &&
-        coll.primary_asset_contracts[0].address
-      ) {
-        //TODO: include all primary_asset_contracts instead of just the first one
-        const historicalDatas = await covalentGetCollectionDetail(
-          coll.primary_asset_contracts[0].address,
-          coll.primary_asset_contracts[0].opensea_seller_fee_basis_points,
-        );
+      if (coll && coll.primary_asset_contracts && coll.primary_asset_contracts.length > 0) {
+        const contracts = coll.primary_asset_contracts.filter(contract => {
+          return contract && contract.address && contract.asset_contract_type === "non-fungible";
+        });
+        const historicalDatas = await covalentGetCollectionDetail(contracts, 0);
         return _.assign(_.cloneDeep(coll), { historicalDatas });
       }
       return coll;
