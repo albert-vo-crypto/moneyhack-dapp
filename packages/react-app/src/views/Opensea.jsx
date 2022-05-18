@@ -4,14 +4,14 @@ import { utils } from "ethers";
 
 import { useTokenList } from "eth-hooks/dapps/dex";
 import { Address, AddressInput, Balance, Events } from "../components";
-import { OpenSeaPort, Network, api } from 'opensea-js';
+//import { OpenSeaPort, Network, api } from 'opensea-js';
 
 
 
 //////
 import { Button, Card, DatePicker, Divider, Input, Progress, Slider, Spin, Switch } from "antd";
 import { SyncOutlined } from "@ant-design/icons";
-
+import { Stocks } from "./Stocks";
 
 const { Option } = Select;
 
@@ -22,7 +22,44 @@ const { Option } = Select;
 // .then(response => console.log(response))
 // .catch(err => console.error(err));
 
-
+export const stockData = [
+  {
+    company: "Twitter Inc",
+    ticker: "TWTR",
+    stockPrice: "22.76 USD",
+    timeElapsed: "5 sec ago",
+  },
+  {
+    company: "Square Inc",
+    ticker: "SQ",
+    stockPrice: "45.28 USD",
+    timeElapsed: "10 sec ago",
+  },
+  {
+    company: "Shopify Inc",
+    ticker: "SHOP",
+    stockPrice: "341.79 USD",
+    timeElapsed: "3 sec ago",
+  },
+  {
+    company: "Sunrun Inc",
+    ticker: "RUN",
+    stockPrice: "9.87 USD",
+    timeElapsed: "4 sec ago",
+  },
+  {
+    company: "Adobe Inc",
+    ticker: "ADBE",
+    stockPrice: "300.99 USD",
+    timeElapsed: "10 sec ago",
+  },
+  {
+    company: "HubSpot Inc",
+    ticker: "HUBS",
+    stockPrice: "115.22 USD",
+    timeElapsed: "12 sec ago",
+  },
+];
 
 
   // useEffect(() => {
@@ -83,7 +120,7 @@ export default function Opensea({
 }) {
   const [newPurpose, setNewPurpose] = useState("loading...");
 
-  const [openseaResult, setOpenseaResult] = useState(null);
+  const [openseaResult, setOpenseaResult] = useState([]);
 
   const options = {method: 'GET', headers: {Accept: 'application/json'}};
 
@@ -103,18 +140,19 @@ export default function Opensea({
     fetchData()
   }, [])
 
-  // const fetchData2 = () => {
-  //   fetch("https://api.opensea.io/api/v1/collection/doodles-official/stats")
-  //     .then(response => {
-  //       return response.json()
-  //     })
-  //     .then(data => {
-  //       setOpenseaResult(data)
-  //     })
-  // }
-  // useEffect(() => {
-  //   fetchData2()
-  // }, [])
+  const fetchData2 = () => {
+    fetch("https://api.opensea.io/api/v1/collection/doodles-official/stats")
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        setOpenseaResult(data)
+      })
+  }
+  useEffect(() => {
+    console.log('*******fetchData2')
+    fetchData2()
+  }, [])
 
   // async function postData() {
 
@@ -137,8 +175,18 @@ export default function Opensea({
         .then(response => response.json());
     });
   const results =  Promise.all(promises);
-  console.log("-----Opensea results");
-  console.log(results);
+  console.log('-----Opensea results', results);
+  //console.log(results);
+
+
+  const openseadata = collections.map(collection => { // note the map
+      // note the return
+      return fetch(`https://api.opensea.io/api/v1/collection/${collection}`)
+        .then(response => response.json());
+    });
+  const newresults =  Promise.all(openseadata);
+  console.log('-----NEW Opensea results');
+  console.log(newresults);
   return (
 
     <div>
