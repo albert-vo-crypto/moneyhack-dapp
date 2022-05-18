@@ -26,7 +26,10 @@ const processor =
       if (action.type === reloadBidableCollectionsAction.type) {
         const openseaColls = await openseaGetCollectionsWithAddress();
         const collsWithHistoricalDatas = await covalentGetCollectionsWithHistorialDatas(openseaColls);
-        const bidableColls = collsWithHistoricalDatas.map(coll => {
+        const filteredColls = collsWithHistoricalDatas.filter(coll => {
+          return coll && coll.historicalDatas && coll.historicalDatas.stats;
+        });
+        const bidableColls = filteredColls.map(coll => {
           const bColl = mockBidableFromOpenseaCollection(coll);
           return bColl;
         });

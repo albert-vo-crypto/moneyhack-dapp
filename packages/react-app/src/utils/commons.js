@@ -2,6 +2,10 @@ export const log = (...args) => {
   console.log("revefin", ...args);
 };
 
+export const logErr = (...args) => {
+  console.error("revefin", ...args);
+};
+
 export const getFormatedCurrencyValue = (value, maximumFractionDigits = 0, currency = "USD") => {
   /*
   var formatter = new Intl.NumberFormat("en-US", {

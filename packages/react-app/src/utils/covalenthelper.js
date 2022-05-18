@@ -3,38 +3,44 @@ import axiosRetry from "axios-retry";
 import "dotenv/config";
 import _ from "lodash";
 import moment from "moment";
+import stats from "stats-lite";
 
 import { COVALENT_TARGET_BLOCKCHAIN_ID } from "../constants";
-import { log } from "./commons";
+import { log, logErr } from "./commons";
 
 const { ethers } = require("ethers");
 
 axiosRetry(axios, {
-  retries: 3,
+  retries: 1,
   retryDelay: retryCount => {
-    console.log(`retry attempt: ${retryCount}`);
+    log(`retry attempt: ${retryCount}`);
     return retryCount * 2000;
   },
   retryCondition: error => {
+    logErr(error);
     return error.response.status === 503;
   },
 });
 
 export const getCollectionDetailItemsBetweenDate = (items, startDateStr, endDateStr) => {
-  return _.filter(items, item => {
+  const output = _.filter(items, item => {
     return item?.opening_date >= startDateStr && item?.opening_date < endDateStr;
   });
+  return output;
 };
 
 export const getStatsOfItems = items => {
-  return _.reduce(
+  const stats = _.reduce(
     items,
     (acc, item) => {
-      acc.totalWeiVolume = acc.totalWeiVolume.add(item?.volume_wei_day);
+      if (item && item.volume_wei_day && _.size(item.volume_wei_day) > 0) {
+        acc.totalWeiVolume = acc.totalWeiVolume.add(item.volume_wei_day);
+      }
       return acc;
     },
     { totalWeiVolume: ethers.utils.parseEther("0") },
   );
+  return stats;
 };
 
 export const getTwelveMonthStatsFromItems = (items, percRoyaltyCreator) => {
@@ -51,9 +57,10 @@ export const getTwelveMonthStatsFromItems = (items, percRoyaltyCreator) => {
     itemsGroupedByMonthMap,
     (acc, items, groupedKey) => {
       const groupedStats = getStatsOfItems(items);
-      groupedStats.ethTotalRoyaltyRevenue = +ethers.utils.formatEther(
-        groupedStats.totalWeiVolume.mul(percRoyaltyCreator),
-      );
+
+      groupedStats.totalEthVolume = +ethers.utils.formatEther(groupedStats.totalWeiVolume);
+      groupedStats.ethTotalRoyaltyRevenue = groupedStats.totalEthVolume * percRoyaltyCreator;
+
       acc.ethTotalRoyaltyRevenue = acc.ethTotalRoyaltyRevenue + groupedStats.ethTotalRoyaltyRevenue;
       acc.ethRoyaltyRevenues.push(groupedStats.ethTotalRoyaltyRevenue);
 
@@ -61,12 +68,17 @@ export const getTwelveMonthStatsFromItems = (items, percRoyaltyCreator) => {
         acc.ethMinGroupedRoyaltyRevenue = groupedStats.ethTotalRoyaltyRevenue;
       }
       acc[groupedKey] = groupedStats;
+      //log("twelveMonthStats", "done", { acc, items: _.size(items), groupedKey });
+      return acc;
     },
     { ethTotalRoyaltyRevenue: 0, ethMinGroupedRoyaltyRevenue: null, ethRoyaltyRevenues: [] },
   );
 
-  twelveMonthStats.floorVolume = twelveMonthStats.ethMinGroupedRoyaltyRevenue * 12.0;
-  log({ twelveMonthStats });
+  twelveMonthStats.ethFloorVolume = twelveMonthStats.ethMinGroupedRoyaltyRevenue * 12.0;
+  twelveMonthStats.ethMeanRoyaltyRevenue = stats.mean(twelveMonthStats.ethRoyaltyRevenues);
+  twelveMonthStats.ethStDevRoyaltyRevenue = stats.stdev(twelveMonthStats.ethRoyaltyRevenues);
+  twelveMonthStats.ethCoefofVariationRoyaltyRevenue =
+    twelveMonthStats.ethStDevRoyaltyRevenue / twelveMonthStats.ethMeanRoyaltyRevenue;
 
   return twelveMonthStats;
 };
@@ -80,24 +92,19 @@ export const covalentGetCollectionDetail = async (collAddress, opensea_seller_fe
       },
     );
 
-    //TODO: historical stats calculation
     const percRoyaltyCreator = opensea_seller_fee_basis_points / (100 * 100);
-    //const items12Months = get12MonthsOfCollectionDetailItemsFrom(resp?.data?.data?.items);
-    //log({ items12Months: _.size(items12Months) });
-
-    //"opening_date":"2022-04-06"
-    //"volume_wei_day":"1243935000000000000000"
-
     const stats = getTwelveMonthStatsFromItems(resp?.data?.data?.items, percRoyaltyCreator);
+    log("covalentGetCollectionDetail", { stats });
 
     const detail = {
       collAddress,
+      percRoyaltyCreator,
       stats,
       items: [...resp?.data?.data?.items],
     };
     return detail;
   } catch (err) {
-    console.error(err);
+    logErr(err);
   }
 };
 
