@@ -4,6 +4,16 @@ import { utils } from "ethers";
 import { SyncOutlined } from "@ant-design/icons";
 
 import { Address, Balance, Events } from "../components";
+import { OpenSeaPort, Network, api } from 'opensea-js';
+
+const options = {method: 'GET', headers: {Accept: 'application/json'}};
+
+fetch('https://api.opensea.io/api/v1/collection/doodles-official/stats', options)
+.then(response => response.json())
+.then(response => console.log(response))
+.catch(err => console.error(err));
+
+
 
 export default function ExampleUI({
   purpose,
@@ -18,6 +28,14 @@ export default function ExampleUI({
 }) {
   const [newPurpose, setNewPurpose] = useState("loading...");
 
+  const options = {method: 'GET', headers: {Accept: 'application/json'}};
+
+  fetch('https://api.opensea.io/api/v1/collection/doodles-official/stats', options)
+  .then(response => response.json())
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
+
+
   return (
     <div>
       {/*
@@ -26,6 +44,7 @@ export default function ExampleUI({
       <div style={{ border: "1px solid #cccccc", padding: 16, width: 400, margin: "auto", marginTop: 64 }}>
         <h2>Example UI:</h2>
         <h4>purpose: {purpose}</h4>
+        
         <Divider />
         <div style={{ margin: 8 }}>
           <Input

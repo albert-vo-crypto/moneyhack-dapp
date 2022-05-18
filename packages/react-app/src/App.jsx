@@ -356,6 +356,8 @@ function App(props) {
         </Route>
         <Route path="/opensea">
           <h3>ok</h3>
+          <Opensea
+          />
         </Route>
         <Route path="/health">
           <h3>ok</h3>

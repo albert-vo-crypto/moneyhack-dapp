@@ -1,5 +1,5 @@
 import { Select } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { utils } from "ethers";
 
 import { useTokenList } from "eth-hooks/dapps/dex";
@@ -10,42 +10,63 @@ import { OpenSeaPort, Network, api } from 'opensea-js';
 
 //////
 import { Button, Card, DatePicker, Divider, Input, Progress, Slider, Spin, Switch } from "antd";
-//import React, { useState } from "react";
-//import { utils } from "ethers";
 import { SyncOutlined } from "@ant-design/icons";
 
 
 const { Option } = Select;
 
+// const options = {method: 'GET', headers: {Accept: 'application/json'}};
 
-//import { Address, Balance, Events } from "../components";
+// fetch('https://api.opensea.io/api/v1/collection/doodles-official/stats', options)
+// .then(response => response.json())
+// .then(response => console.log(response))
+// .catch(err => console.error(err));
 
 
-// This example provider won't let you make transactions, only read-only calls:
-// const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
-//const provider = new Web3.providers.HttpProvider('https://mainnet.infura.io')
 
-// Using HTTPS
-// const provider = createAlchemyWeb3("https://eth-mainnet.alchemyapi.io/v2/xsmVHANuiGh7_R6XufR116gGAUis4cTC");
 
-// const seaport = new OpenSeaPort(provider, {
-//   networkName: Network.Main,
-//   apiKey: 
-// })
+  // useEffect(() => {
+  //   // declare the data fetching function
+  //   const fetchData = async () => {
+  //     console.log("--------------------before fetch opensea");
+  //     const opensea_response = await fetch('https://api.opensea.io/api/v1/collection/doodles-official/stats', options)
+  //     const opensea_result = await opensea_response.json(); 
+  //     console.log("--------------------after fetch opensea", opensea_result);
+  //     setOpenseaResult(opensea_result);
+  //   }}, [])
+  // console.log("THIS IS FOR OPENSEA API")
 
-// export default function Opensea({ yourLocalBalance, mainnetProvider, price, address }) {
-//   // Get a list of tokens from a tokenlist -> see tokenlists.org!
-//   const [selectedToken, setSelectedToken] = useState("Pick a token!");
-//   const listOfTokens = useTokenList(
-//     "https://raw.githubusercontent.com/SetProtocol/uniswap-tokenlist/main/set.tokenlist.json",
-//   );
 
-//   const sdk = require('api')('@opensea/v1.0#595ks1ol33d7wpk');
+  // const UsingFetch = () => {
+  //   const [users, setUsers] = useState([])
 
-//   sdk['retrieving-collection-stats']({collection_slug: 'doodles-official'})
-//      .then(res => console.log(res))
-//      .catch(err => console.error(err));
+  //   const fetchData = () => {
+  //     fetch("https://jsonplaceholder.typicode.com/users")
+  //       .then(response => {
+  //         return response.json()
+  //       })
+  //       .then(data => {
+  //         setUsers(data)
+  //       })
+  //   }
 
+  //   useEffect(() => {
+  //     fetchData()
+  //   }, [])
+
+
+  //   return (
+  //     <div>
+  //       {users.length > 0 && (
+  //         <ul>
+  //           {users.map(user => (
+  //             <li key={user.id}>{user.name}</li>
+  //           ))}
+  //         </ul>
+  //       )}
+  //     </div>
+  //   )
+  // }
 
 
 export default function Opensea({
@@ -58,31 +79,129 @@ export default function Opensea({
   tx,
   readContracts,
   writeContracts,
+  response
 }) {
   const [newPurpose, setNewPurpose] = useState("loading...");
-      // Constructor 
+
+  const [openseaResult, setOpenseaResult] = useState(null);
+
+  const options = {method: 'GET', headers: {Accept: 'application/json'}};
 
 
+  const [users, setUsers] = useState([])
 
+  const fetchData = async () => {
+    await fetch("https://jsonplaceholder.typicode.com/users")
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        setUsers(data)
+      })
+  }
+  useEffect(() => {
+    fetchData()
+  }, [])
 
-  const sdk = require('api')('@opensea/v1.0#595ks1ol33d7wpk');
+  // const fetchData2 = () => {
+  //   fetch("https://api.opensea.io/api/v1/collection/doodles-official/stats")
+  //     .then(response => {
+  //       return response.json()
+  //     })
+  //     .then(data => {
+  //       setOpenseaResult(data)
+  //     })
+  // }
+  // useEffect(() => {
+  //   fetchData2()
+  // }, [])
 
-  sdk['retrieving-collection-stats']({collection_slug: 'doodles-official'})
-     .then(res => console.log(res))
-     .catch(err => console.error(err));
-  console.log("process.env.OPENSEA = ". process.env.OPENSEA);
-  console.log('-----------------------------');
-  console.log('-----------------------------OPENSEA');
-  console.log("-----------------------------");
+  // async function postData() {
 
+  //   console.log("--------------------before fetch opensea");
+  //   const opensea_response = await fetch('https://api.opensea.io/api/v1/collection/doodles-official/stats', options)
+  //   const opensea_result = await opensea_response.json(); 
+  //   console.log("--------------------after fetch opensea", opensea_result);
+  //   return opensea_result;
+  // } 
+
+  const collections = [
+    'cryptopunks',
+    'boredapeyachtclub',
+    'mutant-ape-yacht-club',
+  ];
+
+  const promises = collections.map(collection => { // note the map
+      // note the return
+      return fetch(`https://api.opensea.io/api/v1/collection/${collection}/stats`)
+        .then(response => response.json());
+    });
+  const results =  Promise.all(promises);
+  console.log("-----Opensea results");
+  console.log(results);
   return (
+
     <div>
       {/*
         ⚙️ Here is an example UI that displays and sets the purpose in your smart contract:
       */}
+      <div>
+        {users.length > 0 && (
+          <ul>
+            {users.map(user => (
+              <li key={user.id}>{user.name}</li>
+            ))}
+          </ul>
+        )}
+        {promises.length > 0 && (
+          <ul>
+            {users.map(user => (
+              <li key={user.id}>{user.name}</li>
+            ))}
+          </ul>
+        )}
+
+{/*          {results}*/}
+{/*          <ul>
+                {openseaResult.map( stats => (
+              
+                  <li key={stats.id}>{stats.one_day_volume}</li>
+                  ))}
+              }
+          </ul>*/}
+{/*          {promises.length > 0 && (
+          <ul>
+            // {Promise.map(stats => (
+              <li key={promises.id}>{promises.stats}</li>
+            ))}
+
+          </ul>
+        )}*/}
+{/*          <ul>
+{/*          {results}*/}
+{/*            {results.map(stats => <div>{home.name}</div>)}
+          </ul>}}
+          {users.length > 0 && (
+          <ul>
+            {users.map(user => (
+              <li key={user.id}>{user.name}</li>
+            ))}
+          </ul>
+        )}
+
+{/*          {openseaResult.length > 0 && (
+          <ul>
+            {users.map(user => (
+              <li key={user.id}>{user.name}</li>
+            ))}
+          </ul>
+        )}*/}
+      </div>
+
       <div style={{ border: "1px solid #cccccc", padding: 16, width: 400, margin: "auto", marginTop: 64 }}>
         <h2>Example UI:</h2>
         <h4>purpose: {purpose}</h4>
+
         <Divider />
         <div style={{ margin: 8 }}>
           <Input
@@ -276,3 +395,4 @@ export default function Opensea({
     </div>
   );
 }
+
