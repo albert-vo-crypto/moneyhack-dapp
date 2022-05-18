@@ -9,6 +9,7 @@ import PercentageSlider from "../components/Inputs/PercentageSlider";
 import HeaderText from "../components/Commons/HeaderText";
 import { nftselectedCollectionSelector, addBidableCollectionAction } from "../stores/reducers/nft";
 import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appContext";
+import NFTCollectionStats from "../components/NFT/NFTCollectionStats";
 
 const ListNFTView = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,9 @@ const ListNFTView = () => {
           <HeaderText children="Turn Future Revenue To Capital Now" />
           <div class="mx-10 my-10 grid grid-cols-3 gap-x-4 gap-y-8 sm:gap-x-6 xl:gap-x-8">
             <NFTCollectionCard nftCollection={selectedNFTCollection} />
+            <div class="col-span-2">
+              <NFTCollectionStats nftCollection={selectedNFTCollection} />
+            </div>
           </div>
           <div class="fixed bottom-20 right-20 sm:bottom-10 sm:right-10 md:bottom-12 md:right-12">
             <div class="mt-6 flex space-x-2">
