@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import { DEFAULT_BID_SLIDER_PERCENTAGE } from "../constants";
-import { nftselectedCollectionSelector } from "../stores/reducers/nft";
+import { nftSelectedCollectionSelector } from "../stores/reducers/nft";
 import NFTCollectionCard from "../components/NFT/NFTCollectionCard";
 import SecondaryButton from "../components/Buttons/SecondaryButton";
 import PercentageSlider from "../components/Inputs/PercentageSlider";
@@ -11,7 +11,7 @@ import { getFormatedCurrencyValue } from "../utils/commons";
 import NFTCollectionStats from "../components/NFT/NFTCollectionStats";
 
 const BidView = () => {
-  const selectedNFTCollection = useSelector(nftselectedCollectionSelector);
+  const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
   const [bidAmount, setBidAmount] = useState(selectedNFTCollection?.estAnnRev);
   //const [bidPercentage, setBidPercentage] = useState(DEFAULT_BID_SLIDER_PERCENTAGE);
 

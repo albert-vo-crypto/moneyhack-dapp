@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { DEFAULT_LIST_SLIDER_PERCENTAGE } from "../constants";
+import { DEFAULT_LIST_SLIDER_PERCENTAGE, ROUTE_PATH_EXPLORE_REVENUE_STREAMS } from "../constants";
 import NFTCollectionCard from "../components/NFT/NFTCollectionCard";
 import SecondaryButton from "../components/Buttons/SecondaryButton";
 import PercentageSlider from "../components/Inputs/PercentageSlider";
 import HeaderText from "../components/Commons/HeaderText";
-import { nftselectedCollectionSelector, addBidableCollectionAction } from "../stores/reducers/nft";
+import { nftSelectedCollectionSelector, addBidableCollectionAction } from "../stores/reducers/nft";
 import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appContext";
 import NFTCollectionStats from "../components/NFT/NFTCollectionStats";
 
@@ -15,7 +15,7 @@ const ListNFTView = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const ownerAddress = useSelector(appContextCurrentSignerAddressSelector);
-  const selectedNFTCollection = useSelector(nftselectedCollectionSelector);
+  const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
   const [percentageForSale, setPercentageForSale] = useState(DEFAULT_LIST_SLIDER_PERCENTAGE);
 
   const onSliderValueChange = value => {
@@ -71,7 +71,7 @@ const ListNFTView = () => {
             <SecondaryButton
               onClick={() => {
                 addBidableCollection(selectedNFTCollection, ownerAddress, percentageForSale / 100.0);
-                history.push("/explore");
+                history.push(ROUTE_PATH_EXPLORE_REVENUE_STREAMS);
                 //TODO: push to creator nft collections instead
               }}
               children={"List " + percentageForSale + "% royalty revenue for sale"}

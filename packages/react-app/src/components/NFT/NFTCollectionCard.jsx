@@ -6,6 +6,11 @@ import { useLocation } from "react-router-dom";
 
 import { selectedCollectionUpdatedAction } from "../../stores/reducers/nft";
 import { getFormatedCurrencyValue } from "../../utils/commons";
+import {
+  ROUTE_PATH_EXPLORE_REVENUE_STREAMS,
+  ROUTE_PATH_BID_REVENUE_STREAM,
+  ROUTE_PATH_REG_REVENUE_STREAM,
+} from "../../constants";
 
 const NFTCollectionCard = ({ nftCollection }) => {
   const history = useHistory();
@@ -18,10 +23,10 @@ const NFTCollectionCard = ({ nftCollection }) => {
         class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-primary overflow-hidden"
         onClick={async () => {
           await dispatch(selectedCollectionUpdatedAction(nftCollection));
-          if (location?.pathname === "/explore") {
-            history.push("/bid");
+          if (location?.pathname === ROUTE_PATH_EXPLORE_REVENUE_STREAMS) {
+            history.push(ROUTE_PATH_BID_REVENUE_STREAM);
           } else if (location?.pathname === "/creatornftcollections") {
-            history.push("/addnft");
+            history.push(ROUTE_PATH_REG_REVENUE_STREAM);
           }
         }}
       >
@@ -37,7 +42,8 @@ const NFTCollectionCard = ({ nftCollection }) => {
       <p class="block text-sm font-medium text-gray-500 pointer-events-none">
         Revenue: {"$" + getFormatedCurrencyValue(nftCollection?.estAnnRev, 2)}
       </p>
-      {location?.pathname === "/explore" || location?.pathname === "/bid" ? (
+      {location?.pathname === ROUTE_PATH_EXPLORE_REVENUE_STREAMS ||
+      location?.pathname === ROUTE_PATH_BID_REVENUE_STREAM ? (
         <p class="block text-sm font-medium text-gray-500 pointer-events-none">
           Fraction for sale: {nftCollection?.fractionForSale * 100 + "%"}
         </p>

@@ -7,7 +7,7 @@ import {
   addBidableCollectionAction,
 } from "../reducers/nft";
 import { currentSignerAddressUpdatedAction } from "../reducers/appContext";
-import { openseaGetCollections } from "../../utils/openseahelper";
+import { openseaGetCollections, openseaGetCollectionsWithAddress } from "../../utils/openseahelper";
 import {
   getRevefinFromOpenseaCollection,
   mockBidableFromOpenseaCollection,
@@ -15,6 +15,7 @@ import {
 } from "../../models/nftcollection";
 import { DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS, LOCAL_OWNER_ADDRESS_TO_SKIP } from "../../constants";
 import { log } from "../../utils/commons";
+import { covalentGetCollectionsWithHistorialDatas } from "../../utils/covalenthelper";
 
 const processor =
   ({ dispatch, getState }) =>
@@ -23,8 +24,9 @@ const processor =
     try {
       log("processing", action.type);
       if (action.type === reloadBidableCollectionsAction.type) {
-        const openseaColls = await openseaGetCollections();
-        const bidableColls = openseaColls.map(coll => {
+        const openseaColls = await openseaGetCollectionsWithAddress();
+        const collsWithHistoricalDatas = await covalentGetCollectionsWithHistorialDatas(openseaColls);
+        const bidableColls = collsWithHistoricalDatas.map(coll => {
           const bColl = mockBidableFromOpenseaCollection(coll);
           return bColl;
         });

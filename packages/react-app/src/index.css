@@ -13,3 +13,9 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+.ant-spin-dot i {
+  background-color: #818CF8;
+}
+
+.ant-spin-text { color: #818CF8; }

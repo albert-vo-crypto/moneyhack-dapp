@@ -40,6 +40,11 @@ import AddNFTView from "./views/AddNFTView";
 import { useDispatch } from "react-redux";
 import { currentSignerAddressUpdatedAction } from "./stores/reducers/appContext";
 import { reloadBidableCollectionsAction } from "./stores/reducers/nft";
+import {
+  ROUTE_PATH_EXPLORE_REVENUE_STREAMS,
+  ROUTE_PATH_BID_REVENUE_STREAM,
+  ROUTE_PATH_REG_REVENUE_STREAM,
+} from "./constants";
 
 const { ethers } = require("ethers");
 /*
@@ -271,7 +276,10 @@ function App(props) {
                 <img class="h-10 w-auto" src="logo_black_48.png" alt=""></img>
               </Link>
               <div class="ml-10 space-x-8 sm:block md:block lg:block">
-                <Link class="text-base font-medium text-navtext hover:text-highlight" to="/explore">
+                <Link
+                  class="text-base font-medium text-navtext hover:text-highlight"
+                  to={ROUTE_PATH_EXPLORE_REVENUE_STREAMS}
+                >
                   Explore
                 </Link>
               </div>
@@ -318,16 +326,16 @@ function App(props) {
           {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
           <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
         </Route>
-        <Route exact path="/explore">
+        <Route exact path={ROUTE_PATH_EXPLORE_REVENUE_STREAMS}>
           <ExploreView />
         </Route>
-        <Route exact path="/bid">
+        <Route exact path={ROUTE_PATH_BID_REVENUE_STREAM}>
           <BidView />
         </Route>
         <Route exact path="/creatornftcollections">
           <CreatorNFTCollectionsView />
         </Route>
-        <Route exact path="/addnft">
+        <Route exact path={ROUTE_PATH_REG_REVENUE_STREAM}>
           <AddNFTView />
         </Route>
         <Route exact path="/dashboard">

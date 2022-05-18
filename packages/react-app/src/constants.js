@@ -231,3 +231,19 @@ export const DEMO_NFT_COLL_OWNER_ADDRESS =
   process.env.REACT_APP_DEMO_NFT_COLL_OWNER_ADDRESS || "0xaBA7161A7fb69c88e16ED9f455CE62B791EE4D03";
 export const DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS = "0x6c8984bAf566Db08675310b122BF0be9Ea269ecA";
 export const LOCAL_OWNER_ADDRESS_TO_SKIP = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
+
+export const COVALENT_TARGET_BLOCKCHAIN_ID = process.env.REACT_APP_COVALENT_TARGET_BLOCKCHAIN_ID || 1;
+/*
+    {name: "Ethereum", value: 1},
+    {name: "Polygon", value: 137},
+    {name: "Avalanche", value: 43114},
+    {name: "Fantom", value: 250},
+    {name: "Moonbeam", value: 1284},
+    {name: "Moonriver", value: 1285},
+    {name: "Arbitrum", value: 42161},
+    {name: "Shiden", value: 336}
+*/
+
+export const ROUTE_PATH_EXPLORE_REVENUE_STREAMS = "/explore/revenue-streams";
+export const ROUTE_PATH_BID_REVENUE_STREAM = "/bid/revenue-stream";
+export const ROUTE_PATH_REG_REVENUE_STREAM = "/reg/revenue-stream";
