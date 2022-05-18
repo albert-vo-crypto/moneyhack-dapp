@@ -60,7 +60,7 @@ contract RBFVaultFactory {
 
     /**
      *
-     * @dev Configure data for the vault
+     * @dev Create vault and configure the data for the vault
      * @param collectionAddress NFT collection's contract address
      * @param collectionOwner Address of collection Owner
      * @param investorAddress Address of Investor

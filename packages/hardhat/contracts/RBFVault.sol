@@ -26,7 +26,9 @@ contract RBFVault is PaymentSplitter {
 
     address public collectionOwner;
     address public collectionAddress;
-    uint256 public price;
+    uint256 public purchasePrice;
+    uint256 public constant REVENUE_PERIOD = 52 weeks;
+    uint256 public constant TIMEOUT_PERIOD = 1 weeks;
     Status public status;
     uint256 vaultActivationDate;
     uint256 vaultDeployDate;
@@ -47,15 +49,15 @@ contract RBFVault is PaymentSplitter {
         collectionAddress = _collectionAddress;
         collectionOwner = _parties[1];
         status = Status.Pending;
-        price = msg.value;
+        purchasePrice = msg.value;
         vaultDeployDate = block.timestamp;
     }
 
     modifier termsSatisfied() {
         // check if contract time-length completed
         require(
-            block.timestamp > (vaultActivationDate + 52 weeks),
-            "52 Weeks term not complete"
+            block.timestamp > (vaultActivationDate + REVENUE_PERIOD),
+            "Revenue period term not complete"
         );
 
         // TODO - check if revenue max limit has reached
@@ -94,7 +96,7 @@ contract RBFVault is PaymentSplitter {
         );
         status = Status.Active;
         vaultActivationDate = block.timestamp;
-        Address.sendValue(payable(_payees[1]), price);
+        Address.sendValue(payable(_payees[1]), purchasePrice);
     }
 
     function getVaultBalance() public view returns (uint256) {
@@ -132,11 +134,11 @@ contract RBFVault is PaymentSplitter {
         );
 
         require(
-            block.timestamp > (vaultDeployDate + 6 days),
-            "Refund only available after 6 days of timeout period"
+            block.timestamp > (vaultDeployDate + TIMEOUT_PERIOD),
+            "Refund only available after the timeout period"
         );
 
         status = Status.Canceled;
-        Address.sendValue(payable(_payees[0]), price);
+        Address.sendValue(payable(_payees[0]), purchasePrice);
     }
 }
