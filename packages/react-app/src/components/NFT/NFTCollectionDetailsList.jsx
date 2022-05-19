@@ -3,13 +3,15 @@ import { Table } from "antd";
 import _ from "lodash";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 import { selectedCollectionUpdatedAction } from "../../stores/reducers/nft";
-import { ROUTE_PATH_BID_REVENUE_STREAM } from "../../constants";
+import { ROUTE_PATH_BID_REVENUE_STREAM, ROUTE_PATH_EXPLORE_REVENUE_STREAMS } from "../../constants";
 
 const NFTCollectionDetailsList = ({ nftCollections }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const columns = [
     {
@@ -54,8 +56,11 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
         return <h3>{val >= 0.0001 ? val?.toFixed(4) : val}</h3>;
       },
       defaultSortOrder: "descend",
-      sorter: (a, b) =>
-        a.historicalDatas?.stats?.ethTotalRoyaltyRevenue - b.historicalDatas?.stats?.ethTotalRoyaltyRevenue,
+      sorter:
+        location?.pathname === ROUTE_PATH_EXPLORE_REVENUE_STREAMS
+          ? (a, b) =>
+              a.historicalDatas?.stats?.ethTotalRoyaltyRevenue - b.historicalDatas?.stats?.ethTotalRoyaltyRevenue
+          : null,
     },
     {
       title: "Floor Volume (ETH)",
@@ -95,10 +100,16 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
         onRow={(record, rowIndex) => {
           return {
             onClick: async event => {
-              await dispatch(selectedCollectionUpdatedAction(record));
-              history.push(ROUTE_PATH_BID_REVENUE_STREAM);
+              if (location?.pathname === ROUTE_PATH_EXPLORE_REVENUE_STREAMS) {
+                await dispatch(selectedCollectionUpdatedAction(record));
+                history.push(ROUTE_PATH_BID_REVENUE_STREAM);
+              }
             }, // click row
           };
+        }}
+        expandable={{
+          expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
+          rowExpandable: record => true,
         }}
       />
     </div>
