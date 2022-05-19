@@ -16,6 +16,3 @@
 Our team consists of professionals from varying backgrounds, united with the ethos of **creating value through innovation**.
 
 ![Project Team](./doc/img/_____.png) 
-
-
-## Setup: Getting Started
