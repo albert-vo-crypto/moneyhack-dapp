@@ -330,7 +330,7 @@ function App(props) {
           <ExploreView />
         </Route>
         <Route exact path={ROUTE_PATH_BID_REVENUE_STREAM}>
-          <BidView />
+          <BidView ethPrice={price} />
         </Route>
         <Route exact path="/creatornftcollections">
           <CreatorNFTCollectionsView />

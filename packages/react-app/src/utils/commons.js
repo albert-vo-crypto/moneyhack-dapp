@@ -6,7 +6,7 @@ export const logErr = (...args) => {
   console.error("revefin", ...args);
 };
 
-export const getFormatedCurrencyValue = (value, maximumFractionDigits = 0, currency = "USD") => {
+export const getFormatedCurrencyValue = (value, maximumFractionDigits = 4) => {
   /*
   var formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -22,6 +22,6 @@ export const getFormatedCurrencyValue = (value, maximumFractionDigits = 0, curre
   } else if (value >= 1000000) {
     return (value / 1000000).toFixed(maximumFractionDigits) + "M"; // convert to M for number from > 1 million
   } else {
-    return value; // if value < 1000, nothing to do
+    return value > 0.0001 ? value.toFixed(maximumFractionDigits) : value; // if value < 1000, nothing to do
   }
 };

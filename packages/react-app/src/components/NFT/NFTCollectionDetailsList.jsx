@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 
 import { selectedCollectionUpdatedAction } from "../../stores/reducers/nft";
 import { ROUTE_PATH_BID_REVENUE_STREAM, ROUTE_PATH_EXPLORE_REVENUE_STREAMS } from "../../constants";
+import NFTImagesBar from "./NFTImagesBar";
 
 const NFTCollectionDetailsList = ({ nftCollections }) => {
   const history = useHistory();
@@ -108,7 +109,7 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
           };
         }}
         expandable={{
-          expandedRowRender: record => <p style={{ margin: 0 }}>{record.description}</p>,
+          expandedRowRender: record => <NFTImagesBar nftCollection={record} />,
           rowExpandable: record => true,
         }}
       />
