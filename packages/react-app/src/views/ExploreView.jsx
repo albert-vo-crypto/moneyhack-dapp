@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Spin } from "antd";
+import _ from "lodash";
 
 import { activeBidableNftCollectionsSelector } from "../stores";
-import NFTCollectionCardsList from "../components/NFT/NFTCollectionCardsList";
 import HeaderText from "../components/Commons/HeaderText";
-import _ from "lodash";
+import NFTCollectionDetailsList from "../components/NFT/NFTCollectionDetailsList";
 
 const ExploreView = () => {
   const nftCollections = useSelector(activeBidableNftCollectionsSelector);
@@ -14,7 +14,7 @@ const ExploreView = () => {
     <div>
       <HeaderText children="Revenue Streams for Sale" />
       {_.size(nftCollections) > 0 ? (
-        <NFTCollectionCardsList nftCollections={nftCollections} />
+        <NFTCollectionDetailsList nftCollections={nftCollections} />
       ) : (
         <div class="grid place-items-center h-[70vh]">
           <Spin tip="Loading..." size="large" />

@@ -25,7 +25,9 @@ export const store = makeStore();
 export const activeBidableNftCollectionsSelector = createSelector(nftBidableCollectionsSelector, colls => {
   return _.orderBy(
     _.filter(colls, obj => obj?.isActive),
-    ["listedAt"],
+    //["listedAt", "historicalDatas.stats.ethTotalRoyaltyRevenue"],
+    ["historicalDatas.stats.ethTotalRoyaltyRevenue"],
+    //["desc", "desc"],
     ["desc"],
   );
 });
