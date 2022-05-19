@@ -11,6 +11,7 @@ import HeaderText from "../components/Commons/HeaderText";
 import { getFormatedCurrencyValue } from "../utils/commons";
 import NFTCollectionDetailsList from "../components/NFT/NFTCollectionDetailsList";
 import NFTImagesBar from "../components/NFT/NFTImagesBar";
+import NFTInvestmentDetail from "../components/NFT/NFTInvestmentDetail";
 
 const BidView = ({ ethPrice }) => {
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
@@ -74,7 +75,7 @@ const BidView = ({ ethPrice }) => {
         dataSource={[selectedNFTCollection]}
         pagination={false}
         expandable={{
-          expandedRowRender: record => <p style={{ margin: 0 }}>Graph to be implemented</p>,
+          expandedRowRender: record => <NFTInvestmentDetail rev={rev} bidAmount={bidAmount} />,
           rowExpandable: record => true,
         }}
       />
