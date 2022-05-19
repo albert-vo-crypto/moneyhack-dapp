@@ -6,7 +6,7 @@ const NFTInvestmentDetail = ({ rev, bidAmount }) => {
   const monthlyRev = rev / 12.0;
   const barData = [
     { x: moment().unix(), y: -bidAmount },
-    { x: moment().add(1, "Month").unix(), y: -bidAmount },
+    { x: moment().add(1, "Month").unix(), y: monthlyRev },
     { x: moment().add(2, "Month").unix(), y: monthlyRev },
     { x: moment().add(3, "Month").unix(), y: monthlyRev },
     { x: moment().add(4, "Month").unix(), y: monthlyRev },
@@ -24,11 +24,7 @@ const NFTInvestmentDetail = ({ rev, bidAmount }) => {
     <div class="w-full">
       <div class="grid grid-cols-5 place-items-center">
         <VictoryChart height={400} width={400} domainPadding={{ x: 50, y: [0, 20] }} scale={{ x: "time" }}>
-          <VictoryBar
-            dataComponent={<Bar />}
-            //style={this.state.style}
-            data={barData}
-          />
+          <VictoryBar dataComponent={<Bar />} style={{ fill: "tomato" }} data={barData} />
         </VictoryChart>
       </div>
     </div>
