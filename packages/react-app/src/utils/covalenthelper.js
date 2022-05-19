@@ -63,6 +63,7 @@ export const getTwelveMonthStatsFromItems = (items, percRoyaltyCreator) => {
 
       acc.ethTotalRoyaltyRevenue = acc.ethTotalRoyaltyRevenue + groupedStats.ethTotalRoyaltyRevenue;
       acc.ethRoyaltyRevenues.push(groupedStats.ethTotalRoyaltyRevenue);
+      acc.ethRoyaltyRevenueDatas.push({ x: groupedKey, y: groupedStats.ethTotalRoyaltyRevenue });
 
       if (!acc.ethMinGroupedRoyaltyRevenue || groupedStats.ethTotalRoyaltyRevenue < acc.ethMinGroupedRoyaltyRevenue) {
         acc.ethMinGroupedRoyaltyRevenue = groupedStats.ethTotalRoyaltyRevenue;
@@ -71,7 +72,12 @@ export const getTwelveMonthStatsFromItems = (items, percRoyaltyCreator) => {
       //log("twelveMonthStats", "done", { acc, items: _.size(items), groupedKey });
       return acc;
     },
-    { ethTotalRoyaltyRevenue: 0, ethMinGroupedRoyaltyRevenue: null, ethRoyaltyRevenues: [] },
+    {
+      ethTotalRoyaltyRevenue: 0,
+      ethMinGroupedRoyaltyRevenue: null,
+      ethRoyaltyRevenues: [],
+      ethRoyaltyRevenueDatas: [],
+    },
   );
 
   twelveMonthStats.ethFloorVolume = twelveMonthStats.ethMinGroupedRoyaltyRevenue * 12.0;

@@ -75,7 +75,9 @@ const BidView = ({ ethPrice }) => {
         dataSource={[selectedNFTCollection]}
         pagination={false}
         expandable={{
-          expandedRowRender: record => <NFTInvestmentDetail rev={rev} bidAmount={bidAmount} />,
+          expandedRowRender: record => (
+            <NFTInvestmentDetail nftCollection={selectedNFTCollection} rev={rev} bidAmount={bidAmount} />
+          ),
           rowExpandable: record => true,
         }}
       />
