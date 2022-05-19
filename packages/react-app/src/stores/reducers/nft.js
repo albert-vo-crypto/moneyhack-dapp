@@ -5,6 +5,7 @@ const initialState = {
   creatorCollections: [],
   bidableCollections: [],
   selectedCollection: null,
+  collectionDetailsMap: {},
 };
 
 const slice = createSlice({
@@ -20,17 +21,28 @@ const slice = createSlice({
     selectedCollectionUpdatedAction: (state, action) => {
       state.selectedCollection = action?.payload ? _.cloneDeep(action.payload) : null;
     },
+    collectionDetailUpdatedAction: (state, action) => {
+      const collAddress = _.get(action, "payload.collAddress");
+      if (collAddress) {
+        state.collectionDetailsMap[collAddress] = _.get(action, "payload.items");
+      }
+    },
   },
 });
 
-export const { creatorCollectionsUpdatedAction, bidableCollectionsUpdatedAction, selectedCollectionUpdatedAction } =
-  slice.actions;
+export const {
+  creatorCollectionsUpdatedAction,
+  bidableCollectionsUpdatedAction,
+  selectedCollectionUpdatedAction,
+  collectionDetailUpdatedAction,
+} = slice.actions;
 export const reloadBidableCollectionsAction = createAction("nft/reloadBidableCollectionsAction");
 export const addBidableCollectionAction = createAction("nft/addBidableCollectionAction");
 
 export const nftStateSelector = state => state.nft;
 export const nftCreatorCollectionsSelector = state => state.nft.creatorCollections;
 export const nftBidableCollectionsSelector = state => state.nft.bidableCollections;
-export const nftselectedCollectionSelector = state => state.nft.selectedCollection;
+export const nftSelectedCollectionSelector = state => state.nft.selectedCollection;
+export const nftCollectionDetailsMapSelector = state => state.nft.collectionDetailsMap;
 
 export default slice.reducer;

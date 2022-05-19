@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 // MY INFURA_ID, SWAP IN YOURS FROM https://infura.io/dashboard/ethereum
 export const INFURA_ID = "460f40a260564ac4a4f4b3fffb032dad";
 
@@ -215,7 +217,7 @@ export const DEFAULT_EST_ANN_REVENUE = 1000000;
 export const DEFAULT_BID_SLIDER_PERCENTAGE = 80;
 export const DEFAULT_LIST_SLIDER_PERCENTAGE = 50;
 export const BID_SLIDER_MIN_PERCENTAGE = 1;
-export const BID_SLIDER_MAX_PERCENTAGE = 200;
+export const BID_SLIDER_MAX_PERCENTAGE = 150;
 export const COLOR_WHITE = "#f4f5f5";
 
 export const DEFAULT_NFT_COLL_IMAGE_SRC =
@@ -225,6 +227,23 @@ export const DEFAULT_NFT_COLL_DES = "Amazing !";
 export const DEFAULT_NFT_COLL_EST_ANN_REV = 1000000;
 export const DEFAULT_NFT_COLL_REV_FRACTION_FOR_SALE = 0.5;
 
-export const DEMO_NFT_COLL_OWNER_ADDRESS = "0x3143Cd41B70B6a21538E20b7012a0757186D1afe";
+export const DEMO_NFT_COLL_OWNER_ADDRESS =
+  process.env.REACT_APP_DEMO_NFT_COLL_OWNER_ADDRESS || "0xaBA7161A7fb69c88e16ED9f455CE62B791EE4D03";
 export const DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS = "0x6c8984bAf566Db08675310b122BF0be9Ea269ecA";
 export const LOCAL_OWNER_ADDRESS_TO_SKIP = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
+
+export const COVALENT_TARGET_BLOCKCHAIN_ID = process.env.REACT_APP_COVALENT_TARGET_BLOCKCHAIN_ID || 1;
+/*
+    {name: "Ethereum", value: 1},
+    {name: "Polygon", value: 137},
+    {name: "Avalanche", value: 43114},
+    {name: "Fantom", value: 250},
+    {name: "Moonbeam", value: 1284},
+    {name: "Moonriver", value: 1285},
+    {name: "Arbitrum", value: 42161},
+    {name: "Shiden", value: 336}
+*/
+
+export const ROUTE_PATH_EXPLORE_REVENUE_STREAMS = "/explore/revenue-streams";
+export const ROUTE_PATH_BID_REVENUE_STREAM = "/bid/revenue-stream";
+export const ROUTE_PATH_REG_REVENUE_STREAM = "/reg/revenue-stream";
