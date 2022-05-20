@@ -25,7 +25,9 @@ export const openseaGetCollections = async (
   try {
     const response = await fetch(fetchStr, options);
     const json = await response.json();
-    return json;
+    return json?.map(coll => {
+      return { ...coll, ownerAddress };
+    });
   } catch (err) {
     console.error(err);
     throw err;

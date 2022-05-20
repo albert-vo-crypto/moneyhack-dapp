@@ -41,20 +41,8 @@ const processor =
           reloadCreatorNFTCollections(dispatch, getState, action.payload);
         }
       } else if (action.type === addBidableCollectionAction.type) {
-        if (
-          action &&
-          action.payload &&
-          action.payload.collection &&
-          action.payload.ownerAddress &&
-          action.payload.fractionForSale
-        ) {
-          addBidableCollection(
-            dispatch,
-            getState,
-            action.payload.collection,
-            action.payload.ownerAddress,
-            action.payload.fractionForSale,
-          );
+        if (action && action.payload && action.payload.collection && action.payload.fractionForSale) {
+          addBidableCollection(dispatch, getState, action.payload.collection, action.payload.fractionForSale);
         } else {
           throw new Error(`addBidableCollectionAction: invalid payload ${action.payload}`);
         }
@@ -82,8 +70,8 @@ const reloadCreatorNFTCollections = async (dispatch, getState, ownerAddress) => 
   dispatch(creatorCollectionsUpdatedAction(revefinColls));
 };
 
-const addBidableCollection = async (dispatch, getState, collection, ownerAddress, fractionForSale) => {
-  const bidableColl = getBidableFromRevefinCollection(collection, ownerAddress, fractionForSale);
+const addBidableCollection = async (dispatch, getState, collection, fractionForSale) => {
+  const bidableColl = getBidableFromRevefinCollection(collection, fractionForSale);
   log("addBidableCollection", bidableColl);
   dispatch(bidableCollectionsUpdatedAction([...getState().nft.bidableCollections, bidableColl]));
 };

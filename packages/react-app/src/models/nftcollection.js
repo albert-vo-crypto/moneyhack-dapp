@@ -28,24 +28,18 @@ export const getRevefinFromOpenseaCollection = coll => {
   });
 };
 
-export const getBidableFromRevefinCollection = (coll, ownerAddress, fractionForSale) => {
+export const getBidableFromRevefinCollection = (coll, fractionForSale) => {
   const listedAt = Date.now();
   return _.assign(_.cloneDeep(coll), {
     isActive: true,
     fractionForSale,
     listedAt,
-    ownerAddress,
   });
 };
 
-//TODO: use testOwnerAddress here
-export const mockBidableFromOpenseaCollection = (
-  coll,
-  ownerAddress = DEMO_NFT_COLL_OWNER_ADDRESS,
-  fractionForSale = DEFAULT_NFT_COLL_REV_FRACTION_FOR_SALE,
-) => {
+export const mockBidableFromOpenseaCollection = (coll, fractionForSale = DEFAULT_NFT_COLL_REV_FRACTION_FOR_SALE) => {
   const revefinColl = getRevefinFromOpenseaCollection(coll);
-  return getBidableFromRevefinCollection(revefinColl, ownerAddress, fractionForSale);
+  return getBidableFromRevefinCollection(revefinColl, fractionForSale);
 };
 
 export const getTestNFTBidableCollections = () => {
