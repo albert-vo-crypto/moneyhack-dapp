@@ -1,7 +1,8 @@
 import { useContractReader } from "eth-hooks";
 import { ethers } from "ethers";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
 import { ROUTE_PATH_EXPLORE_REVENUE_STREAMS } from "../constants";
 
 /**
@@ -14,6 +15,7 @@ function Home({ yourLocalBalance, readContracts }) {
   // you can also use hooks locally in your component of choice
   // in this case, let's keep track of 'purpose' variable from our contract
   const purpose = useContractReader(readContracts, "YourContract", "purpose");
+  const history = useHistory();
 
   return (
     <main className="lg:relative">
@@ -28,12 +30,13 @@ function Home({ yourLocalBalance, readContracts }) {
           </p>
           <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
             <div className="rounded-md shadow">
-              <a
-                href={ROUTE_PATH_EXPLORE_REVENUE_STREAMS}
+              <button
+                type="button"
                 className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+                onClick={() => history.push(ROUTE_PATH_EXPLORE_REVENUE_STREAMS)}
               >
                 Get started
-              </a>
+              </button>
             </div>
           </div>
         </div>

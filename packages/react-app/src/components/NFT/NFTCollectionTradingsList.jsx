@@ -1,9 +1,8 @@
 import React from "react";
 import { Table } from "antd";
 import _ from "lodash";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
 
 import { selectedCollectionUpdatedAction } from "../../stores/reducers/nft";
 import {
