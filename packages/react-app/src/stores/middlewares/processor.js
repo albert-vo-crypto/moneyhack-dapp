@@ -62,9 +62,13 @@ const reloadCreatorNFTCollections = async (dispatch, getState, ownerAddress) => 
   //Load ownerAddress's collection from testnet
   const openseaCollsThis = await openseaGetCollections(ownerAddress);
 
+  const bidableCollections = getState()?.nft?.bidableCollections;
+  const mockHistoricalDatas = bidableCollections ? bidableCollections[0]?.historicalDatas : null;
+
   const openseaColls = [...openseaCollsTest, ...openseaCollsDemo, ...openseaCollsThis];
   const revefinColls = openseaColls.map(coll => {
     const rColl = getRevefinFromOpenseaCollection(coll);
+    rColl.historicalDatas = mockHistoricalDatas;
     return rColl;
   });
   dispatch(creatorCollectionsUpdatedAction(revefinColls));
