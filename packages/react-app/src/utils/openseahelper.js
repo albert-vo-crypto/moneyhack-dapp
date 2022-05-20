@@ -13,13 +13,21 @@ const seaport = new OpenSeaPort(provider, {
   apiKey: process.env.OPENSEA_API_KEY || "",
 });
 
-export const openseaGetCollections = async (ownerAddress = DEMO_NFT_COLL_OWNER_ADDRESS, limit = 300) => {
+export const openseaGetCollections = async (
+  ownerAddress = DEMO_NFT_COLL_OWNER_ADDRESS,
+  limit = 300,
+  useTestNet = false,
+) => {
   const options = { method: "GET", headers: { Accept: "application/json" } };
-  const fetchStr = `https://api.opensea.io/api/v1/collections?asset_owner=${ownerAddress}&offset=0&limit=${limit}`;
+  const fetchStr = `https://${
+    useTestNet ? "testnets-api" : "api"
+  }.opensea.io/api/v1/collections?asset_owner=${ownerAddress}&offset=0&limit=${limit}`;
   try {
     const response = await fetch(fetchStr, options);
     const json = await response.json();
-    return json;
+    return json?.map(coll => {
+      return { ...coll, ownerAddress };
+    });
   } catch (err) {
     console.error(err);
     throw err;

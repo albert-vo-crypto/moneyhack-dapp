@@ -44,6 +44,8 @@ import {
   ROUTE_PATH_EXPLORE_REVENUE_STREAMS,
   ROUTE_PATH_BID_REVENUE_STREAM,
   ROUTE_PATH_REG_REVENUE_STREAM,
+  ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS,
+  ROUTE_PATH_REVEFIN_DASHBOARD,
 } from "./constants";
 
 const { ethers } = require("ethers");
@@ -284,7 +286,10 @@ function App(props) {
                 </Link>
               </div>
               <div class="ml-10 space-x-8 md:block lg:block">
-                <Link class="text-base font-medium text-navtext hover:text-highlight" to="/creatornftcollections">
+                <Link
+                  class="text-base font-medium text-navtext hover:text-highlight"
+                  to={ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS}
+                >
                   Get Capital
                 </Link>
               </div>
@@ -341,13 +346,13 @@ function App(props) {
             readContracts={readContracts}
           />
         </Route>
-        <Route exact path="/creatornftcollections">
+        <Route exact path={ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS}>
           <CreatorNFTCollectionsView />
         </Route>
         <Route exact path={ROUTE_PATH_REG_REVENUE_STREAM}>
           <AddNFTView />
         </Route>
-        <Route exact path="/dashboard">
+        <Route exact path={ROUTE_PATH_REVEFIN_DASHBOARD}>
           <h3>Dashboard</h3>
         </Route>
         <Route exact path="/debug">

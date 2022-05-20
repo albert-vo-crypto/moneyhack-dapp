@@ -13,7 +13,7 @@ import {
   mockBidableFromOpenseaCollection,
   getBidableFromRevefinCollection,
 } from "../../models/nftcollection";
-import { DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS, LOCAL_OWNER_ADDRESS_TO_SKIP } from "../../constants";
+import { TEST_CREATOR_NFT_COLL_OWNER_ADDRESS, DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS } from "../../constants";
 import { log } from "../../utils/commons";
 import { covalentGetCollectionsWithHistorialDatas } from "../../utils/covalenthelper";
 
@@ -41,20 +41,8 @@ const processor =
           reloadCreatorNFTCollections(dispatch, getState, action.payload);
         }
       } else if (action.type === addBidableCollectionAction.type) {
-        if (
-          action &&
-          action.payload &&
-          action.payload.collection &&
-          action.payload.ownerAddress &&
-          action.payload.fractionForSale
-        ) {
-          addBidableCollection(
-            dispatch,
-            getState,
-            action.payload.collection,
-            action.payload.ownerAddress,
-            action.payload.fractionForSale,
-          );
+        if (action && action.payload && action.payload.collection && action.payload.fractionForSale) {
+          addBidableCollection(dispatch, getState, action.payload.collection, action.payload.fractionForSale);
         } else {
           throw new Error(`addBidableCollectionAction: invalid payload ${action.payload}`);
         }
@@ -66,29 +54,28 @@ const processor =
   };
 
 const reloadCreatorNFTCollections = async (dispatch, getState, ownerAddress) => {
-  const openseaColls = await openseaGetCollections(ownerAddress);
-  if (_.size(openseaColls) > 5 && ownerAddress !== LOCAL_OWNER_ADDRESS_TO_SKIP) {
-    const revefinColls = openseaColls.map(coll => {
-      const rColl = getRevefinFromOpenseaCollection(coll);
-      return rColl;
-    });
-    dispatch(creatorCollectionsUpdatedAction(revefinColls));
-  } else {
-    //TODO: remove this hack
-    //For NFT collection is available from this ownerAddress
-    //For demo purpose, sub the collections from a test ownerAddress instead
-    log("reloadCreatorNFTCollections with DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS", DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS);
-    const openseaColls = await openseaGetCollections(DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS);
-    const revefinColls = openseaColls.map(coll => {
-      const rColl = getRevefinFromOpenseaCollection(coll);
-      return rColl;
-    });
-    dispatch(creatorCollectionsUpdatedAction(revefinColls));
-  }
+  //TODO: remove this hack
+  //Load Test Owner's collection from testnet
+  const openseaCollsTest = await openseaGetCollections(TEST_CREATOR_NFT_COLL_OWNER_ADDRESS, 300, true);
+  //Load Demo creator's collection from mainnet
+  const openseaCollsDemo = await openseaGetCollections(DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS);
+  //Load ownerAddress's collection from testnet
+  const openseaCollsThis = await openseaGetCollections(ownerAddress);
+
+  const bidableCollections = getState()?.nft?.bidableCollections;
+  const mockHistoricalDatas = bidableCollections ? bidableCollections[0]?.historicalDatas : null;
+
+  const openseaColls = [...openseaCollsTest, ...openseaCollsDemo, ...openseaCollsThis];
+  const revefinColls = openseaColls.map(coll => {
+    const rColl = getRevefinFromOpenseaCollection(coll);
+    return _.assign(rColl, { historicalDatas: mockHistoricalDatas });
+  });
+  log({ revefinColls });
+  dispatch(creatorCollectionsUpdatedAction(revefinColls));
 };
 
-const addBidableCollection = async (dispatch, getState, collection, ownerAddress, fractionForSale) => {
-  const bidableColl = getBidableFromRevefinCollection(collection, ownerAddress, fractionForSale);
+const addBidableCollection = async (dispatch, getState, collection, fractionForSale) => {
+  const bidableColl = getBidableFromRevefinCollection(collection, fractionForSale);
   log("addBidableCollection", bidableColl);
   dispatch(bidableCollectionsUpdatedAction([...getState().nft.bidableCollections, bidableColl]));
 };

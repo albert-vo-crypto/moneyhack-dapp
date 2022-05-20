@@ -22,10 +22,9 @@ const ListNFTView = () => {
     setPercentageForSale(value);
   };
 
-  const addBidableCollection = (collection, ownerAddress, fractionForSale) => {
+  const addBidableCollection = (collection, fractionForSale) => {
     const payload = {
       collection,
-      ownerAddress,
       fractionForSale,
     };
     dispatch(addBidableCollectionAction(payload));
@@ -70,7 +69,7 @@ const ListNFTView = () => {
 
             <SecondaryButton
               onClick={() => {
-                addBidableCollection(selectedNFTCollection, ownerAddress, percentageForSale / 100.0);
+                addBidableCollection(selectedNFTCollection, percentageForSale / 100.0);
                 history.push(ROUTE_PATH_EXPLORE_REVENUE_STREAMS);
                 //TODO: push to creator nft collections instead
               }}
