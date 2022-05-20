@@ -7,21 +7,23 @@ import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appCo
 import { nftCreatorCollectionsSelector } from "../stores/reducers/nft";
 import HeaderText from "../components/Commons/HeaderText";
 import NFTCollectionDetailsList from "../components/NFT/NFTCollectionDetailsList";
+import { registeredCollectionsOfCurrentSignerSelector, investedCollectionsOfCurrentSignerSelector } from "../stores";
 
-const CreatorNFTCollectionsView = () => {
+const DashboardView = () => {
   const address = useSelector(appContextCurrentSignerAddressSelector);
-  const nftCollections = useSelector(nftCreatorCollectionsSelector);
+  const registeredCollection = useSelector(registeredCollectionsOfCurrentSignerSelector);
+  const investedCollection = useSelector(investedCollectionsOfCurrentSignerSelector);
 
   return (
     <div>
-      <HeaderText children="Select your NFT Collections to list on ReveFin" />
+      <HeaderText children="Dashboard" />
       {address ? (
         <div>
-          {_.size(nftCollections) > 0 ? (
-            <NFTCollectionDetailsList nftCollections={nftCollections} />
+          {_.size(registeredCollection) > 0 || _.size(investedCollection) > 0 ? (
+            <NFTCollectionDetailsList nftCollections={[...registeredCollection, ...investedCollection]} />
           ) : (
             <div class="grid place-items-center h-[70vh]">
-              <Spin tip="Loading..." size="large" />
+              <HeaderText children="Time to start trading" />
             </div>
           )}
         </div>
@@ -34,4 +36,4 @@ const CreatorNFTCollectionsView = () => {
   );
 };
 
-export default CreatorNFTCollectionsView;
+export default DashboardView;

@@ -71,7 +71,7 @@ const ListNFTView = () => {
               onClick={() => {
                 addBidableCollection(selectedNFTCollection, percentageForSale / 100.0);
                 history.push(ROUTE_PATH_EXPLORE_REVENUE_STREAMS);
-                //TODO: push to creator nft collections instead
+                //TODO: push to dashboard instead
               }}
               children={"List " + percentageForSale + "% royalty revenue for sale"}
             />
