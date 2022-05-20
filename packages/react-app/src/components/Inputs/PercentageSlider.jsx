@@ -20,8 +20,6 @@ const PercentageSlider = ({
 
   return (
     <Slider
-      trackStyle={{ backgroundColor: COLOR_WHITE }}
-      handleStyle={{ borderColor: COLOR_WHITE }}
       min={min}
       max={max}
       tipFormatter={null}

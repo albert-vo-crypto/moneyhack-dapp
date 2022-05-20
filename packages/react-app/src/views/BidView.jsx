@@ -55,7 +55,7 @@ const BidView = ({
     );
     onSuccessfulBidTransaction(); //For testing //TODO: move to after getting a success response from smart contract
   };
-  
+
   //TODO: call onSuccessfulBidTransaction upon successful bid staking transaction
   //TODO: reading bidding details from smart contract instead of local data store
   const onSuccessfulBidTransaction = () => {
@@ -127,28 +127,78 @@ const BidView = ({
   return (
     <div>
       <HeaderText children="Purchase NFT Collection Royalty Revenue" />
-     <div>
-     <div className="bg-white">
-      <div className="pt-6">
-        
+      <div>
+        <div className="bg-white">
+          <div className="pt-6">
 
-       
 
-        {/* Product info */}
-        <div className="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
-          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{selectedNFTCollection.name}</h1>
-          </div>
 
-          {/* Options */}
-          <div className="mt-4 lg:mt-0 lg:row-span-3">
-            <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl text-gray-900">{selectedNFTCollection?.fractionForSale * 100}</p>
 
-            <div>
-                  <h3 className="text-lg text-gray-900">COLLECTION STATS</h3>
+            {/* Product info */}
+            <div className="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+              <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+                <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{selectedNFTCollection.name}</h1>
+              </div>
+
+              {/* Options */}
+              <div className="mt-4 lg:mt-0 lg:row-span-3">
+                <h2 className="sr-only">Product information</h2>
+
+                <div>
+                  <h3 className="text-lg text-gray-900">TERMS</h3>
                   <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
-                  <div className="py-3 flex justify-between text-sm font-medium">
+                    <div className="py-3 flex justify-between text-sm font-medium">
+                      <dt className="text-gray-500">Fraction for Sale</dt>
+                      <dd className="text-gray-900">{selectedNFTCollection?.fractionForSale * 100}</dd>
+                    </div>
+
+                    <div className="py-3 flex justify-between text-sm font-medium">
+                      <dt className="text-gray-500">Implied Purchase Discount</dt>
+                      <dd className="text-gray-900">{(bidAmount / rev)?.toFixed(4)}</dd>
+                    </div>
+
+                    <div className="py-3 flex justify-between text-sm font-medium">
+                      <dt className="text-gray-500">Bid Price</dt>
+                      <dd className="text-gray-900">{"$" + getFormatedCurrencyValue(bidAmount * ethPrice) + " USD"}</dd>
+                    </div>
+                  </dl>
+                  <div class="grid place-items-center">
+                    <div class="my-10 w-full">
+                      <PercentageSlider defaultValue={DEFAULT_BID_SLIDER_PERCENTAGE} onChange={onSliderValueChange} />
+                    </div>
+                    <button
+                      className="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      onClick={() => {
+                        onBidClick();
+                      }}
+                      children={"BID " + getFormatedCurrencyValue(bidAmount) + " ETH"}
+                    />
+                  </div>
+                </div>
+
+              </div>
+
+              <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+                {/* Description and details */}
+                <div className="hidden w-36 h-36 rounded-lg overflow-hidden lg:block">
+                  <img
+                    src={selectedNFTCollection.imageSrc}
+                    className="w-full h-full object-center object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="sr-only">Description</h3>
+
+                  <div className="space-y-6">
+                    <p className="text-base text-gray-900">{selectedNFTCollection.description}</p>
+                  </div>
+                </div>
+
+                <div className="mt-10">
+                  <div>
+                    <h3 className="text-lg text-gray-900">COLLECTION STATS</h3>
+                    <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
+                      <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Ratings</dt>
                         <dd className="text-gray-900">{selectedNFTCollection?.rating}</dd>
                       </div>
@@ -172,52 +222,16 @@ const BidView = ({
                         <dt className="text-gray-500">Coef. of Variation</dt>
                         <dd className="text-gray-900">{selectedNFTCollection?.historicalDatas.stats.ethCoefofVariationRoyaltyRevenue}</dd>
                       </div>
-                  </dl>
+                    </dl>
+                  </div>
                 </div>
-            <form className="mt-10">             
 
-              
-              <button
-                type="submit"
-                className="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Bid
-              </button>
-            </form>
-          </div>
 
-          <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            {/* Description and details */}
-            <div className="hidden w-36 h-36 rounded-lg overflow-hidden lg:block">
-            <img
-              src={selectedNFTCollection.imageSrc}
-               className="w-full h-full object-center object-cover"
-            />
-          </div>
-            <div>
-              <h3 className="sr-only">Description</h3>
-
-              <div className="space-y-6">
-                <p className="text-base text-gray-900">{selectedNFTCollection.description}</p>
               </div>
             </div>
-
-            <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-
-              <div className="mt-4">
-                <ul role="list" className="pl-4 list-disc text-sm space-y-2">
-                  
-                </ul>
-              </div>
-            </div>
-
-           
           </div>
         </div>
       </div>
-    </div>
-     </div>
     </div>
 
 
