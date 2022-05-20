@@ -41,14 +41,19 @@ const BidView = ({ ethPrice }) => {
   //TODO: call onSuccessfulBidTransaction upon successful bid staking transaction
   //TODO: reading bidding details from smart contract instead of local data store
   const onSuccessfulBidTransaction = () => {
-    //Add bidDetails to selectedNFTCollection
-    const bidDetails = {
+    //Add bidDetail to selectedNFTCollection
+    const bidDetail = {
       collectionAddress: selectedNFTCollection?.primary_asset_contracts[0]?.address,
       fractionForSale: selectedNFTCollection?.fractionForSale || 0,
       investorAddress: signerAddress,
       bidPriceInETH: bidAmount,
     };
-    const coll = _.assign(_.cloneDeep(selectedNFTCollection), { bidDetails });
+    const coll = _.assign(
+      _.cloneDeep(selectedNFTCollection),
+      selectedNFTCollection?.bidDetails
+        ? { bidDetails: [...selectedNFTCollection.bidDetails, bidDetail] }
+        : { bidDetails: [bidDetail] },
+    );
     dispatch(tradingCollectionUpdatedAction(coll));
   };
 
