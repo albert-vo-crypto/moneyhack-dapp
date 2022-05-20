@@ -369,7 +369,7 @@ function App(props) {
           <AddNFTView />
         </Route>
         <Route exact path={ROUTE_PATH_REVEFIN_DASHBOARD}>
-          <DashboardView />
+          <DashboardView ethPrice={price} />
         </Route>
         <Route exact path="/debug">
           {/*
