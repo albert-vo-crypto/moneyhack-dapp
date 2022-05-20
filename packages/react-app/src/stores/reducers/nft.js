@@ -1,11 +1,14 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 
+import { log } from "../../utils/commons";
+
 const initialState = {
   creatorCollections: [],
   bidableCollections: [],
   selectedCollection: null,
   collectionDetailsMap: {},
+  tradingCollectionsMap: {},
 };
 
 const slice = createSlice({
@@ -27,6 +30,11 @@ const slice = createSlice({
         state.collectionDetailsMap[collAddress] = _.get(action, "payload.items");
       }
     },
+    tradingCollectionUpdatedAction: (state, action) => {
+      if (action?.payload && action.payload?.collectionAddress) {
+        state.tradingCollectionsMap[action.payload?.collectionAddress] = _.cloneDeep(action.payload);
+      }
+    },
   },
 });
 
@@ -35,6 +43,7 @@ export const {
   bidableCollectionsUpdatedAction,
   selectedCollectionUpdatedAction,
   collectionDetailUpdatedAction,
+  tradingCollectionUpdatedAction,
 } = slice.actions;
 export const reloadBidableCollectionsAction = createAction("nft/reloadBidableCollectionsAction");
 export const addBidableCollectionAction = createAction("nft/addBidableCollectionAction");
@@ -44,5 +53,6 @@ export const nftCreatorCollectionsSelector = state => state.nft.creatorCollectio
 export const nftBidableCollectionsSelector = state => state.nft.bidableCollections;
 export const nftSelectedCollectionSelector = state => state.nft.selectedCollection;
 export const nftCollectionDetailsMapSelector = state => state.nft.collectionDetailsMap;
+export const nftTradingCollectionsMapSelector = state => state.nft.tradingCollectionsMap;
 
 export default slice.reducer;

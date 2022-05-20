@@ -5,6 +5,7 @@ import {
   bidableCollectionsUpdatedAction,
   creatorCollectionsUpdatedAction,
   addBidableCollectionAction,
+  tradingCollectionUpdatedAction,
 } from "../reducers/nft";
 import { currentSignerAddressUpdatedAction } from "../reducers/appContext";
 import { openseaGetCollections, openseaGetCollectionsWithAddress } from "../../utils/openseahelper";
@@ -77,6 +78,7 @@ const reloadCreatorNFTCollections = async (dispatch, getState, ownerAddress) => 
 const addBidableCollection = async (dispatch, getState, collection, fractionForSale) => {
   const bidableColl = getBidableFromRevefinCollection(collection, fractionForSale);
   log("addBidableCollection", bidableColl);
+  dispatch(tradingCollectionUpdatedAction(bidableColl));
   dispatch(bidableCollectionsUpdatedAction([...getState().nft.bidableCollections, bidableColl]));
 };
 

@@ -34,6 +34,7 @@ export const getBidableFromRevefinCollection = (coll, fractionForSale) => {
     isActive: true,
     fractionForSale,
     listedAt,
+    collectionAddress: _.size(coll?.primary_asset_contracts) > 0 ? coll.primary_asset_contracts[0]?.address : "0x01",
   });
 };
 

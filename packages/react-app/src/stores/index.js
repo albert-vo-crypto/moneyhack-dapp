@@ -3,9 +3,15 @@ import { createSelector } from "reselect";
 import _ from "lodash";
 
 import appContextReducer from "./reducers/appContext";
-import nftReducer, { nftBidableCollectionsSelector } from "./reducers/nft";
+import nftReducer, {
+  nftBidableCollectionsSelector,
+  nftTradingCollectionsMapSelector,
+  nftSelectedCollectionSelector,
+} from "./reducers/nft";
 import logger from "./middlewares/logger";
 import processor from "./middlewares/processor";
+import { appContextCurrentSignerAddressSelector } from "./reducers/appContext";
+import { TEST_CREATOR_NFT_COLL_OWNER_ADDRESS, DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS } from "../constants";
 
 const combinedReducer = combineReducers({
   appContext: appContextReducer,
@@ -31,3 +37,36 @@ export const activeBidableNftCollectionsSelector = createSelector(nftBidableColl
     ["desc"],
   );
 });
+
+export const selectedTradingCollectionSelector = createSelector(
+  nftSelectedCollectionSelector,
+  nftTradingCollectionsMapSelector,
+  (selectedColl, nftTradingCollectionsMap) => {
+    const tradingCollections = _.values(nftTradingCollectionsMap);
+    return _.filter(tradingCollections, coll => coll?.collectionAddress === selectedColl?.collectionAddress);
+  },
+);
+
+export const registeredCollectionsOfCurrentSignerSelector = createSelector(
+  appContextCurrentSignerAddressSelector,
+  nftTradingCollectionsMapSelector,
+  (signerAddress, nftTradingCollectionsMap) => {
+    const tradingCollections = _.values(nftTradingCollectionsMap);
+    return _.filter(
+      tradingCollections,
+      coll =>
+        coll?.ownerAddress === signerAddress ||
+        coll?.ownerAddress === TEST_CREATOR_NFT_COLL_OWNER_ADDRESS ||
+        coll?.ownerAddress === DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS,
+    );
+  },
+);
+
+export const investedCollectionsOfCurrentSignerSelector = createSelector(
+  appContextCurrentSignerAddressSelector,
+  nftTradingCollectionsMapSelector,
+  (signerAddress, nftTradingCollectionsMap) => {
+    const tradingCollections = _.values(nftTradingCollectionsMap);
+    return _.filter(tradingCollections, coll => _.some(coll?.bidDetails, { investorAddress: signerAddress }));
+  },
+);
