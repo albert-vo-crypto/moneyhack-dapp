@@ -15,7 +15,6 @@ import Wallet from "./Wallet";
   ~ How can I use? ~
 
   <Account
-    useBurner={boolean}
     address={address}
     localProvider={localProvider}
     userProvider={userProvider}
@@ -43,13 +42,12 @@ import Wallet from "./Wallet";
 **/
 
 export default function Account({
-  useBurner,
   address,
   userSigner,
   localProvider,
   mainnetProvider,
   price,
-  minimized = true,
+  minimized,
   web3Modal,
   loadWeb3Modal,
   logoutOfWeb3Modal,
@@ -58,82 +56,39 @@ export default function Account({
 }) {
   const { currentTheme } = useThemeSwitcher();
 
-  const modalButtons = [];
-  if (web3Modal) {
-    if (web3Modal.cachedProvider) {
-      modalButtons.push(
-        <button
-          onClick={logoutOfWeb3Modal}
-          type="button"
-          class="h-10 w-10 inline-flex items-center p-2 border border-transparent rounded-full shadow-sm text-navbg bg-gray hover:bg-hightlightlight focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-highlight"
-        >
-          <svg class="h-full w-full text-navtext" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
-        </button>,
-      );
-    } else {
-      modalButtons.push(
-        <button
-          onClick={loadWeb3Modal}
-          type="button"
-          class="inline-flex items-center px-4 py-2 border border-navtext text-sm font-medium rounded-md shadow-sm text-navtext hover:text-highlight hover:border-highlight focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-highlight focus:text-highlight"
-        >
-          Connect Wallet
-        </button>,
-      );
-    }
+  let accountButtonInfo;
+  if (web3Modal?.cachedProvider) {
+    accountButtonInfo = { name: 'Logout', action: logoutOfWeb3Modal };
+  } else {
+    accountButtonInfo = { name: 'Connect', action: loadWeb3Modal };
   }
-  const display = minimized ? (
-    ""
-  ) : (
+
+  const display = !minimized && (
     <span>
-      {web3Modal && web3Modal.cachedProvider ? (
-        <>
-          {address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}
-          <Balance address={address} provider={localProvider} price={price} />
-          <Wallet
-            address={address}
-            provider={localProvider}
-            signer={userSigner}
-            ensProvider={mainnetProvider}
-            price={price}
-            color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
-          />
-        </>
-      ) : useBurner ? (
-        ""
-      ) : isContract ? (
-        <>
-          {address && <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />}
-          <Balance address={address} provider={localProvider} price={price} />
-        </>
-      ) : (
-        ""
-      )}
-      {useBurner && web3Modal && !web3Modal.cachedProvider ? (
-        <>
-          <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />
-          <Balance address={address} provider={localProvider} price={price} />
-          <Wallet
-            address={address}
-            provider={localProvider}
-            signer={userSigner}
-            ensProvider={mainnetProvider}
-            price={price}
-            color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
-          />
-        </>
-      ) : (
-        <></>
-      )}
+      {address && (
+        <Address
+          address={address}
+          ensProvider={mainnetProvider}
+          blockExplorer={blockExplorer}
+          fontSize={20}
+        />
+      )}    
+     
     </span>
   );
 
   return (
-    <div>
+    <div style={{ display: "flex" }}>
       {display}
-      {modalButtons}
+      {web3Modal && (
+        <Button
+          style={{ marginLeft: 8 }}
+          shape="round"
+          onClick={accountButtonInfo.action}
+        >
+          {accountButtonInfo.name}
+        </Button>
+      )}
     </div>
   );
 }

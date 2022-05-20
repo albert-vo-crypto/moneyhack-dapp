@@ -15,7 +15,7 @@ function Home({ yourLocalBalance, readContracts }) {
   const purpose = useContractReader(readContracts, "YourContract", "purpose");
 
   return (
-    <div>
+  
       <main className="lg:relative">
         <div className="mx-auto max-w-7xl w-full pt-16 pb-20 text-center lg:py-48 lg:text-left">
           <div className="px-4 lg:w-1/2 sm:px-8 xl:pr-16">
@@ -41,13 +41,12 @@ function Home({ yourLocalBalance, readContracts }) {
         <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
           <img
             className="absolute inset-0 w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
+            src="https://content.enkronos.com/wp-content/uploads/2021/10/decentralized-dapps-ethereum-blockchain.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&fit=crop&w=2002&q=80"
             alt=""
           />
         </div>
       </main>
 
-    </div>
   );
 }
 

@@ -24,7 +24,7 @@ import {
   FaucetHint,
   NetworkSwitch,
 } from "./components";
-import { NETWORKS, ALCHEMY_KEY} from "./constants";
+import { NETWORKS, ALCHEMY_KEY } from "./constants";
 import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
@@ -273,188 +273,189 @@ function App(props) {
   const faucetAvailable = localProvider && localProvider.connection && targetNetwork.name.indexOf("local") !== -1;
 
   return (
-    <div className="App">
-      <header class="bg-primary">
-        <nav class="max-w-full mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
-          <div class="w-full py-3 flex items-center justify-between border-b border-primary lg:border-none">
-            <div class="flex items-center">
-              <Link class="text-base font-medium text-navtext hover:text-highlight" to="/">
-                <img class="h-10 w-auto" src="logo_black_48.png" alt=""></img>
-              </Link>
-              <div class="ml-10 space-x-8 sm:block md:block lg:block">
-                <Link
-                  class="text-base font-medium text-navtext hover:text-highlight"
-                  to={ROUTE_PATH_EXPLORE_REVENUE_STREAMS}
-                >
-                  Explore
+    <div className="bg-gray-50">
+      <div className="App max-w-7xl mx-auto bg-gray-50">
+        <header class="bg-primary">
+          <nav class="max-w-full mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
+            <div class="w-full py-3 flex items-center justify-between border-b border-primary lg:border-none">
+              <div class="flex items-center">
+                <Link class="text-base font-medium text-navtext hover:text-highlight" to="/">
+                  <img class="h-10 w-auto" src="logo_black_48.png" alt=""></img>
                 </Link>
+                <div class="ml-10 space-x-8 sm:block md:block lg:block">
+                  <Link
+                    class="text-base font-medium text-navtext hover:text-highlight"
+                    to={ROUTE_PATH_EXPLORE_REVENUE_STREAMS}
+                  >
+                    Explore
+                  </Link>
+                </div>
+                <div class="ml-10 space-x-8 md:block lg:block">
+                  <Link
+                    class="text-base font-medium text-navtext hover:text-highlight"
+                    to={ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS}
+                  >
+                    Get Capital
+                  </Link>
+                </div>
+                <div class="ml-10 space-x-8 lg:block">
+                  <Link class="text-base font-medium text-navtext hover:text-highlight" to={ROUTE_PATH_REVEFIN_DASHBOARD}>
+                    Dashboard
+                  </Link>
+                </div>
               </div>
-              <div class="ml-10 space-x-8 md:block lg:block">
-                <Link
-                  class="text-base font-medium text-navtext hover:text-highlight"
-                  to={ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS}
-                >
-                  Get Capital
-                </Link>
-              </div>
-              <div class="ml-10 space-x-8 lg:block">
-                <Link class="text-base font-medium text-navtext hover:text-highlight" to={ROUTE_PATH_REVEFIN_DASHBOARD}>
-                  Dashboard
-                </Link>
+              <div class="ml-10 space-x-4">
+                <Account
+                  useBurner={USE_BURNER_WALLET}
+                  address={address}
+                  localProvider={localProvider}
+                  userSigner={userSigner}
+                  mainnetProvider={mainnetProvider}
+                  price={price}
+                  web3Modal={web3Modal}
+                  loadWeb3Modal={loadWeb3Modal}
+                  logoutOfWeb3Modal={logoutOfWeb3Modal}
+                  blockExplorer={blockExplorer}
+                />
               </div>
             </div>
-            <div class="ml-10 space-x-4">
-              <Account
-                useBurner={USE_BURNER_WALLET}
-                address={address}
-                localProvider={localProvider}
-                userSigner={userSigner}
-                mainnetProvider={mainnetProvider}
-                price={price}
-                web3Modal={web3Modal}
-                loadWeb3Modal={loadWeb3Modal}
-                logoutOfWeb3Modal={logoutOfWeb3Modal}
-                blockExplorer={blockExplorer}
-              />
-            </div>
-          </div>
-        </nav>
-      </header>
+          </nav>
+        </header>
 
-      <NetworkDisplay
-        NETWORKCHECK={NETWORKCHECK}
-        localChainId={localChainId}
-        selectedChainId={selectedChainId}
-        targetNetwork={targetNetwork}
-        logoutOfWeb3Modal={logoutOfWeb3Modal}
-        USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
-      />
+        <NetworkDisplay
+          NETWORKCHECK={NETWORKCHECK}
+          localChainId={localChainId}
+          selectedChainId={selectedChainId}
+          targetNetwork={targetNetwork}
+          logoutOfWeb3Modal={logoutOfWeb3Modal}
+          USE_NETWORK_SELECTOR={USE_NETWORK_SELECTOR}
+        />
 
-      <Switch>
-        <Route exact path="/">
-          {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
-          <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
-        </Route>
-        <Route exact path={ROUTE_PATH_EXPLORE_REVENUE_STREAMS}>
-          <ExploreView />
-        </Route>
-        <Route exact path={ROUTE_PATH_BID_REVENUE_STREAM}>
-          <BidView
-            ethPrice={price}
-            address={address}
-            userSigner={userSigner}
-            localProvider={localProvider}
-            yourLocalBalance={yourLocalBalance}
-            tx={tx}
-            writeContracts={writeContracts}
-            readContracts={readContracts}
-          />
-        </Route>
-        <Route exact path={ROUTE_PATH_BID_ACCEPT}>
-          <AcceptBidView
-            ethPrice={price}
-            address={address}
-            userSigner={userSigner}
-            localProvider={localProvider}
-            yourLocalBalance={yourLocalBalance}
-            tx={tx}
-            writeContracts={writeContracts}
-            readContracts={readContracts}
-          />
-        </Route>
-        <Route exact path={ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS}>
-          <CreatorNFTCollectionsView />
-        </Route>
-        <Route exact path={ROUTE_PATH_REG_REVENUE_STREAM}>
-          <AddNFTView />
-        </Route>
-        <Route exact path={ROUTE_PATH_REVEFIN_DASHBOARD}>
-          <DashboardView />
-        </Route>
-        <Route exact path="/debug">
-          {/*
+        <Switch>
+          <Route exact path="/">
+            {/* pass in any web3 props to this Home component. For example, yourLocalBalance */}
+            <Home yourLocalBalance={yourLocalBalance} readContracts={readContracts} />
+          </Route>
+          <Route exact path={ROUTE_PATH_EXPLORE_REVENUE_STREAMS}>
+            <ExploreView />
+          </Route>
+          <Route exact path={ROUTE_PATH_BID_REVENUE_STREAM}>
+            <BidView
+              ethPrice={price}
+              address={address}
+              userSigner={userSigner}
+              localProvider={localProvider}
+              yourLocalBalance={yourLocalBalance}
+              tx={tx}
+              writeContracts={writeContracts}
+              readContracts={readContracts}
+            />
+          </Route>
+          <Route exact path={ROUTE_PATH_BID_ACCEPT}>
+            <AcceptBidView
+              ethPrice={price}
+              address={address}
+              userSigner={userSigner}
+              localProvider={localProvider}
+              yourLocalBalance={yourLocalBalance}
+              tx={tx}
+              writeContracts={writeContracts}
+              readContracts={readContracts}
+            />
+          </Route>
+          <Route exact path={ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS}>
+            <CreatorNFTCollectionsView />
+          </Route>
+          <Route exact path={ROUTE_PATH_REG_REVENUE_STREAM}>
+            <AddNFTView />
+          </Route>
+          <Route exact path={ROUTE_PATH_REVEFIN_DASHBOARD}>
+            <DashboardView />
+          </Route>
+          <Route exact path="/debug">
+            {/*
                 🎛 this scaffolding is full of commonly used components
                 this <Contract/> component will automatically parse your ABI
                 and give you a form to interact with it locally
             */}
 
-          <Contract
-            name="RBFVaultFactory"
-            price={price}
-            signer={userSigner}
-            provider={localProvider}
-            address={address}
-            blockExplorer={blockExplorer}
-            contractConfig={contractConfig}
-          />
+            <Contract
+              name="RBFVaultFactory"
+              price={price}
+              signer={userSigner}
+              provider={localProvider}
+              address={address}
+              blockExplorer={blockExplorer}
+              contractConfig={contractConfig}
+            />
 
-          <Contract
-            name="RBFVAULT"
-            customContract={writeContracts && writeContracts.contracts && writeContracts.contracts.RBFVAULT}
-            signer={userSigner}
-            provider={localProvider}
-            address='0xCafac3dD18aC6c6e92c921884f9E4176737C052c'
-            blockExplorer={blockExplorer}
-            contractConfig={contractConfig}
-            chainId={1}
-          />
+            <Contract
+              name="RBFVAULT"
+              customContract={writeContracts && writeContracts.contracts && writeContracts.contracts.RBFVAULT}
+              signer={userSigner}
+              provider={localProvider}
+              address='0xCafac3dD18aC6c6e92c921884f9E4176737C052c'
+              blockExplorer={blockExplorer}
+              contractConfig={contractConfig}
+              chainId={1}
+            />
 
-          <Contract
-            name="OWNABLE"
-            customContract={writeContracts && writeContracts.contracts && writeContracts.contracts.OWNABLE}
-            signer={userSigner}
-            provider={localProvider}
-            address={address}
-            blockExplorer={blockExplorer}
-            contractConfig={contractConfig}
-            chainId={1}
-          />
+            <Contract
+              name="OWNABLE"
+              customContract={writeContracts && writeContracts.contracts && writeContracts.contracts.OWNABLE}
+              signer={userSigner}
+              provider={localProvider}
+              address={address}
+              blockExplorer={blockExplorer}
+              contractConfig={contractConfig}
+              chainId={1}
+            />
 
 
-          <Contract
-            name="YourContract"
-            price={price}
-            signer={userSigner}
-            provider={localProvider}
-            address={address}
-            blockExplorer={blockExplorer}
-            contractConfig={contractConfig}
-          />
-        </Route>
-        <Route path="/hints">
-          <Hints
-            address={address}
-            yourLocalBalance={yourLocalBalance}
-            mainnetProvider={mainnetProvider}
-            price={price}
-          />
-        </Route>
-        <Route path="/exampleui">
-          <ExampleUI
-            address={address}
-            userSigner={userSigner}
-            mainnetProvider={mainnetProvider}
-            localProvider={localProvider}
-            yourLocalBalance={yourLocalBalance}
-            price={price}
-            tx={tx}
-            writeContracts={writeContracts}
-            readContracts={readContracts}
-            purpose={purpose}
-          />
-        </Route>
-        <Route path="/mainnetdai">
-          <Contract
-            name="DAI"
-            customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.DAI}
-            signer={userSigner}
-            provider={mainnetProvider}
-            address={address}
-            blockExplorer="https://etherscan.io/"
-            contractConfig={contractConfig}
-            chainId={1}
-          />
-          {/*
+            <Contract
+              name="YourContract"
+              price={price}
+              signer={userSigner}
+              provider={localProvider}
+              address={address}
+              blockExplorer={blockExplorer}
+              contractConfig={contractConfig}
+            />
+          </Route>
+          <Route path="/hints">
+            <Hints
+              address={address}
+              yourLocalBalance={yourLocalBalance}
+              mainnetProvider={mainnetProvider}
+              price={price}
+            />
+          </Route>
+          <Route path="/exampleui">
+            <ExampleUI
+              address={address}
+              userSigner={userSigner}
+              mainnetProvider={mainnetProvider}
+              localProvider={localProvider}
+              yourLocalBalance={yourLocalBalance}
+              price={price}
+              tx={tx}
+              writeContracts={writeContracts}
+              readContracts={readContracts}
+              purpose={purpose}
+            />
+          </Route>
+          <Route path="/mainnetdai">
+            <Contract
+              name="DAI"
+              customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.DAI}
+              signer={userSigner}
+              provider={mainnetProvider}
+              address={address}
+              blockExplorer="https://etherscan.io/"
+              contractConfig={contractConfig}
+              chainId={1}
+            />
+            {/*
             <Contract
               name="UNI"
               customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.UNI}
@@ -464,42 +465,42 @@ function App(props) {
               blockExplorer="https://etherscan.io/"
             />
             */}
-        </Route>
-        <Route path="/subgraph">
-          <Subgraph
-            subgraphUri={props.subgraphUri}
-            tx={tx}
-            writeContracts={writeContracts}
-            mainnetProvider={mainnetProvider}
-          />
-        </Route>
-        <Route path="/health">
-          <h3>ok</h3>
-        </Route>
-      </Switch>
-      {/*
+          </Route>
+          <Route path="/subgraph">
+            <Subgraph
+              subgraphUri={props.subgraphUri}
+              tx={tx}
+              writeContracts={writeContracts}
+              mainnetProvider={mainnetProvider}
+            />
+          </Route>
+          <Route path="/health">
+            <h3>ok</h3>
+          </Route>
+        </Switch>
+        {/*
       <ThemeSwitch />
       */}
-      {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
-        <div style={{ display: "flex", flex: 1, alignItems: "center" }}>
-          {USE_NETWORK_SELECTOR && (
-            <div style={{ marginRight: 20 }}>
-              <NetworkSwitch
-                networkOptions={networkOptions}
-                selectedNetwork={selectedNetwork}
-                setSelectedNetwork={setSelectedNetwork}
-              />
-            </div>
+        {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
+        <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
+          <div style={{ display: "flex", flex: 1, alignItems: "center" }}>
+            {USE_NETWORK_SELECTOR && (
+              <div style={{ marginRight: 20 }}>
+                <NetworkSwitch
+                  networkOptions={networkOptions}
+                  selectedNetwork={selectedNetwork}
+                  setSelectedNetwork={setSelectedNetwork}
+                />
+              </div>
+            )}
+          </div>
+          {yourLocalBalance.lte(ethers.BigNumber.from("0")) && (
+            <FaucetHint localProvider={localProvider} targetNetwork={targetNetwork} address={address} />
           )}
         </div>
-        {yourLocalBalance.lte(ethers.BigNumber.from("0")) && (
-          <FaucetHint localProvider={localProvider} targetNetwork={targetNetwork} address={address} />
-        )}
-      </div>
 
-      {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
-      {/*
+        {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
+        {/*
       <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
         <Row align="middle" gutter={[4, 4]}>
           <Col span={8}>
@@ -537,6 +538,7 @@ function App(props) {
         </Row>
       </div>
       */}
+      </div>
     </div>
   );
 }
