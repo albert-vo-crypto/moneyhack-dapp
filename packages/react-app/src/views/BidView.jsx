@@ -12,8 +12,17 @@ import { getFormatedCurrencyValue } from "../utils/commons";
 import NFTCollectionDetailsList from "../components/NFT/NFTCollectionDetailsList";
 import NFTInvestmentDetail from "../components/NFT/NFTInvestmentDetail";
 import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appContext";
+import { utils } from "ethers";
 
-const BidView = ({ ethPrice }) => {
+const BidView = ({
+  ethPrice,
+  address,
+  localProvider,
+  yourLocalBalance,
+  tx,
+  readContracts,
+  writeContracts,
+  userSigner }) => {
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
   const rev =
     (selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue || 0) *
@@ -24,14 +33,20 @@ const BidView = ({ ethPrice }) => {
     setBidAmount((value / 100) * rev);
   };
 
-  //TODO: Gunvant to integrate smart contract function
   const signerAddress = useSelector(appContextCurrentSignerAddressSelector);
   const onBidClick = () => {
     const collectionAddress = selectedNFTCollection?.primary_asset_contracts[0]?.address;
     const ownerAddress = selectedNFTCollection?.ownerAddress;
-    const fractionForSale = selectedNFTCollection?.fractionForSale || 0;
-    const inventorAddress = signerAddress;
-    const bidPriceInETH = bidAmount;
+    const fractionForSale = selectedNFTCollection?.fractionForSale * 100 || 0;
+    const investorAddress = signerAddress;
+    const bidPriceInETH = bidAmount.toString();;
+
+    tx(
+      writeContracts.RBFVaultFactory.createVault(collectionAddress, ownerAddress, investorAddress, fractionForSale, {
+        value: utils.parseEther(bidPriceInETH),
+      }),
+    );
+
   };
 
   const columns = [
