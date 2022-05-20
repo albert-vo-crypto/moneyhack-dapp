@@ -60,6 +60,7 @@
     "react-redux": "^8.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "react-step-wizard": "5.3.11",
     "reselect": "^4.1.5",
     "searchico": "^1.2.1",
     "stats-lite": "^2.2.0",

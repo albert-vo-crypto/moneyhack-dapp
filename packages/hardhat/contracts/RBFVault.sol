@@ -55,10 +55,11 @@ contract RBFVault is PaymentSplitter {
 
     modifier termsSatisfied() {
         // check if contract time-length completed
-        require(
-            block.timestamp > (vaultActivationDate + REVENUE_PERIOD),
-            "Revenue period term not complete"
-        );
+        
+        // require(
+        //     block.timestamp > (vaultActivationDate + REVENUE_PERIOD),
+        //     "Revenue period term not complete"
+        // );
 
         // TODO - check if revenue max limit has reached
         _;
