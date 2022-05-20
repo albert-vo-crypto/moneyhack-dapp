@@ -13,13 +13,15 @@ const ExploreView = () => {
   return (
     <div>
       <HeaderText children="Revenue Streams for Sale" />
-      {_.size(nftCollections) > 0 ? (
-        <NFTCollectionDetailsList nftCollections={nftCollections} />
-      ) : (
-        <div class="grid place-items-center h-[70vh]">
-          <Spin tip="Loading..." size="large" />
-        </div>
-      )}
+      <div className=" bg-gray-100 rounded-lg shadow">
+        {_.size(nftCollections) > 0 ? (
+          <NFTCollectionDetailsList nftCollections={nftCollections} />
+        ) : (
+          <div class="grid place-items-center h-[70vh]">
+            <Spin tip="Loading..." size="large" />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
