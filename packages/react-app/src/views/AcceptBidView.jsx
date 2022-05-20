@@ -87,6 +87,7 @@ const AcceptBidView = ({
               </button>
 
             </div>
+                       
             <button
               type="button"
               className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
@@ -111,6 +112,7 @@ const AcceptBidView = ({
             type="button"
             className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
             onClick={() => {
+              //TODO - pass in the address for the vault&collection in context below
               const ownableContract = new Contract("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", OWNABLEABI, userSigner);
               tx(
                 ownableContract.transferOwnership("0x005143293be22AE74a46b51310DB2ab93c0D5410")
@@ -141,6 +143,7 @@ const AcceptBidView = ({
             type="button"
             className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
             onClick={() => {
+              //TODO - pass in the address for the vault in context below
               const vaultContract = new Contract("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", RBFVAULTABI, userSigner);
               tx(
                 vaultContract.activate()
