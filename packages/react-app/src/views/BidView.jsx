@@ -77,52 +77,6 @@ const BidView = ({
     history.push(ROUTE_PATH_REVEFIN_DASHBOARD);
   };
 
-  const columns = [
-    {
-      title: "Fraction for Sale",
-      dataIndex: "fractionForSale",
-      key: "fractionForSale",
-      render: (value, nftCollection) => {
-        return <h3>{value}</h3>;
-      },
-    },
-    {
-      title: "Implied Purchase Discount",
-      dataIndex: "imageSrc",
-      key: "imageSrc",
-      render: (value, nftCollection) => {
-        return <h3>{(bidAmount / rev)?.toFixed(4)}</h3>;
-      },
-    },
-    {
-      title: "Bid Price",
-      dataIndex: "name",
-      key: "name",
-      render: (value, nftCollection) => {
-        return <h3>{"$" + getFormatedCurrencyValue(bidAmount * ethPrice) + " USD"}</h3>;
-      },
-    },
-    {
-      title: "Adjust Price",
-      dataIndex: "rating",
-      key: "rating",
-      render: (rating, nftCollection) => {
-        return (
-          <div class="grid place-items-center">
-            <div class="my-10 w-full">
-              <PercentageSlider defaultValue={DEFAULT_BID_SLIDER_PERCENTAGE} onChange={onSliderValueChange} />
-            </div>
-            <SecondaryButton
-              onClick={() => {
-                onBidClick();
-              }}
-              children={"BID " + getFormatedCurrencyValue(bidAmount) + " ETH"}
-            />
-          </div>
-        );
-      },
-    },
-  ];
 
   return (
     <div className="mt-10">
