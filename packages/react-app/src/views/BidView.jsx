@@ -10,8 +10,8 @@ import PercentageSlider from "../components/Inputs/PercentageSlider";
 import HeaderText from "../components/Commons/HeaderText";
 import { getFormatedCurrencyValue } from "../utils/commons";
 import NFTCollectionDetailsList from "../components/NFT/NFTCollectionDetailsList";
-import NFTImagesBar from "../components/NFT/NFTImagesBar";
 import NFTInvestmentDetail from "../components/NFT/NFTInvestmentDetail";
+import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appContext";
 
 const BidView = ({ ethPrice }) => {
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
@@ -22,6 +22,16 @@ const BidView = ({ ethPrice }) => {
 
   const onSliderValueChange = value => {
     setBidAmount((value / 100) * rev);
+  };
+
+  //TODO: Gunvant to integrate smart contract function
+  const signerAddress = useSelector(appContextCurrentSignerAddressSelector);
+  const onBidClick = () => {
+    const collectionAddress = selectedNFTCollection?.primary_asset_contracts[0]?.address;
+    const ownerAddress = selectedNFTCollection?.ownerAddress;
+    const fractionForSale = selectedNFTCollection?.fractionForSale || 0;
+    const inventorAddress = signerAddress;
+    const bidPriceInETH = bidAmount;
   };
 
   const columns = [
@@ -59,7 +69,12 @@ const BidView = ({ ethPrice }) => {
             <div class="my-10 w-full">
               <PercentageSlider defaultValue={DEFAULT_BID_SLIDER_PERCENTAGE} onChange={onSliderValueChange} />
             </div>
-            <SecondaryButton onClick={() => {}} children={"BID " + getFormatedCurrencyValue(bidAmount) + " ETH"} />
+            <SecondaryButton
+              onClick={() => {
+                onBidClick();
+              }}
+              children={"BID " + getFormatedCurrencyValue(bidAmount) + " ETH"}
+            />
           </div>
         );
       },
