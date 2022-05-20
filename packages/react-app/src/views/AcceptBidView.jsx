@@ -74,7 +74,7 @@ const AcceptBidView = ({
                 <ol type="1">
                   <li>Navigate to your collection editor, button below will take you to your collection at opensea.</li>
                   <li>Under the Creator Earnings heading, adjust the Percentage fee field. You can set a percentage of up to 10% and you can change this percentage at any time.</li>
-                  <li>Specify the payout wallet address where you wish to receive the earnings. OpenSea is unable to split creator earnings to multiple addresses</li>
+                  <li>Specify this '0x005143293be22AE74a46b51310DB2ab93c0D5410' payout wallet address which will split royalty earnings based on agreed terms.</li>
                 </ol></p>
             </div>
             <div className="mt-5">
@@ -87,7 +87,7 @@ const AcceptBidView = ({
               </button>
 
             </div>
-                       
+
             <button
               type="button"
               className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
