@@ -11,8 +11,11 @@ const ExploreView = () => {
   const nftCollections = useSelector(activeBidableNftCollectionsSelector);
 
   return (
-    <div>
+    <div className="mt-10">
+      <div className="text-left pb-5 border-b border-gray-200">
       <HeaderText children="Revenue Streams for Sale" />
+      </div>
+ 
       <div className=" bg-gray-100 rounded-lg shadow">
         {_.size(nftCollections) > 0 ? (
           <NFTCollectionDetailsList nftCollections={nftCollections} />
