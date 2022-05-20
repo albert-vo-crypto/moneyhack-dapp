@@ -48,6 +48,8 @@ import {
   ROUTE_PATH_REVEFIN_DASHBOARD,
 } from "./constants";
 import AcceptBidView from "./views/AcceptBidView";
+import DashboardView from "./views/DashboardView";
+
 
 const { ethers } = require("ethers");
 /*
@@ -295,7 +297,7 @@ function App(props) {
                 </Link>
               </div>
               <div class="ml-10 space-x-8 lg:block">
-                <Link class="text-base font-medium text-navtext hover:text-highlight" to="/dashboard">
+                <Link class="text-base font-medium text-navtext hover:text-highlight" to={ROUTE_PATH_REVEFIN_DASHBOARD}>
                   Dashboard
                 </Link>
               </div>
@@ -366,7 +368,7 @@ function App(props) {
           <AddNFTView />
         </Route>
         <Route exact path={ROUTE_PATH_REVEFIN_DASHBOARD}>
-          <h3>Dashboard</h3>
+          <DashboardView />
         </Route>
         <Route exact path="/debug">
           {/*
