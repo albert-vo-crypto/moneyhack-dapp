@@ -14,8 +14,17 @@ import NFTInvestmentDetail from "../components/NFT/NFTInvestmentDetail";
 import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appContext";
 import { selectedTradingCollectionSelector } from "../stores";
 import { tradingCollectionUpdatedAction } from "../stores/reducers/nft";
+import { utils } from "ethers";
 
-const BidView = ({ ethPrice }) => {
+const BidView = ({
+  ethPrice,
+  address,
+  localProvider,
+  yourLocalBalance,
+  tx,
+  readContracts,
+  writeContracts,
+  userSigner }) => {
   const dispatch = useDispatch();
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
   const rev =
@@ -27,17 +36,23 @@ const BidView = ({ ethPrice }) => {
     setBidAmount((value / 100) * rev);
   };
 
-  //TODO: Gunvant to integrate smart contract function
   const signerAddress = useSelector(appContextCurrentSignerAddressSelector);
+
   const onBidClick = () => {
     const collectionAddress = selectedNFTCollection?.primary_asset_contracts[0]?.address;
     const ownerAddress = selectedNFTCollection?.ownerAddress;
-    const fractionForSale = selectedNFTCollection?.fractionForSale || 0;
+    const fractionForSale = selectedNFTCollection?.fractionForSale * 100 || 0;
     const investorAddress = signerAddress;
-    const bidPriceInETH = bidAmount;
+    const bidPriceInETH = bidAmount.toString();;
 
+    tx(
+      writeContracts.RBFVaultFactory.createVault(collectionAddress, ownerAddress, investorAddress, fractionForSale, {
+        value: utils.parseEther(bidPriceInETH),
+      }),
+    );
     onSuccessfulBidTransaction(); //For testing //TODO: move to after getting a success response from smart contract
   };
+  
   //TODO: call onSuccessfulBidTransaction upon successful bid staking transaction
   //TODO: reading bidding details from smart contract instead of local data store
   const onSuccessfulBidTransaction = () => {
