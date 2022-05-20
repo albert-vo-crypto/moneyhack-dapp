@@ -2,9 +2,8 @@ import React from "react";
 
 const HeaderText = ({ children }) => {
   return (
-    <h1 class="break-words font-sans text-2xl sm:text-2xl sm:truncate md:text-4xl lg:text-6xl font-normal leading-7 mt-5 mb-0 text-primarytext">
-      {children}
-    </h1>
+    <h1 className="flex-1 text-3xl font-extrabold text-gray-900 mt-5">  {children}</h1>
+    
   );
 };
 

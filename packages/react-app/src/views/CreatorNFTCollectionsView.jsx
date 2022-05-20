@@ -13,8 +13,10 @@ const CreatorNFTCollectionsView = () => {
   const nftCollections = useSelector(nftCreatorCollectionsSelector);
 
   return (
-    <div>
-      <HeaderText children="Select your NFT Collections to list on ReveFin" />
+    <div className="mt-10">
+      <div className="text-left pb-5 border-b border-gray-200">
+        <HeaderText children="Select your NFT Collections to list" />
+      </div>
       {address ? (
         <div>
           {_.size(nftCollections) > 0 ? (

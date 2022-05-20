@@ -26,7 +26,7 @@ const client = new ApolloClient({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Provider store={store}>
-      <ThemeSwitcherProvider themeMap={themes} defaultTheme={"dark"}>
+      <ThemeSwitcherProvider themeMap={themes} defaultTheme={"light"}>
         <BrowserRouter>
           <App subgraphUri={subgraphUri} />
         </BrowserRouter>
