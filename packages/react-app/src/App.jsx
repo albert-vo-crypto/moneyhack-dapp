@@ -276,7 +276,7 @@ function App(props) {
     <div className="bg-gray-50">
       <div className="App max-w-7xl mx-auto bg-gray-50">
         <header class="bg-primary">
-          <nav class="max-w-full mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
+          <nav class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200" aria-label="Top">
             <div class="w-full py-3 flex items-center justify-between border-b border-primary lg:border-none">
               <div class="flex items-center">
                 <Link class="text-base font-medium text-navtext hover:text-highlight" to="/">
@@ -287,7 +287,7 @@ function App(props) {
                     class="text-base font-medium text-navtext hover:text-highlight"
                     to={ROUTE_PATH_EXPLORE_REVENUE_STREAMS}
                   >
-                    Explore
+                    Buy Revenue
                   </Link>
                 </div>
                 <div class="ml-10 space-x-8 md:block lg:block">
@@ -295,7 +295,7 @@ function App(props) {
                     class="text-base font-medium text-navtext hover:text-highlight"
                     to={ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS}
                   >
-                    Get Capital
+                    Sell Revenue
                   </Link>
                 </div>
                 <div class="ml-10 space-x-8 lg:block">
