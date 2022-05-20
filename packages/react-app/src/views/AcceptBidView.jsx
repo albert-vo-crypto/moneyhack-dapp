@@ -61,6 +61,13 @@ const AcceptBidView = ({
     { id: 'Step 3', name: 'Get fund', href: '#', status: 'upcoming' },
   ]
 
+  const updateStepStatus = (stepId, status) => {
+    const step = ((step, index) => {
+      if (step.id === stepId) {
+        step.status = status;
+      }
+    });
+  }
 
   const Step1 = (props) => {
     return (
