@@ -11,6 +11,7 @@ import {
   ROUTE_PATH_EXPLORE_REVENUE_STREAMS,
   ROUTE_PATH_REG_REVENUE_STREAM,
   ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS,
+  ROUTE_PATH_BID_ACCEPT,
 } from "../../constants";
 import NFTImagesBar from "./NFTImagesBar";
 import { getFormatedCurrencyValue } from "../../utils/commons";
@@ -24,7 +25,7 @@ const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator
 
   const goToAcceptBidNextSteps = coll => {
     dispatch(selectedCollectionUpdatedAction(coll));
-    //TODO: history.push(ROUTE_PATH_BID_NEXT_STEPS);
+    history.push(ROUTE_PATH_BID_ACCEPT);
   };
 
   const columns = [
