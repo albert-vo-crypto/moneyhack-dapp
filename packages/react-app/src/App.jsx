@@ -24,7 +24,7 @@ import {
   FaucetHint,
   NetworkSwitch,
 } from "./components";
-import { NETWORKS, ALCHEMY_KEY, ROUTE_PATH_BID_ACCEPT } from "./constants";
+import { NETWORKS, ALCHEMY_KEY} from "./constants";
 import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
@@ -46,6 +46,7 @@ import {
   ROUTE_PATH_REG_REVENUE_STREAM,
   ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS,
   ROUTE_PATH_REVEFIN_DASHBOARD,
+  ROUTE_PATH_BID_ACCEPT
 } from "./constants";
 import AcceptBidView from "./views/AcceptBidView";
 import DashboardView from "./views/DashboardView";
