@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Table } from "antd";
 import _ from "lodash";
+import { useHistory } from "react-router-dom";
 
-import { DEFAULT_BID_SLIDER_PERCENTAGE, DEFAULT_NFT_COLL_IMAGE_SRC } from "../constants";
+import { DEFAULT_BID_SLIDER_PERCENTAGE, BID_STATUS_PENDING_ACCEPT, ROUTE_PATH_REVEFIN_DASHBOARD } from "../constants";
 import { nftSelectedCollectionSelector } from "../stores/reducers/nft";
 import SecondaryButton from "../components/Buttons/SecondaryButton";
 import PercentageSlider from "../components/Inputs/PercentageSlider";
@@ -17,6 +18,7 @@ import { tradingCollectionUpdatedAction } from "../stores/reducers/nft";
 
 const BidView = ({ ethPrice }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
   const rev =
     (selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue || 0) *
@@ -47,6 +49,7 @@ const BidView = ({ ethPrice }) => {
       fractionForSale: selectedNFTCollection?.fractionForSale || 0,
       investorAddress: signerAddress,
       bidPriceInETH: bidAmount,
+      status: BID_STATUS_PENDING_ACCEPT,
     };
     const coll = _.assign(
       _.cloneDeep(selectedNFTCollection),
@@ -55,6 +58,7 @@ const BidView = ({ ethPrice }) => {
         : { bidDetails: [bidDetail] },
     );
     dispatch(tradingCollectionUpdatedAction(coll));
+    history.push(ROUTE_PATH_REVEFIN_DASHBOARD);
   };
 
   const columns = [

@@ -31,6 +31,7 @@ const slice = createSlice({
       }
     },
     tradingCollectionUpdatedAction: (state, action) => {
+      log({ action });
       if (action?.payload && action.payload?.collectionAddress) {
         state.tradingCollectionsMap[action.payload?.collectionAddress] = _.cloneDeep(action.payload);
       }

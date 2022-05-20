@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { DEFAULT_LIST_SLIDER_PERCENTAGE, ROUTE_PATH_EXPLORE_REVENUE_STREAMS } from "../constants";
+import {
+  DEFAULT_LIST_SLIDER_PERCENTAGE,
+  ROUTE_PATH_EXPLORE_REVENUE_STREAMS,
+  ROUTE_PATH_REVEFIN_DASHBOARD,
+} from "../constants";
 import NFTCollectionCard from "../components/NFT/NFTCollectionCard";
 import SecondaryButton from "../components/Buttons/SecondaryButton";
 import PercentageSlider from "../components/Inputs/PercentageSlider";
@@ -70,8 +74,8 @@ const ListNFTView = () => {
             <SecondaryButton
               onClick={() => {
                 addBidableCollection(selectedNFTCollection, percentageForSale / 100.0);
-                history.push(ROUTE_PATH_EXPLORE_REVENUE_STREAMS);
-                //TODO: push to dashboard instead
+                //TODO: on successful transaction
+                history.push(ROUTE_PATH_REVEFIN_DASHBOARD);
               }}
               children={"List " + percentageForSale + "% royalty revenue for sale"}
             />
