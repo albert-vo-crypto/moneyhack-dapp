@@ -133,14 +133,16 @@ const BidView = ({
         <div className="bg-white">
           <div>
             {/* info */}
-            <div className="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
+            <div className="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-10 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
               <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-                <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{selectedNFTCollection.name}</h1>
-                <div className="hidden w-36 h-36 rounded-lg overflow-hidden lg:block content-center">
-                  <img
-                    src={selectedNFTCollection.imageSrc}
-                    className="w-full h-full object-center object-cover"
-                  />
+                <div className="flex justify-start">
+                  <div className="hidden w-36 h-36 rounded-lg overflow-hidden lg:block content-center mr-10">
+                    <img
+                      src={selectedNFTCollection.imageSrc}
+                      className="w-full h-full object-center object-cover"
+                    />
+                  </div>
+                  <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{selectedNFTCollection.name}</h1>
                 </div>
               </div>
 
