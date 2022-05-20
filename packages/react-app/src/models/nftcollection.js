@@ -38,6 +38,7 @@ export const getBidableFromRevefinCollection = (coll, ownerAddress, fractionForS
   });
 };
 
+//TODO: use testOwnerAddress here
 export const mockBidableFromOpenseaCollection = (
   coll,
   ownerAddress = DEMO_NFT_COLL_OWNER_ADDRESS,
