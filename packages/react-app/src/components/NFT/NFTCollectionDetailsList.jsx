@@ -61,7 +61,6 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
         const val = nftCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue || 0;
         return <h3>{val >= 0.0001 ? val?.toFixed(4) : val}</h3>;
       },
-      defaultSortOrder: "descend",
       sorter:
         location?.pathname === ROUTE_PATH_EXPLORE_REVENUE_STREAMS ||
         location?.pathname === ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS
