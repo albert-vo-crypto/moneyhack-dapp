@@ -12,6 +12,7 @@ import logger from "./middlewares/logger";
 import processor from "./middlewares/processor";
 import { appContextCurrentSignerAddressSelector } from "./reducers/appContext";
 import { TEST_CREATOR_NFT_COLL_OWNER_ADDRESS, DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS } from "../constants";
+import { log } from "../utils/commons";
 
 const combinedReducer = combineReducers({
   appContext: appContextReducer,
@@ -54,10 +55,7 @@ export const registeredCollectionsOfCurrentSignerSelector = createSelector(
     const tradingCollections = _.values(nftTradingCollectionsMap);
     return _.filter(
       tradingCollections,
-      coll =>
-        coll?.ownerAddress === signerAddress ||
-        coll?.ownerAddress === TEST_CREATOR_NFT_COLL_OWNER_ADDRESS ||
-        coll?.ownerAddress === DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS,
+      coll => coll?.ownerAddress === signerAddress || coll?.signerAddress === signerAddress,
     );
   },
 );

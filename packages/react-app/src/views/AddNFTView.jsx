@@ -18,7 +18,7 @@ import NFTCollectionStats from "../components/NFT/NFTCollectionStats";
 const ListNFTView = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const ownerAddress = useSelector(appContextCurrentSignerAddressSelector);
+  const signerAddress = useSelector(appContextCurrentSignerAddressSelector);
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
   const [percentageForSale, setPercentageForSale] = useState(DEFAULT_LIST_SLIDER_PERCENTAGE);
 
@@ -30,13 +30,14 @@ const ListNFTView = () => {
     const payload = {
       collection,
       fractionForSale,
+      signerAddress,
     };
     dispatch(addBidableCollectionAction(payload));
   };
 
   return (
     <div>
-      {ownerAddress && selectedNFTCollection ? (
+      {signerAddress && selectedNFTCollection ? (
         <div>
           <HeaderText children="Turn Future Revenue To Capital Now" />
           <div class="mx-10 my-10 grid grid-cols-3 gap-x-4 gap-y-8 sm:gap-x-6 xl:gap-x-8">

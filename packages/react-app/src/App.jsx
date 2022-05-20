@@ -46,11 +46,11 @@ import {
   ROUTE_PATH_REG_REVENUE_STREAM,
   ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS,
   ROUTE_PATH_REVEFIN_DASHBOARD,
-  ROUTE_PATH_BID_ACCEPT
+  ROUTE_PATH_BID_ACCEPT,
 } from "./constants";
 import AcceptBidView from "./views/AcceptBidView";
 import DashboardView from "./views/DashboardView";
-
+import { log } from "./utils/commons";
 
 const { ethers } = require("ethers");
 /*
@@ -299,7 +299,10 @@ function App(props) {
                   </Link>
                 </div>
                 <div class="ml-10 space-x-8 lg:block">
-                  <Link class="text-base font-medium text-navtext hover:text-highlight" to={ROUTE_PATH_REVEFIN_DASHBOARD}>
+                  <Link
+                    class="text-base font-medium text-navtext hover:text-highlight"
+                    to={ROUTE_PATH_REVEFIN_DASHBOARD}
+                  >
                     Dashboard
                   </Link>
                 </div>
@@ -394,7 +397,7 @@ function App(props) {
               customContract={writeContracts && writeContracts.contracts && writeContracts.contracts.RBFVAULT}
               signer={userSigner}
               provider={localProvider}
-              address='0xCafac3dD18aC6c6e92c921884f9E4176737C052c'
+              address="0xCafac3dD18aC6c6e92c921884f9E4176737C052c"
               blockExplorer={blockExplorer}
               contractConfig={contractConfig}
               chainId={1}
@@ -410,7 +413,6 @@ function App(props) {
               contractConfig={contractConfig}
               chainId={1}
             />
-
 
             <Contract
               name="YourContract"
@@ -541,7 +543,6 @@ function App(props) {
       </div>
     </div>
   );
-
 }
 
 export default App;
