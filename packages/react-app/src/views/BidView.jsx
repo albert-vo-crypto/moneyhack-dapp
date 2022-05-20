@@ -125,10 +125,8 @@ const BidView = ({
   ];
 
   return (
-    <div>
+    <div className="mt-10">
       <div className="text-left pb-5 border-b border-gray-200">
-
-
         <HeaderText children="Purchase NFT Collection Royalty Revenue" />
       </div>
       <div>
@@ -137,7 +135,13 @@ const BidView = ({
             {/* info */}
             <div className="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
               <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-                <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{selectedNFTCollection.name}</h1>
+                <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{selectedNFTCollection.name}</h1>
+                <div className="hidden w-36 h-36 rounded-lg overflow-hidden lg:block content-center">
+                  <img
+                    src={selectedNFTCollection.imageSrc}
+                    className="w-full h-full object-center object-cover"
+                  />
+                </div>
               </div>
 
               {/* Terms */}
@@ -149,17 +153,17 @@ const BidView = ({
                   <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
                     <div className="py-3 flex justify-between text-sm font-medium">
                       <dt className="text-gray-500">Fraction for Sale</dt>
-                      <dd className="text-gray-900">{selectedNFTCollection?.fractionForSale * 100}</dd>
+                      <dd className="text-lg text-gray-900">{selectedNFTCollection?.fractionForSale * 100}</dd>
                     </div>
 
                     <div className="py-3 flex justify-between text-sm font-medium">
                       <dt className="text-gray-500">Implied Purchase Discount</dt>
-                      <dd className="text-gray-900">{(bidAmount / rev)?.toFixed(4)}</dd>
+                      <dd className="text-lg text-gray-900">{(bidAmount / rev)?.toFixed(4)}</dd>
                     </div>
 
                     <div className="py-3 flex justify-between text-sm font-medium">
                       <dt className="text-gray-500">Bid Price</dt>
-                      <dd className="text-gray-900">{"$" + getFormatedCurrencyValue(bidAmount * ethPrice) + " USD"}</dd>
+                      <dd className="text-lg text-gray-900">{"$" + getFormatedCurrencyValue(bidAmount * ethPrice) + " USD"}</dd>
                     </div>
                   </dl>
                   <div class="grid place-items-center">
@@ -180,12 +184,7 @@ const BidView = ({
 
               <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                 {/* Description and details */}
-                <div className="hidden w-36 h-36 rounded-lg overflow-hidden lg:block">
-                  <img
-                    src={selectedNFTCollection.imageSrc}
-                    className="w-full h-full object-center object-cover"
-                  />
-                </div>
+
                 <div>
                   <h3 className="sr-only">Description</h3>
 
@@ -194,7 +193,7 @@ const BidView = ({
                   </div>
                 </div>
 
-                <div className="mt-10">
+                <div className="mt-10 mb-10">
                   <div>
                     <h3 className="text-lg text-gray-900">COLLECTION STATS</h3>
                     <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
@@ -225,7 +224,7 @@ const BidView = ({
                     </dl>
                   </div>
                 </div>
-
+                <NFTInvestmentDetail nftCollection={selectedNFTCollection} rev={rev} bidAmount={bidAmount} />
 
               </div>
             </div>

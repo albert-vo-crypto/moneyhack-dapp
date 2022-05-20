@@ -35,7 +35,7 @@ const NFTRevenueScheduleChart = ({ rev, bidAmount }) => {
   return (
     <div class="w-full">
       <h2 class="text-center">Revenue Schedule</h2>
-      <VictoryChart theme={chartTheme} domainPadding={{ x: 50, y: 0 }}>
+      <VictoryChart domainPadding={{ x: 50, y: 0 }}>
         <VictoryAxis
           label=""
           style={{
