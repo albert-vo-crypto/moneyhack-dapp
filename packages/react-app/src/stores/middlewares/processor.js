@@ -68,9 +68,9 @@ const reloadCreatorNFTCollections = async (dispatch, getState, ownerAddress) => 
   const openseaColls = [...openseaCollsTest, ...openseaCollsDemo, ...openseaCollsThis];
   const revefinColls = openseaColls.map(coll => {
     const rColl = getRevefinFromOpenseaCollection(coll);
-    rColl.historicalDatas = mockHistoricalDatas;
-    return rColl;
+    return _.assign(rColl, { historicalDatas: mockHistoricalDatas });
   });
+  log({ revefinColls });
   dispatch(creatorCollectionsUpdatedAction(revefinColls));
 };
 

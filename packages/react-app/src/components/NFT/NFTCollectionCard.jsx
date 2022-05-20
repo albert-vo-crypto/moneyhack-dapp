@@ -10,6 +10,7 @@ import {
   ROUTE_PATH_EXPLORE_REVENUE_STREAMS,
   ROUTE_PATH_BID_REVENUE_STREAM,
   ROUTE_PATH_REG_REVENUE_STREAM,
+  ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS,
 } from "../../constants";
 
 const NFTCollectionCard = ({ nftCollection }) => {
@@ -25,7 +26,7 @@ const NFTCollectionCard = ({ nftCollection }) => {
           await dispatch(selectedCollectionUpdatedAction(nftCollection));
           if (location?.pathname === ROUTE_PATH_EXPLORE_REVENUE_STREAMS) {
             history.push(ROUTE_PATH_BID_REVENUE_STREAM);
-          } else if (location?.pathname === "/creatornftcollections") {
+          } else if (location?.pathname === ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS) {
             history.push(ROUTE_PATH_REG_REVENUE_STREAM);
           }
         }}

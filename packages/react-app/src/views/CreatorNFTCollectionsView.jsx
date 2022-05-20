@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import _ from "lodash";
+import { Spin } from "antd";
 
 import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appContext";
 import { nftCreatorCollectionsSelector } from "../stores/reducers/nft";
-import NFTCollectionCardsList from "../components/NFT/NFTCollectionCardsList";
 import HeaderText from "../components/Commons/HeaderText";
+import NFTCollectionDetailsList from "../components/NFT/NFTCollectionDetailsList";
 
 const CreatorNFTCollectionsView = () => {
   const address = useSelector(appContextCurrentSignerAddressSelector);
@@ -17,7 +18,13 @@ const CreatorNFTCollectionsView = () => {
       {address ? (
         _.size(nftCollections) > 0 ? (
           <div>
-            <NFTCollectionCardsList nftCollections={nftCollections} />
+            {_.size(nftCollections) > 0 ? (
+              <NFTCollectionDetailsList nftCollections={nftCollections} />
+            ) : (
+              <div class="grid place-items-center h-[70vh]">
+                <Spin tip="Loading..." size="large" />
+              </div>
+            )}
           </div>
         ) : (
           <div class="grid place-items-center h-[70vh]">
