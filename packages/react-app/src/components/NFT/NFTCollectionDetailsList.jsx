@@ -6,7 +6,12 @@ import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import { selectedCollectionUpdatedAction } from "../../stores/reducers/nft";
-import { ROUTE_PATH_BID_REVENUE_STREAM, ROUTE_PATH_EXPLORE_REVENUE_STREAMS } from "../../constants";
+import {
+  ROUTE_PATH_BID_REVENUE_STREAM,
+  ROUTE_PATH_EXPLORE_REVENUE_STREAMS,
+  ROUTE_PATH_REG_REVENUE_STREAM,
+  ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS,
+} from "../../constants";
 import NFTImagesBar from "./NFTImagesBar";
 
 const NFTCollectionDetailsList = ({ nftCollections }) => {
@@ -58,7 +63,8 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
       },
       defaultSortOrder: "descend",
       sorter:
-        location?.pathname === ROUTE_PATH_EXPLORE_REVENUE_STREAMS
+        location?.pathname === ROUTE_PATH_EXPLORE_REVENUE_STREAMS ||
+        location?.pathname === ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS
           ? (a, b) =>
               a.historicalDatas?.stats?.ethTotalRoyaltyRevenue - b.historicalDatas?.stats?.ethTotalRoyaltyRevenue
           : null,
@@ -104,6 +110,9 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
               if (location?.pathname === ROUTE_PATH_EXPLORE_REVENUE_STREAMS) {
                 await dispatch(selectedCollectionUpdatedAction(record));
                 history.push(ROUTE_PATH_BID_REVENUE_STREAM);
+              } else if (location?.pathname === ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS) {
+                await dispatch(selectedCollectionUpdatedAction(record));
+                history.push(ROUTE_PATH_REG_REVENUE_STREAM);
               }
             }, // click row
           };
