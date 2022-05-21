@@ -37,6 +37,7 @@ const BidView = ({
   const dispatch = useDispatch();
   const history = useHistory();
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
+  const pageTitle = "Buy "+ (selectedNFTCollection?.name || "NFT Collection") + " Royalty Revenue"; ;
   const [isWaitForVaultCreation, setIsWaitForVaultCreation] = useState(false);
 
   const scEvents = useEventListener(readContracts, "RBFVaultFactory", "RBFVaultCreated", localProvider, 1);
@@ -116,7 +117,7 @@ const BidView = ({
   return (
     <div className="mt-10">
       <div className="text-left pb-2 border-b border-gray-200">
-        <HeaderText children="Purchase NFT Collection Royalty Revenue" />
+        <HeaderText children={pageTitle} />
       </div>
       <div>
         <div className="bg-white">
