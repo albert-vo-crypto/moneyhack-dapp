@@ -17,6 +17,7 @@ import StepWizard from "react-step-wizard";
 import externalContracts from "../contracts/external_contracts";
 import { Contract } from "@ethersproject/contracts";
 import { isOpenseaCollectionUsingTargetPayoutAddress } from "../utils/openseahelper";
+import { selectedCollectionFirstBidDetailSelector } from "../stores";
 
 const AcceptBidView = ({
   ethPrice,
@@ -29,6 +30,7 @@ const AcceptBidView = ({
   userSigner,
 }) => {
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
+  const selectedBidDetails = useSelector(selectedCollectionFirstBidDetailSelector);
   const rev =
     (selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue || 0) *
     (selectedNFTCollection?.fractionForSale || 0);
@@ -88,8 +90,8 @@ const AcceptBidView = ({
                     to 10% and you can change this percentage at any time.
                   </li>
                   <li>
-                    Specify this '0x005143293be22AE74a46b51310DB2ab93c0D5410' payout wallet address which will split
-                    royalty earnings based on agreed terms.
+                    Specify this '{selectedBidDetails?.vaultAddress}' payout wallet address which will split royalty
+                    earnings based on agreed terms.
                   </li>
                 </ol>
               </p>
@@ -109,7 +111,7 @@ const AcceptBidView = ({
                 </a>
               </button>
             </div>
-            {/* TODO: const isPayoutAddressUpdated = await isOpenseaCollectionUsingTargetPayoutAddress(selectedNFTCollection, true, targetPayoutAddress); */}
+            {/* TODO: const isPayoutAddressUpdated = await isOpenseaCollectionUsingTargetPayoutAddress(selectedNFTCollection, true, selectedBidDetails?.vaultAddress); */}
             <button
               type="button"
               className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
