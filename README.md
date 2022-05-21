@@ -8,11 +8,11 @@
 
 
 ### ReveFin Main Window
-![Main Window](./doc/img/_____.png)
+![Main Window](./doc/img/Screen01.png)
 
 
-### Project Team
+### ReveFin Project Team
 
 Our team consists of professionals from varying backgrounds, united with the ethos of **creating value through innovation**.
 
-![Project Team](./doc/img/_____.png) 
+![Project Team](./doc/img/Slide07.png) 
