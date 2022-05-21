@@ -74,35 +74,35 @@ const AcceptBidView = ({
   const Step1 = props => {
     return (
       <>
-        <div className="bg-gray-50 sm:rounded-lg">
+        <div className="sm:rounded-lg text-left">
           <div className="px-4 py-5 sm:p-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">Update royalty payout wallet address</h3>
-            <div className="mt-2 max-w-xl text-sm text-gray-500">
+            <h3 className="text-lg text-gray-900 text-left">Update royalty payout wallet address</h3>
+            <div className="mt-2 max-w-xl ">
               <p>
                 You have to update the royalty payout address on opensea. This has to be done because this payout
                 address is maintained off-chain by opensea. Plese follow the direction below.
               </p>
-              <p>
-                <ol type="1">
-                  <li>Navigate to your collection editor, button below will take you to your collection at opensea.</li>
-                  <li>
-                    Under the Creator Earnings heading, adjust the Percentage fee field. You can set a percentage of up
-                    to 10% and you can change this percentage at any time.
-                  </li>
-                  <li>
-                    Specify this '{selectedBidDetails?.vaultAddress}' payout wallet address which will split royalty
-                    earnings based on agreed terms.
-                  </li>
-                </ol>
-              </p>
+              <h1>Instruction:</h1>
+              <ol className="list-decimal">
+                <li>Navigate to your collection editor, button below will take you to your collection at opensea.</li>
+                <li>
+                  Under the Creator Earnings heading, adjust the Percentage fee field. You can set a percentage of up
+                  to 10% and you can change this percentage at any time.
+                </li>
+                <li>
+                  Specify this '{selectedBidDetails?.vaultAddress}' payout wallet address which will split
+                  royalty earnings based on agreed terms.
+                </li>
+              </ol>
+
             </div>
             <div className="mt-5">
               <button
                 type="button"
-                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 <a
-                  class="button"
+                  class="button text-white"
                   href="https://testnets.opensea.io/collection/simpleandhealthy/edit"
                   target="_blank"
                   rel="noreferrer"
@@ -114,7 +114,7 @@ const AcceptBidView = ({
             {/* TODO: const isPayoutAddressUpdated = await isOpenseaCollectionUsingTargetPayoutAddress(selectedNFTCollection, true, selectedBidDetails?.vaultAddress); */}
             <button
               type="button"
-              className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+              className="float-right inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
               onClick={props.nextStep}
             >
               Next
@@ -128,13 +128,14 @@ const AcceptBidView = ({
   const Step2 = props => {
     return (
       <>
-        <div>
+        <div className="text-left">
+          <h3 className="text-lg mt-10 text-gray-900">Transfer onwership to vault</h3>
           <p>
             We'll transfer your collection ownership to the vault contract for the duration of the terms(12 months).
           </p>
           <button
             type="button"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+            className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             onClick={() => {
               //TODO - pass in the address for the vault&collection in context below
               const ownableContract = new Contract(
@@ -150,7 +151,7 @@ const AcceptBidView = ({
 
           <button
             type="button"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+            className="float-right inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
             onClick={props.nextStep}
           >
             Next
@@ -163,11 +164,12 @@ const AcceptBidView = ({
   const Step3 = props => {
     return (
       <>
-        <div>
+        <div className="text-left">
+          <h3 className="text-lg mt-10 text-gray-900">Get Fund</h3>
           <p>Click 'Accept fund' button below to accept the fund and activate the contract.</p>
           <button
             type="button"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+            className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             onClick={() => {
               //TODO - pass in the address for the vault in context below
               const vaultContract = new Contract("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", RBFVAULTABI, userSigner);
@@ -179,7 +181,7 @@ const AcceptBidView = ({
 
           <button
             type="button"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+            className="float-right inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
             onClick={props.nextStep}
           >
             Finish
@@ -190,7 +192,7 @@ const AcceptBidView = ({
   };
 
   return (
-    <div>
+    <div className="mt-10 mb-10 p-10 bg-white">
       <nav aria-label="Progress">
         <ol role="list" className="space-y-4 md:flex md:space-y-0 md:space-x-8">
           {steps.map(step => (
