@@ -139,11 +139,11 @@ const AcceptBidView = ({
             onClick={() => {
               //TODO - pass in the address for the vault&collection in context below
               const ownableContract = new Contract(
-                "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+                selectedBidDetails?.collectionAddress,
                 OWNABLEABI,
                 userSigner,
               );
-              tx(ownableContract.transferOwnership("0x005143293be22AE74a46b51310DB2ab93c0D5410"));
+              tx(ownableContract.transferOwnership(selectedBidDetails?.vaultAddress));
             }}
           >
             Transfer ownership
@@ -171,8 +171,7 @@ const AcceptBidView = ({
             type="button"
             className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             onClick={() => {
-              //TODO - pass in the address for the vault in context below
-              const vaultContract = new Contract("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", RBFVAULTABI, userSigner);
+              const vaultContract = new Contract(selectedBidDetails?.vaultAddress, RBFVAULTABI, userSigner);
               tx(vaultContract.activate());
             }}
           >
