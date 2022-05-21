@@ -101,8 +101,7 @@ const BidView = ({
               </div>
 
               {/* Terms */}
-              <div className="mt-4 lg:mt-0 lg:row-span-3">
-                <h2 className="sr-only">Product information</h2>
+              <div className="mt-4 lg:mt-0 lg:row-span-3">             
 
                 <div>
                   <h3 className="text-lg text-gray-900">TERMS</h3>

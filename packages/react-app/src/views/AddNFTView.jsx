@@ -78,12 +78,23 @@ const ListNFTView = () => {
 
                 {/* Terms */}
                 <div className="mt-4 lg:mt-0 lg:row-span-3">
-                  <h2 className="sr-only">Product information</h2>
+                  <h3 className="text-lg text-gray-900">TERMS</h3>
+                  <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
 
+                    <div className="py-3 flex justify-between text-sm font-medium">
+                      <dt className="text-gray-500">Revenue Period (Months)</dt>
+                      <dd className="text-gray-900">{selectedNFTCollection?.revenuePeriod || 12}</dd>
+                    </div>
+
+                    <div className="py-3 flex justify-between text-sm font-medium">
+                      <dt className="text-gray-500">Revenue % for sale</dt>
+                      <dd className="text-gray-900">{percentageForSale + "%"}</dd>
+                    </div>
+                  </dl>
                   <div>
                     <div class="grid place-items-center">
 
-                      <div class="my-10">
+                      <div class="mt-5">
                         <p className="text-lg">Adjust % of royalty for sale</p>
                         <PercentageSlider
                           min={1}
