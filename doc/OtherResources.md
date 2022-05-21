@@ -26,7 +26,7 @@ The following are resource, relevant to the ReveFin project:
 
 
 ### NFT Analtyics Tools
-- <https://www.mnemonichq.com/  has API for real-time collection performance>
+- <https://www.mnemonichq.com/>  has API for real-time collection performance
 - <https://thenewstack.io/mnemonic-launches-nft-data-api-and-collection-analytics/https://icy.tools/features>  floor prices, volume, history
 - <https://moby.gg/> No API, historical data available
 - <https://nftgo.io/> API Coming Soon
