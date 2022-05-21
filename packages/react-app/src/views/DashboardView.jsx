@@ -22,7 +22,6 @@ const DashboardView = ({ ethPrice }) => {
   const soldCollections = useSelector(soldCollectionsOfCurrentSignerSelector);
   const biddedCollections = useSelector(biddedCollectionsOfCurrentSignerSelector);
   const boughtCollections = useSelector(boughtCollectionsOfCurrentSignerSelector);
-  log({ forSaleCollections }); //!!!
 
   const { TabPane } = Tabs;
   function callback(key) {

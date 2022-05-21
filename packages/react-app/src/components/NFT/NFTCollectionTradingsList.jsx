@@ -11,6 +11,7 @@ import {
   ROUTE_PATH_REG_REVENUE_STREAM,
   ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS,
   ROUTE_PATH_BID_ACCEPT,
+  ROUTE_PATH_REVEFIN_VAULT,
 } from "../../constants";
 import NFTImagesBar from "./NFTImagesBar";
 import { getFormatedCurrencyValue } from "../../utils/commons";
@@ -46,9 +47,15 @@ const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator
       key: "name",
       render: (name, nftCollection) => {
         return (
-          <a href={nftCollection.url} class="no-underline hover:underline font-bold text-lg">
+          <div
+            class="no-underline hover:underline font-bold text-lg"
+            onClick={() => {
+              dispatch(selectedCollectionUpdatedAction(nftCollection));
+              history.push(ROUTE_PATH_REVEFIN_VAULT);
+            }}
+          >
             {name}
-          </a>
+          </div>
         );
       },
     },
