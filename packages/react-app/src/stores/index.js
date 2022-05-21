@@ -14,6 +14,7 @@ import { appContextCurrentSignerAddressSelector } from "./reducers/appContext";
 import {
   TEST_CREATOR_NFT_COLL_OWNER_ADDRESS,
   DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS,
+  BID_STATUS_PENDING_ACCEPT,
   BID_STATUS_SOLD,
 } from "../constants";
 import { log } from "../utils/commons";
@@ -64,6 +65,19 @@ export const registeredCollectionsOfCurrentSignerSelector = createSelector(
   },
 );
 
+export const forSaleCollectionsOfCurrentSignerSelector = createSelector(
+  registeredCollectionsOfCurrentSignerSelector,
+  colls => {
+    return _.filter(colls, coll => {
+      if (coll?.bidDetails && _.size(coll?.bidDetails) > 0) {
+        const bidDetail = coll?.bidDetails[0];
+        return bidDetail?.status === BID_STATUS_PENDING_ACCEPT;
+      }
+      return false;
+    });
+  },
+);
+
 export const soldCollectionsOfCurrentSignerSelector = createSelector(
   registeredCollectionsOfCurrentSignerSelector,
   colls => {
@@ -83,6 +97,19 @@ export const investedCollectionsOfCurrentSignerSelector = createSelector(
   (signerAddress, nftTradingCollectionsMap) => {
     const tradingCollections = _.values(nftTradingCollectionsMap);
     return _.filter(tradingCollections, coll => _.some(coll?.bidDetails, { investorAddress: signerAddress }));
+  },
+);
+
+export const biddedCollectionsOfCurrentSignerSelector = createSelector(
+  investedCollectionsOfCurrentSignerSelector,
+  colls => {
+    return _.filter(colls, coll => {
+      if (coll?.bidDetails && _.size(coll?.bidDetails) > 0) {
+        const bidDetail = coll?.bidDetails[0];
+        return bidDetail?.status === BID_STATUS_PENDING_ACCEPT;
+      }
+      return false;
+    });
   },
 );
 
