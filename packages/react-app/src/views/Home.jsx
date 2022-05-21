@@ -44,7 +44,7 @@ function Home({ yourLocalBalance, readContracts }) {
       <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
         <img
           className="absolute inset-0 w-full h-full object-cover"
-          src="https://content.enkronos.com/wp-content/uploads/2021/10/decentralized-dapps-ethereum-blockchain.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&fit=crop&w=2002&q=80"
+          src="./hero1.jpg"
           alt=""
         />
       </div>

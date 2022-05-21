@@ -37,6 +37,7 @@ const BidView = ({
   const dispatch = useDispatch();
   const history = useHistory();
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
+  const pageTitle = "Buy "+ (selectedNFTCollection?.name || "NFT Collection") + " Royalty Revenue"; ;
   const [isWaitForVaultCreation, setIsWaitForVaultCreation] = useState(false);
 
   const scEvents = useEventListener(readContracts, "RBFVaultFactory", "RBFVaultCreated", localProvider, 1);
@@ -112,7 +113,7 @@ const BidView = ({
   return (
     <div className="mt-10">
       <div className="text-left pb-2 border-b border-gray-200">
-        <HeaderText children="Purchase NFT Collection Royalty Revenue" />
+        <HeaderText children={pageTitle} />
       </div>
       <div>
         <div className="bg-white">
@@ -147,11 +148,11 @@ const BidView = ({
 
                     <div className="py-3 flex justify-between text-sm font-medium">
                       <dt className="text-gray-500">Implied Purchase Discount</dt>
-                      <dd className="text-lg text-gray-900">{(bidAmount / rev)?.toFixed(4)}</dd>
+                      <dd className="text-lg text-gray-900">{(bidAmount / rev)?.toFixed(2)}</dd>
                     </div>
 
                     <div className="py-3 flex justify-between text-sm font-medium">
-                      <dt className="text-gray-500">Bid Price</dt>
+                      <dt className="text-gray-500">Bid Price (${ethPrice}/ETH)</dt>
                       <dd className="text-lg text-gray-900">
                         {"$" + getFormatedCurrencyValue(bidAmount * ethPrice) + " USD"}
                       </dd>
@@ -196,21 +197,21 @@ const BidView = ({
                         <dt className="text-gray-500">Prior Period Revnue (ETH)</dt>
 
                         <dd className="text-gray-900">
-                          {selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue}
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue?.toFixed(2) }
                         </dd>
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Floor Volume (ETH)</dt>
                         <dd className="text-gray-900">
-                          {selectedNFTCollection?.historicalDatas?.stats?.ethFloorVolume}
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethFloorVolume?.toFixed(2) }
                         </dd>
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Coef. of Variation</dt>
                         <dd className="text-gray-900">
-                          {selectedNFTCollection?.historicalDatas?.stats?.ethCoefofVariationRoyaltyRevenue}
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethCoefofVariationRoyaltyRevenue?.toFixed(2) }
                         </dd>
                       </div>
                     </dl>

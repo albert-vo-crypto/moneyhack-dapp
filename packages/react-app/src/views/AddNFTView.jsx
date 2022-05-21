@@ -20,6 +20,7 @@ const ListNFTView = () => {
   const history = useHistory();
   const signerAddress = useSelector(appContextCurrentSignerAddressSelector);
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
+  const pageTitle = "Sell "+ (selectedNFTCollection?.name || "NFT Collection") + "'s future Revenue";
   const [percentageForSale, setPercentageForSale] = useState(DEFAULT_LIST_SLIDER_PERCENTAGE);
 
   const onSliderValueChange = value => {
@@ -41,7 +42,7 @@ const ListNFTView = () => {
       {signerAddress && selectedNFTCollection ? (
         <div>
           <div className="text-left pb-2 border-b border-gray-200">
-            <HeaderText children="Turn Future Revenue To Capital Now" />
+            <HeaderText children={pageTitle} />
           </div>
           <div className="bg-white">
             <div>
@@ -145,7 +146,7 @@ const ListNFTView = () => {
 
                         <div className="py-3 flex justify-between text-sm font-medium">
                           <dt className="text-gray-500">Avg. Price</dt>
-                          <dd className="text-gray-900">{selectedNFTCollection?.stats?.average_price?.toFixed(4)}</dd>
+                          <dd className="text-gray-900">{selectedNFTCollection?.stats?.average_price?.toFixed(2)}</dd>
                         </div>
                       </dl>
                     </div>

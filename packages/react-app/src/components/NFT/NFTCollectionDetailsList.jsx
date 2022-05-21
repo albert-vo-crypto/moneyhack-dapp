@@ -36,6 +36,9 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      render: (name, nftCollection) => {
+        return <a href={nftCollection.url} class="no-underline hover:underline font-bold text-lg">{name}</a>
+      },
     },
     {
       title: "Rating",
@@ -59,13 +62,13 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
       key: "historicalDatas.stats.ethTotalRoyaltyRevenue",
       render: (value, nftCollection) => {
         const val = nftCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue || 0;
-        return <h3>{val >= 0.0001 ? val?.toFixed(4) : val}</h3>;
+        return <h3>{val >= 0.0001 ? val?.toFixed(2) : val}</h3>;
       },
       sorter:
         location?.pathname === ROUTE_PATH_EXPLORE_REVENUE_STREAMS ||
-        location?.pathname === ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS
+          location?.pathname === ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS
           ? (a, b) =>
-              a.historicalDatas?.stats?.ethTotalRoyaltyRevenue - b.historicalDatas?.stats?.ethTotalRoyaltyRevenue
+            a.historicalDatas?.stats?.ethTotalRoyaltyRevenue - b.historicalDatas?.stats?.ethTotalRoyaltyRevenue
           : null,
     },
     {
@@ -74,7 +77,7 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
       key: "historicalDatas.stats.ethFloorVolume",
       render: (value, nftCollection) => {
         const val = nftCollection?.historicalDatas?.stats?.ethFloorVolume || 0;
-        return <h3>{val >= 0.0001 ? val?.toFixed(4) : val}</h3>;
+        return <h3>{val >= 0.0001 ? val?.toFixed(2) : val}</h3>;
       },
     },
     {
@@ -83,7 +86,7 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
       key: "historicalDatas.stats.ethCoefofVariationRoyaltyRevenue",
       render: (value, nftCollection) => {
         const val = nftCollection?.historicalDatas?.stats?.ethCoefofVariationRoyaltyRevenue || 0;
-        return <h3>{val > 0.0001 ? val?.toFixed(4) : val}</h3>;
+        return <h3>{val > 0.0001 ? val?.toFixed(2) : val}</h3>;
       },
     },
     {
@@ -115,10 +118,6 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
               }
             }, // click row
           };
-        }}
-        expandable={{
-          expandedRowRender: record => <NFTImagesBar nftCollection={record} />,
-          rowExpandable: record => true,
         }}
       />
     </div>

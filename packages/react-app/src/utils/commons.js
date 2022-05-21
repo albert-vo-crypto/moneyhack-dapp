@@ -6,7 +6,7 @@ export const logErr = (...args) => {
   console.error("revefin", ...args);
 };
 
-export const getFormatedCurrencyValue = (value, maximumFractionDigits = 4) => {
+export const getFormatedCurrencyValue = (value, maximumFractionDigits = 2) => {
   /*
   var formatter = new Intl.NumberFormat("en-US", {
     style: "currency",

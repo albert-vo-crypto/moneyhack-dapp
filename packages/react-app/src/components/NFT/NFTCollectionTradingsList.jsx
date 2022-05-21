@@ -44,6 +44,9 @@ const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator
       title: "Name",
       dataIndex: "name",
       key: "name",
+      render: (name, nftCollection) => {
+        return <a href={nftCollection.url} class="no-underline hover:underline font-bold text-lg">{name}</a>
+      },
     },
     {
       title: "Prior Period Revnue (ETH)",
@@ -51,7 +54,7 @@ const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator
       key: "historicalDatas.stats.ethTotalRoyaltyRevenue",
       render: (value, nftCollection) => {
         const val = nftCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue || 0;
-        return <h3>{val >= 0.0001 ? val?.toFixed(4) : val}</h3>;
+        return <h3>{val >= 0.0001 ? val?.toFixed(2) : val}</h3>;
       },
     },
     {
@@ -59,7 +62,7 @@ const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator
       dataIndex: "fractionForSale",
       key: "fractionForSale",
       render: (rating, nftCollection) => {
-        return <h3 class="text-center">{rating?.toFixed(4)}</h3>;
+        return <h3 class="text-center">{rating?.toFixed(2)}</h3>;
       },
     },
     {
@@ -105,7 +108,7 @@ const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator
       },
     },
     {
-      title: "Inventor",
+      title: "Investor",
       dataIndex: "bidDetails",
       key: "bidDetails",
       render: (bidDetails, nftCollection) => {
@@ -164,11 +167,7 @@ const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator
               }
             }, // click row
           };
-        }}
-        expandable={{
-          expandedRowRender: record => <NFTImagesBar nftCollection={record} />,
-          rowExpandable: record => true,
-        }}
+        }}       
       />
     </div>
   );
