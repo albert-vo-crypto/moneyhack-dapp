@@ -102,12 +102,8 @@ const BidView = ({
       vaultAddress,
     };
     log({ bidDetail });
-    const coll = _.assign(
-      _.cloneDeep(selectedNFTCollection),
-      selectedNFTCollection?.bidDetails
-        ? { bidDetails: [...selectedNFTCollection.bidDetails, bidDetail] }
-        : { bidDetails: [bidDetail] },
-    );
+    //TODO: support multiple bidDetail
+    const coll = _.assign(_.cloneDeep(selectedNFTCollection), { bidDetails: [bidDetail] });
     dispatch(tradingCollectionUpdatedAction(coll));
     dispatch(showNotificationAction("Bid placed successfully"));
     history.push(ROUTE_PATH_REVEFIN_DASHBOARD);
@@ -126,7 +122,7 @@ const BidView = ({
               <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                 <div className="flex justify-start">
                   <div className="hidden w-36 h-36 rounded-lg overflow-hidden lg:block content-center mr-10">
-                    <img src={selectedNFTCollection.imageSrc} className="w-full h-full object-center object-cover" />
+                    <img src={selectedNFTCollection?.imageSrc} className="w-full h-full object-center object-cover" />
                   </div>
                   <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                     {selectedNFTCollection.name}

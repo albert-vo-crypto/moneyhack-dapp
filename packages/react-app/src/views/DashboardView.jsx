@@ -7,15 +7,22 @@ import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appCo
 import { nftCreatorCollectionsSelector } from "../stores/reducers/nft";
 import HeaderText from "../components/Commons/HeaderText";
 import NFTCollectionTradingsList from "../components/NFT/NFTCollectionTradingsList";
-import { registeredCollectionsOfCurrentSignerSelector, investedCollectionsOfCurrentSignerSelector } from "../stores";
-import { Tabs } from 'antd';
-
+import {
+  forSaleCollectionsOfCurrentSignerSelector,
+  soldCollectionsOfCurrentSignerSelector,
+  biddedCollectionsOfCurrentSignerSelector,
+  boughtCollectionsOfCurrentSignerSelector,
+} from "../stores";
+import { Tabs } from "antd";
+import { log } from "../utils/commons";
 
 const DashboardView = ({ ethPrice }) => {
   const address = useSelector(appContextCurrentSignerAddressSelector);
-  const registeredCollection = useSelector(registeredCollectionsOfCurrentSignerSelector);
-  const investedCollection = useSelector(investedCollectionsOfCurrentSignerSelector);
-
+  const forSaleCollections = useSelector(forSaleCollectionsOfCurrentSignerSelector);
+  const soldCollections = useSelector(soldCollectionsOfCurrentSignerSelector);
+  const biddedCollections = useSelector(biddedCollectionsOfCurrentSignerSelector);
+  const boughtCollections = useSelector(boughtCollectionsOfCurrentSignerSelector);
+  log({ forSaleCollections }); //!!!
 
   const { TabPane } = Tabs;
   function callback(key) {
@@ -27,23 +34,20 @@ const DashboardView = ({ ethPrice }) => {
         <HeaderText children="Dashboard" />
       </div>
       <div className="bg-white p-10">
-
-
         {address ? (
-
           <div>
             <Tabs defaultActiveKey="1" onChange={callback}>
               <TabPane tab="For Sale" key="1">
-                <NFTCollectionTradingsList nftCollections={registeredCollection} ethPrice={ethPrice} opMode="creator" />
+                <NFTCollectionTradingsList nftCollections={forSaleCollections} ethPrice={ethPrice} opMode="creator" />
               </TabPane>
               <TabPane tab="Sold" key="2">
-                Content of Tab Pane 2
+                <NFTCollectionTradingsList nftCollections={soldCollections} ethPrice={ethPrice} opMode="creator" />
               </TabPane>
               <TabPane tab="Bids" key="3">
-                <NFTCollectionTradingsList nftCollections={investedCollection} ethPrice={ethPrice} opMode="investor" />
+                <NFTCollectionTradingsList nftCollections={biddedCollections} ethPrice={ethPrice} opMode="investor" />
               </TabPane>
               <TabPane tab="Bought" key="4">
-                Content of Tab Pane 4
+                <NFTCollectionTradingsList nftCollections={boughtCollections} ethPrice={ethPrice} opMode="investor" />
               </TabPane>
             </Tabs>
           </div>

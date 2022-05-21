@@ -4,8 +4,13 @@ import { Table } from "antd";
 import _ from "lodash";
 import { useHistory } from "react-router-dom";
 
-import { DEFAULT_BID_SLIDER_PERCENTAGE, DEFAULT_NFT_COLL_IMAGE_SRC, ROUTE_PATH_REVEFIN_DASHBOARD } from "../constants";
-import { nftSelectedCollectionSelector } from "../stores/reducers/nft";
+import {
+  DEFAULT_BID_SLIDER_PERCENTAGE,
+  DEFAULT_NFT_COLL_IMAGE_SRC,
+  ROUTE_PATH_REVEFIN_DASHBOARD,
+  BID_STATUS_SOLD,
+} from "../constants";
+import { nftSelectedCollectionSelector, tradingCollectionUpdatedAction } from "../stores/reducers/nft";
 import SecondaryButton from "../components/Buttons/SecondaryButton";
 import PercentageSlider from "../components/Inputs/PercentageSlider";
 import HeaderText from "../components/Commons/HeaderText";
@@ -39,8 +44,8 @@ const AcceptBidView = ({
   const history = useHistory();
 
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
-  const selectedBidDetails = useSelector(selectedCollectionFirstBidDetailSelector);
-  const vaultAddress = selectedBidDetails?.vaultAddress || "0x005143293be22AE74a46b51310DB2ab93c0D5410";
+  const selectedBidDetail = useSelector(selectedCollectionFirstBidDetailSelector);
+  const vaultAddress = selectedBidDetail?.vaultAddress || "0x005143293be22AE74a46b51310DB2ab93c0D5410";
   const collectionAddress = selectedNFTCollection?.collectionAddress || "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
 
   const [isOwnershipTransferred, setIsOwnershipTransferred] = useState(false);
@@ -48,29 +53,19 @@ const AcceptBidView = ({
 
   const OWNABLEABI = externalContracts[1].contracts.OWNABLE.abi;
   const RBFVAULTABI = externalContracts[1].contracts.RBFVAULT.abi;
-  /*
-  const rev =
-    (selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue || 0) *
-    (selectedNFTCollection?.fractionForSale || 0);
-  const [bidAmount, setBidAmount] = useState((rev * DEFAULT_BID_SLIDER_PERCENTAGE) / 100);
-  const onSliderValueChange = value => {
-    setBidAmount((value / 100) * rev);
-  };
-  const signerAddress = useSelector(appContextCurrentSignerAddressSelector);
-  const onBidClick = () => {
-    const collectionAddress = selectedNFTCollection?.primary_asset_contracts[0]?.address;
-    const ownerAddress = selectedNFTCollection?.ownerAddress;
-    const fractionForSale = selectedNFTCollection?.fractionForSale * 100 || 0;
-    const investorAddress = signerAddress;
-    const bidPriceInETH = bidAmount.toString();
 
-    tx(
-      writeContracts.RBFVaultFactory.createVault(collectionAddress, ownerAddress, investorAddress, fractionForSale, {
-        value: utils.parseEther(bidPriceInETH),
-      }),
-    );
+  //TODO: reading bidding details from smart contract instead of local data store
+  const onFinishingAcceptingFlow = () => {
+    //Update bidDetail of selectedNFTCollection to SOLD
+    const bidDetail = _.cloneDeep(selectedBidDetail);
+    const updatedBidDetail = _.assign(bidDetail, { status: BID_STATUS_SOLD });
+    log({ updatedBidDetail });
+    //TODO: support multiple bidDetail
+    const coll = _.assign(_.cloneDeep(selectedNFTCollection), { bidDetails: [updatedBidDetail] });
+    dispatch(tradingCollectionUpdatedAction(coll));
+    dispatch(showNotificationAction("Funds transferred successfully"));
+    history.push(ROUTE_PATH_REVEFIN_DASHBOARD);
   };
-  */
 
   const steps = [
     { id: "Step 1", name: "Update payout address", href: "#", status: "complete" },
@@ -197,9 +192,8 @@ const AcceptBidView = ({
               const result = await tx(vaultContract.activate(), update => {
                 log({ update });
                 if (update?.status === "confirmed" || update?.status === 1) {
-                  dispatch(showNotificationAction("Funds transferred successfully"));
                   setIsAcceptFundsTransferred(true);
-                  history.push(ROUTE_PATH_REVEFIN_DASHBOARD);
+                  onFinishingAcceptingFlow();
                 } else {
                   dispatch(showErrorNotificationAction(update?.data?.message));
                 }
