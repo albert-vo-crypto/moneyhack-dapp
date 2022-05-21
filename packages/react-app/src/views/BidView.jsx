@@ -80,7 +80,7 @@ const BidView = ({
 
   return (
     <div className="mt-10">
-      <div className="text-left pb-5 border-b border-gray-200">
+      <div className="text-left pb-2 border-b border-gray-200">
         <HeaderText children="Purchase NFT Collection Royalty Revenue" />
       </div>
       <div>
@@ -107,9 +107,15 @@ const BidView = ({
                 <div>
                   <h3 className="text-lg text-gray-900">TERMS</h3>
                   <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
+
+                    <div className="py-3 flex justify-between text-sm font-medium">
+                      <dt className="text-gray-500">Revenue Period (Months)</dt>
+                      <dd className="text-gray-900">{selectedNFTCollection?.revenuePeriod}</dd>
+                    </div>
+
                     <div className="py-3 flex justify-between text-sm font-medium">
                       <dt className="text-gray-500">Fraction for Sale</dt>
-                      <dd className="text-lg text-gray-900">{selectedNFTCollection?.fractionForSale * 100}</dd>
+                      <dd className="text-lg text-gray-900">{selectedNFTCollection?.fractionForSale * 100 + "%"}</dd>
                     </div>
 
                     <div className="py-3 flex justify-between text-sm font-medium">
@@ -125,9 +131,10 @@ const BidView = ({
                   <div class="grid place-items-center">
                     <div class="my-10 w-full">
                       <PercentageSlider defaultValue={DEFAULT_BID_SLIDER_PERCENTAGE} onChange={onSliderValueChange} />
+                      <p className="font-bold text-lg">{bidAmount.toFixed(2) + " ETH"}</p>
                     </div>
                     <button
-                      className="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                       onClick={() => {
                         onBidClick();
                       }}
@@ -157,12 +164,6 @@ const BidView = ({
                         <dt className="text-gray-500">Ratings</dt>
                         <dd className="text-gray-900">{selectedNFTCollection?.rating}</dd>
                       </div>
-
-                      <div className="py-3 flex justify-between text-sm font-medium">
-                        <dt className="text-gray-500">Revenue Period(Months)</dt>
-                        <dd className="text-gray-900">{selectedNFTCollection?.revenuePeriod}</dd>
-                      </div>
-
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Prior Period Revnue (ETH)</dt>
                         <dd className="text-gray-900">{selectedNFTCollection?.historicalDatas.stats.ethTotalRoyaltyRevenue}</dd>
