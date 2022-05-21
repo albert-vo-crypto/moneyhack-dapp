@@ -52,7 +52,7 @@ import {
 import AcceptBidView from "./views/AcceptBidView";
 import DashboardView from "./views/DashboardView";
 import { log } from "./utils/commons";
-import VaultView from "./view/VaultView";
+import VaultView from "./views/VaultView";
 
 const { ethers } = require("ethers");
 /*
