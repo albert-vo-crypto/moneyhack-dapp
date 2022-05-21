@@ -31,17 +31,17 @@ const AcceptBidView = ({
 }) => {
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
   const selectedBidDetails = useSelector(selectedCollectionFirstBidDetailSelector);
+
+  const OWNABLEABI = externalContracts[1].contracts.OWNABLE.abi;
+  const RBFVAULTABI = externalContracts[1].contracts.RBFVAULT.abi;
+  /*
   const rev =
     (selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue || 0) *
     (selectedNFTCollection?.fractionForSale || 0);
   const [bidAmount, setBidAmount] = useState((rev * DEFAULT_BID_SLIDER_PERCENTAGE) / 100);
-
   const onSliderValueChange = value => {
     setBidAmount((value / 100) * rev);
   };
-
-  const OWNABLEABI = externalContracts[1].contracts.OWNABLE.abi;
-  const RBFVAULTABI = externalContracts[1].contracts.RBFVAULT.abi;
   const signerAddress = useSelector(appContextCurrentSignerAddressSelector);
   const onBidClick = () => {
     const collectionAddress = selectedNFTCollection?.primary_asset_contracts[0]?.address;
@@ -56,6 +56,7 @@ const AcceptBidView = ({
       }),
     );
   };
+  */
 
   const steps = [
     { id: "Step 1", name: "Update payout address", href: "#", status: "complete" },
@@ -86,15 +87,14 @@ const AcceptBidView = ({
               <ol className="list-decimal">
                 <li>Navigate to your collection editor, button below will take you to your collection at opensea.</li>
                 <li>
-                  Under the Creator Earnings heading, adjust the Percentage fee field. You can set a percentage of up
-                  to 10% and you can change this percentage at any time.
+                  Under the Creator Earnings heading, adjust the Percentage fee field. You can set a percentage of up to
+                  10% and you can change this percentage at any time.
                 </li>
                 <li>
-                  Specify this '{selectedBidDetails?.vaultAddress}' payout wallet address which will split
-                  royalty earnings based on agreed terms.
+                  Specify this '{selectedBidDetails?.vaultAddress}' payout wallet address which will split royalty
+                  earnings based on agreed terms.
                 </li>
               </ol>
-
             </div>
             <div className="mt-5">
               <button
