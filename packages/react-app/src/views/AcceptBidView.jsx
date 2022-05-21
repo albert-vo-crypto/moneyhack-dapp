@@ -31,6 +31,8 @@ const AcceptBidView = ({
 }) => {
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
   const selectedBidDetails = useSelector(selectedCollectionFirstBidDetailSelector);
+  const vaultAddress = selectedBidDetails?.vaultAddress || "0x005143293be22AE74a46b51310DB2ab93c0D5410";
+  const collectionAddress = selectedNFTCollection?.collectionAddress || "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
 
   const OWNABLEABI = externalContracts[1].contracts.OWNABLE.abi;
   const RBFVAULTABI = externalContracts[1].contracts.RBFVAULT.abi;
@@ -91,8 +93,8 @@ const AcceptBidView = ({
                   10% and you can change this percentage at any time.
                 </li>
                 <li>
-                  Specify this '{selectedBidDetails?.vaultAddress}' payout wallet address which will split royalty
-                  earnings based on agreed terms.
+                  Specify this '{vaultAddress}' payout wallet address which will split royalty earnings based on agreed
+                  terms.
                 </li>
               </ol>
             </div>
@@ -111,7 +113,7 @@ const AcceptBidView = ({
                 </a>
               </button>
             </div>
-            {/* TODO: const isPayoutAddressUpdated = await isOpenseaCollectionUsingTargetPayoutAddress(selectedNFTCollection, true, selectedBidDetails?.vaultAddress); */}
+            {/* TODO: const isPayoutAddressUpdated = await isOpenseaCollectionUsingTargetPayoutAddress(selectedNFTCollection, true, vaultAddress); */}
             <button
               type="button"
               className="float-right inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
@@ -137,13 +139,9 @@ const AcceptBidView = ({
             type="button"
             className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             onClick={() => {
-              //TODO - pass in the address for the vault&collection in context below
-              const ownableContract = new Contract(
-                "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-                OWNABLEABI,
-                userSigner,
-              );
-              tx(ownableContract.transferOwnership("0x005143293be22AE74a46b51310DB2ab93c0D5410"));
+              //pass in the address for the vault&collection in context below
+              const ownableContract = new Contract(collectionAddress, OWNABLEABI, userSigner);
+              tx(ownableContract.transferOwnership(vaultAddress));
             }}
           >
             Transfer ownership
@@ -171,8 +169,8 @@ const AcceptBidView = ({
             type="button"
             className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             onClick={() => {
-              //TODO - pass in the address for the vault in context below
-              const vaultContract = new Contract("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", RBFVAULTABI, userSigner);
+              //pass in the address for the vault in context below
+              const vaultContract = new Contract(vaultAddress, RBFVAULTABI, userSigner);
               tx(vaultContract.activate());
             }}
           >
