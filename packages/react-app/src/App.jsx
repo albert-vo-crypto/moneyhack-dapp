@@ -47,10 +47,12 @@ import {
   ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS,
   ROUTE_PATH_REVEFIN_DASHBOARD,
   ROUTE_PATH_BID_ACCEPT,
+  ROUTE_PATH_REVEFIN_VAULT,
 } from "./constants";
 import AcceptBidView from "./views/AcceptBidView";
 import DashboardView from "./views/DashboardView";
 import { log } from "./utils/commons";
+import VaultView from "./views/VaultView";
 
 const { ethers } = require("ethers");
 /*
@@ -375,6 +377,18 @@ function App(props) {
           </Route>
           <Route exact path={ROUTE_PATH_REVEFIN_DASHBOARD}>
             <DashboardView ethPrice={price} />
+          </Route>
+          <Route exact path={ROUTE_PATH_REVEFIN_VAULT}>
+            <VaultView
+              ethPrice={price}
+              address={address}
+              userSigner={userSigner}
+              localProvider={localProvider}
+              yourLocalBalance={yourLocalBalance}
+              tx={tx}
+              writeContracts={writeContracts}
+              readContracts={readContracts}
+            />
           </Route>
           <Route exact path="/debug">
             {/*
