@@ -36,6 +36,9 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      render: (name, nftCollection) => {
+        return <a href={nftCollection.url} class="no-underline hover:underline font-bold text-lg">{name}</a>
+      },
     },
     {
       title: "Rating",
@@ -63,9 +66,9 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
       },
       sorter:
         location?.pathname === ROUTE_PATH_EXPLORE_REVENUE_STREAMS ||
-        location?.pathname === ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS
+          location?.pathname === ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS
           ? (a, b) =>
-              a.historicalDatas?.stats?.ethTotalRoyaltyRevenue - b.historicalDatas?.stats?.ethTotalRoyaltyRevenue
+            a.historicalDatas?.stats?.ethTotalRoyaltyRevenue - b.historicalDatas?.stats?.ethTotalRoyaltyRevenue
           : null,
     },
     {
@@ -115,10 +118,6 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
               }
             }, // click row
           };
-        }}
-        expandable={{
-          expandedRowRender: record => <NFTImagesBar nftCollection={record} />,
-          rowExpandable: record => true,
         }}
       />
     </div>

@@ -44,6 +44,9 @@ const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator
       title: "Name",
       dataIndex: "name",
       key: "name",
+      render: (name, nftCollection) => {
+        return <a href={nftCollection.url} class="no-underline hover:underline font-bold text-lg">{name}</a>
+      },
     },
     {
       title: "Prior Period Revnue (ETH)",
@@ -105,7 +108,7 @@ const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator
       },
     },
     {
-      title: "Inventor",
+      title: "Investor",
       dataIndex: "bidDetails",
       key: "bidDetails",
       render: (bidDetails, nftCollection) => {
@@ -164,11 +167,7 @@ const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator
               }
             }, // click row
           };
-        }}
-        expandable={{
-          expandedRowRender: record => <NFTImagesBar nftCollection={record} />,
-          rowExpandable: record => true,
-        }}
+        }}       
       />
     </div>
   );
