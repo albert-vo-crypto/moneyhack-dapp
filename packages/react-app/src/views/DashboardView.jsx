@@ -40,13 +40,23 @@ const DashboardView = ({ ethPrice }) => {
                 <NFTCollectionTradingsList nftCollections={forSaleCollections} ethPrice={ethPrice} opMode="creator" />
               </TabPane>
               <TabPane tab="Sold" key="2">
-                <NFTCollectionTradingsList nftCollections={soldCollections} ethPrice={ethPrice} opMode="creator" />
+                <NFTCollectionTradingsList
+                  nftCollections={soldCollections}
+                  ethPrice={ethPrice}
+                  opMode="creator"
+                  shouldHideAction={true}
+                />
               </TabPane>
               <TabPane tab="Bids" key="3">
                 <NFTCollectionTradingsList nftCollections={biddedCollections} ethPrice={ethPrice} opMode="investor" />
               </TabPane>
               <TabPane tab="Bought" key="4">
-                <NFTCollectionTradingsList nftCollections={boughtCollections} ethPrice={ethPrice} opMode="investor" />
+                <NFTCollectionTradingsList
+                  nftCollections={boughtCollections}
+                  ethPrice={ethPrice}
+                  opMode="investor"
+                  shouldHideAction={true}
+                />
               </TabPane>
             </Tabs>
           </div>
