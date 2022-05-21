@@ -155,7 +155,7 @@ const BidView = ({
                     </div>
 
                     <div className="py-3 flex justify-between text-sm font-medium">
-                      <dt className="text-gray-500">Bid Price</dt>
+                      <dt className="text-gray-500">Bid Price (${ethPrice}/ETH)</dt>
                       <dd className="text-lg text-gray-900">
                         {"$" + getFormatedCurrencyValue(bidAmount * ethPrice) + " USD"}
                       </dd>
