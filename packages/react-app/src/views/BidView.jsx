@@ -165,17 +165,17 @@ const BidView = ({
                       </div>
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Prior Period Revnue (ETH)</dt>
-                        <dd className="text-gray-900">{selectedNFTCollection?.historicalDatas.stats.ethTotalRoyaltyRevenue}</dd>
+                        <dd className="text-gray-900">{selectedNFTCollection?.historicalDatas?.stats.ethTotalRoyaltyRevenue}</dd>
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Floor Volume (ETH)</dt>
-                        <dd className="text-gray-900">{selectedNFTCollection?.historicalDatas.stats.ethFloorVolume}</dd>
+                        <dd className="text-gray-900">{selectedNFTCollection?.historicalDatas?.stats.ethFloorVolume}</dd>
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Coef. of Variation</dt>
-                        <dd className="text-gray-900">{selectedNFTCollection?.historicalDatas.stats.ethCoefofVariationRoyaltyRevenue}</dd>
+                        <dd className="text-gray-900">{selectedNFTCollection?.historicalDatas?.stats.ethCoefofVariationRoyaltyRevenue}</dd>
                       </div>
                     </dl>
                   </div>
