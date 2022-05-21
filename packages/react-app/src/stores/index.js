@@ -71,9 +71,9 @@ export const forSaleCollectionsOfCurrentSignerSelector = createSelector(
     return _.filter(colls, coll => {
       if (coll?.bidDetails && _.size(coll?.bidDetails) > 0) {
         const bidDetail = coll?.bidDetails[0];
-        return bidDetail?.status === BID_STATUS_PENDING_ACCEPT;
+        return bidDetail?.status !== BID_STATUS_SOLD;
       }
-      return false;
+      return true;
     });
   },
 );

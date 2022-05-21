@@ -14,6 +14,7 @@ import {
   boughtCollectionsOfCurrentSignerSelector,
 } from "../stores";
 import { Tabs } from "antd";
+import { log } from "../utils/commons";
 
 const DashboardView = ({ ethPrice }) => {
   const address = useSelector(appContextCurrentSignerAddressSelector);
@@ -21,6 +22,7 @@ const DashboardView = ({ ethPrice }) => {
   const soldCollections = useSelector(soldCollectionsOfCurrentSignerSelector);
   const biddedCollections = useSelector(biddedCollectionsOfCurrentSignerSelector);
   const boughtCollections = useSelector(boughtCollectionsOfCurrentSignerSelector);
+  log({ forSaleCollections }); //!!!
 
   const { TabPane } = Tabs;
   function callback(key) {
