@@ -18,7 +18,7 @@ import {
   showErrorNotificationAction,
   showNotificationAction,
 } from "../stores/reducers/appContext";
-import { selectedTradingCollectionSelector } from "../stores";
+import { selectedTradingCollectionSelector, selectedCollectionFirstBidDetailSelector } from "../stores";
 import { tradingCollectionUpdatedAction } from "../stores/reducers/nft";
 import { utils } from "ethers";
 import { log } from "../utils/commons";
@@ -40,6 +40,8 @@ const BidView = ({
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
   const [isWaitForVaultCreation, setIsWaitForVaultCreation] = useState(false);
   const RBFVAULTABI = externalContracts[1].contracts.RBFVAULT.abi;
+  const selectedBidDetail = useSelector(selectedCollectionFirstBidDetailSelector);
+  const vaultAddress = selectedBidDetail?.vaultAddress;
 
   const scEvents = useEventListener(readContracts, "RBFVaultFactory", "RBFVaultCreated", localProvider, 1);
   useEffect(() => {
@@ -115,9 +117,7 @@ const BidView = ({
 
   return (
     <div className="mt-10">
-      <div className="pb-2 border-b border-gray-200">
-
-      </div>
+      <div className="pb-2 border-b border-gray-200"></div>
       <div>
         <div className="bg-gray-100 p-10 shadow">
           <div className="flex justify-between mb-10">
@@ -137,7 +137,6 @@ const BidView = ({
 
           <div>
             <dl className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-3">
-
               <div className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
                 <dt className="text-sm font-medium text-gray-500 truncate">Total Revenue Recieved</dt>
                 <dd className="mt-1 text-3xl font-semibold text-gray-900">100 ETH</dd>
@@ -157,7 +156,6 @@ const BidView = ({
             <h3 className="mt-10 text-lg leading-6 font-medium text-gray-900 text-left">Overview</h3>
             <div className="mt-4 lg:mt-0 lg:row-span-3">
               <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
-
                 <div className="py-3 flex justify-between text-sm font-medium">
                   <dt className="text-gray-500">Revenue Period left</dt>
                   <dd className="text-gray-900">12 Months</dd>
@@ -170,8 +168,6 @@ const BidView = ({
               </dl>
             </div>
           </div>
-
-
 
           <div>
             <h3 className="mt-10 text-lg leading-6 font-medium text-gray-900 text-left">Manage</h3>
@@ -188,7 +184,6 @@ const BidView = ({
             >
               Get Refund
             </button>
-
 
             <button
               type="button"
