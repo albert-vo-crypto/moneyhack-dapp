@@ -1,5 +1,7 @@
 import _ from "lodash";
+
 import { log } from "../utils/commons";
+import deployedContracts from "../contracts/hardhat_contracts.json";
 
 import {
   DEFAULT_NFT_COLL_IMAGE_SRC,
@@ -32,6 +34,22 @@ export const getBidableFromRevefinCollection = (coll, fractionForSale, signerAdd
   const listedAt = Date.now();
   const r = _.random(0, 2);
   const rating = r === 0 ? "A+" : r === 1 ? "A" : "B";
+  if (coll?.name === "Simple & Healthy") {
+    //mock this Opensea testnet collection with the local one
+    const localCollectionAddress = deployedContracts["31337"]?.localhost?.contracts?.SimpleAndHealthy?.address;
+    const coll0 = _.cloneDeep(coll);
+    const outputColl = _.assign(coll0, {
+      isActive: true,
+      fractionForSale,
+      listedAt,
+      collectionAddress: localCollectionAddress,
+      signerAddress: signerAddress || "0x01",
+      revenuePeriod: 12,
+      rating,
+    });
+    log({ localCollectionAddress, coll0, outputColl });
+    return outputColl;
+  }
   return _.assign(_.cloneDeep(coll), {
     isActive: true,
     fractionForSale,

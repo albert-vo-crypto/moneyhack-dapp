@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Table } from "antd";
 import _ from "lodash";
+import { useHistory } from "react-router-dom";
 
-import { DEFAULT_BID_SLIDER_PERCENTAGE, DEFAULT_NFT_COLL_IMAGE_SRC } from "../constants";
+import { DEFAULT_BID_SLIDER_PERCENTAGE, DEFAULT_NFT_COLL_IMAGE_SRC, ROUTE_PATH_REVEFIN_DASHBOARD } from "../constants";
 import { nftSelectedCollectionSelector } from "../stores/reducers/nft";
 import SecondaryButton from "../components/Buttons/SecondaryButton";
 import PercentageSlider from "../components/Inputs/PercentageSlider";
@@ -11,13 +12,18 @@ import HeaderText from "../components/Commons/HeaderText";
 import { getFormatedCurrencyValue } from "../utils/commons";
 import NFTCollectionDetailsList from "../components/NFT/NFTCollectionDetailsList";
 import NFTInvestmentDetail from "../components/NFT/NFTInvestmentDetail";
-import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appContext";
 import { utils } from "ethers";
 import StepWizard from "react-step-wizard";
 import externalContracts from "../contracts/external_contracts";
 import { Contract } from "@ethersproject/contracts";
 import { isOpenseaCollectionUsingTargetPayoutAddress } from "../utils/openseahelper";
 import { selectedCollectionFirstBidDetailSelector } from "../stores";
+import { log } from "../utils/commons";
+import {
+  appContextCurrentSignerAddressSelector,
+  showErrorNotificationAction,
+  showNotificationAction,
+} from "../stores/reducers/appContext";
 
 const AcceptBidView = ({
   ethPrice,
@@ -29,19 +35,27 @@ const AcceptBidView = ({
   writeContracts,
   userSigner,
 }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
   const selectedBidDetails = useSelector(selectedCollectionFirstBidDetailSelector);
+  const vaultAddress = selectedBidDetails?.vaultAddress || "0x005143293be22AE74a46b51310DB2ab93c0D5410";
+  const collectionAddress = selectedNFTCollection?.collectionAddress || "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
+
+  const [isOwnershipTransferred, setIsOwnershipTransferred] = useState(false);
+  const [isAcceptFundsTransferred, setIsAcceptFundsTransferred] = useState(false);
+
+  const OWNABLEABI = externalContracts[1].contracts.OWNABLE.abi;
+  const RBFVAULTABI = externalContracts[1].contracts.RBFVAULT.abi;
+  /*
   const rev =
     (selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue || 0) *
     (selectedNFTCollection?.fractionForSale || 0);
   const [bidAmount, setBidAmount] = useState((rev * DEFAULT_BID_SLIDER_PERCENTAGE) / 100);
-
   const onSliderValueChange = value => {
     setBidAmount((value / 100) * rev);
   };
-
-  const OWNABLEABI = externalContracts[1].contracts.OWNABLE.abi;
-  const RBFVAULTABI = externalContracts[1].contracts.RBFVAULT.abi;
   const signerAddress = useSelector(appContextCurrentSignerAddressSelector);
   const onBidClick = () => {
     const collectionAddress = selectedNFTCollection?.primary_asset_contracts[0]?.address;
@@ -56,6 +70,7 @@ const AcceptBidView = ({
       }),
     );
   };
+  */
 
   const steps = [
     { id: "Step 1", name: "Update payout address", href: "#", status: "complete" },
@@ -86,15 +101,14 @@ const AcceptBidView = ({
               <ol className="list-decimal">
                 <li>Navigate to your collection editor, button below will take you to your collection at opensea.</li>
                 <li>
-                  Under the Creator Earnings heading, adjust the Percentage fee field. You can set a percentage of up
-                  to 10% and you can change this percentage at any time.
+                  Under the Creator Earnings heading, adjust the Percentage fee field. You can set a percentage of up to
+                  10% and you can change this percentage at any time.
                 </li>
                 <li>
-                  Specify this '{selectedBidDetails?.vaultAddress}' payout wallet address which will split
-                  royalty earnings based on agreed terms.
+                  Specify this '{vaultAddress}' payout wallet address which will split royalty earnings based on agreed
+                  terms.
                 </li>
               </ol>
-
             </div>
             <div className="mt-5">
               <button
@@ -111,7 +125,7 @@ const AcceptBidView = ({
                 </a>
               </button>
             </div>
-            {/* TODO: const isPayoutAddressUpdated = await isOpenseaCollectionUsingTargetPayoutAddress(selectedNFTCollection, true, selectedBidDetails?.vaultAddress); */}
+            {/* TODO: const isPayoutAddressUpdated = await isOpenseaCollectionUsingTargetPayoutAddress(selectedNFTCollection, true, vaultAddress); */}
             <button
               type="button"
               className="float-right inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
@@ -136,14 +150,20 @@ const AcceptBidView = ({
           <button
             type="button"
             className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            onClick={() => {
-              //TODO - pass in the address for the vault&collection in context below
-              const ownableContract = new Contract(
-                selectedBidDetails?.collectionAddress,
-                OWNABLEABI,
-                userSigner,
-              );
-              tx(ownableContract.transferOwnership(selectedBidDetails?.vaultAddress));
+            onClick={async () => {
+              //pass in the address for the vault&collection in context below
+              const ownableContract = new Contract(collectionAddress, OWNABLEABI, userSigner);
+              const result = await tx(ownableContract.transferOwnership(vaultAddress), update => {
+                log({ update });
+                if (update?.status === "confirmed" || update?.status === 1) {
+                  dispatch(showNotificationAction("Collection ownership transferred successfully"));
+                  setIsOwnershipTransferred(true);
+                  props.nextStep();
+                } else {
+                  dispatch(showErrorNotificationAction(update?.data?.message));
+                }
+              });
+              log({ result });
             }}
           >
             Transfer ownership
@@ -153,6 +173,7 @@ const AcceptBidView = ({
             type="button"
             className="float-right inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
             onClick={props.nextStep}
+            disabled={!isOwnershipTransferred}
           >
             Next
           </button>
@@ -170,9 +191,20 @@ const AcceptBidView = ({
           <button
             type="button"
             className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            onClick={() => {
-              const vaultContract = new Contract(selectedBidDetails?.vaultAddress, RBFVAULTABI, userSigner);
-              tx(vaultContract.activate());
+            onClick={async () => {
+              //pass in the address for the vault in context below
+              const vaultContract = new Contract(vaultAddress, RBFVAULTABI, userSigner);
+              const result = await tx(vaultContract.activate(), update => {
+                log({ update });
+                if (update?.status === "confirmed" || update?.status === 1) {
+                  dispatch(showNotificationAction("Funds transferred successfully"));
+                  setIsAcceptFundsTransferred(true);
+                  history.push(ROUTE_PATH_REVEFIN_DASHBOARD);
+                } else {
+                  dispatch(showErrorNotificationAction(update?.data?.message));
+                }
+              });
+              log({ result });
             }}
           >
             Accept fund
@@ -182,6 +214,7 @@ const AcceptBidView = ({
             type="button"
             className="float-right inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
             onClick={props.nextStep}
+            disabled={!isAcceptFundsTransferred}
           >
             Finish
           </button>

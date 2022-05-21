@@ -65,7 +65,8 @@ const BidView = ({
   const signerAddress = useSelector(appContextCurrentSignerAddressSelector);
 
   const onBidClick = async () => {
-    const collectionAddress = selectedNFTCollection?.primary_asset_contracts[0]?.address;
+    const collectionAddress =
+      selectedNFTCollection?.collectionAddress || selectedNFTCollection?.primary_asset_contracts[0]?.address;
     const ownerAddress = selectedNFTCollection?.ownerAddress;
     const fractionForSale = selectedNFTCollection?.fractionForSale * 100 || 0;
     const investorAddress = signerAddress;
@@ -92,7 +93,8 @@ const BidView = ({
   const onSuccessfulBidTransaction = vaultAddress => {
     //Add bidDetail to selectedNFTCollection
     const bidDetail = {
-      collectionAddress: selectedNFTCollection?.primary_asset_contracts[0]?.address,
+      collectionAddress:
+        selectedNFTCollection?.collectionAddress || selectedNFTCollection?.primary_asset_contracts[0]?.address,
       fractionForSale: selectedNFTCollection?.fractionForSale || 0,
       investorAddress: signerAddress,
       bidPriceInETH: bidAmount,
