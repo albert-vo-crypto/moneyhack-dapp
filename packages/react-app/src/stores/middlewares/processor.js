@@ -22,6 +22,7 @@ import {
 import { TEST_CREATOR_NFT_COLL_OWNER_ADDRESS, DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS } from "../../constants";
 import { log } from "../../utils/commons";
 import { covalentGetCollectionsWithHistorialDatas } from "../../utils/covalenthelper";
+import mockCollectionHistoricalDatas from "../../models/mock_collection_historical_datas_01.json";
 
 const processor =
   ({ dispatch, getState }) =>
@@ -79,7 +80,11 @@ const reloadCreatorNFTCollections = async (dispatch, getState, ownerAddress) => 
   const openseaCollsThis = await openseaGetCollections(ownerAddress);
 
   const bidableCollections = getState()?.nft?.bidableCollections;
-  const mockHistoricalDatas = bidableCollections ? bidableCollections[0]?.historicalDatas : null;
+  const mockHistoricalDatas = mockCollectionHistoricalDatas
+    ? mockCollectionHistoricalDatas
+    : bidableCollections
+    ? bidableCollections[0]?.historicalDatas
+    : null;
 
   const openseaColls = [...openseaCollsTest, ...openseaCollsDemo, ...openseaCollsThis];
   const revefinColls = openseaColls.map(coll => {
