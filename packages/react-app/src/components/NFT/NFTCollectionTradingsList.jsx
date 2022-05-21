@@ -18,7 +18,7 @@ import { getFormatedCurrencyValue } from "../../utils/commons";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import HighlightButton from "../Buttons/HighlightButton";
 
-const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator" }) => {
+const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator", shouldHideAction = false }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -137,7 +137,7 @@ const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator
       dataIndex: "action",
       key: "action",
       render: (value, nftCollection) => {
-        if (nftCollection && nftCollection.bidDetails && nftCollection.bidDetails.length > 0) {
+        if (nftCollection && nftCollection.bidDetails && nftCollection.bidDetails.length > 0 && !shouldHideAction) {
           return opMode === "creator" ? (
             <SecondaryButton
               onClick={() => {

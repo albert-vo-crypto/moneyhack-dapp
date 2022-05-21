@@ -10,6 +10,7 @@ import {
   DEFAULT_NFT_COLL_EST_ANN_REV,
   DEFAULT_NFT_COLL_REV_FRACTION_FOR_SALE,
   DEMO_NFT_COLL_OWNER_ADDRESS,
+  LOCAL_CREATOR_NFT_COLL_OWNER_ADDRESS,
 } from "../constants";
 
 export const getRevefinFromOpenseaCollection = coll => {
@@ -43,6 +44,7 @@ export const getBidableFromRevefinCollection = (coll, fractionForSale, signerAdd
       fractionForSale,
       listedAt,
       collectionAddress: localCollectionAddress,
+      ownerAddress: LOCAL_CREATOR_NFT_COLL_OWNER_ADDRESS,
       signerAddress: signerAddress || "0x01",
       revenuePeriod: 12,
       rating,
