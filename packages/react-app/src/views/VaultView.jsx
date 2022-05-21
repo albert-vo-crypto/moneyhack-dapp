@@ -24,7 +24,7 @@ import { utils } from "ethers";
 import { log } from "../utils/commons";
 import externalContracts from "../contracts/external_contracts";
 
-const VaultView = ({
+const BidView = ({
   ethPrice,
   address,
   localProvider,
@@ -119,7 +119,7 @@ const VaultView = ({
 
       </div>
       <div>
-        <div className="bg-gray-100 p-10">
+        <div className="bg-gray-100 p-10 shadow">
           <div className="flex justify-between mb-10">
             <div className="text-3xl text-left font-extrabold text-gray-900 ">Vault - {selectedNFTCollection.name}</div>
             <button
@@ -155,6 +155,53 @@ const VaultView = ({
           </div>
           <div>
             <h3 className="mt-10 text-lg leading-6 font-medium text-gray-900 text-left">Overview</h3>
+            <div className="mt-4 lg:mt-0 lg:row-span-3">
+              <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
+
+                <div className="py-3 flex justify-between text-sm font-medium">
+                  <dt className="text-gray-500">Revenue Period left</dt>
+                  <dd className="text-gray-900">12 Months</dd>
+                </div>
+
+                <div className="py-3 flex justify-between text-sm font-medium">
+                  <dt className="text-gray-500">Revenue % share</dt>
+                  <dd className="text-gray-900">50</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+
+
+          <div>
+            <h3 className="mt-10 text-lg leading-6 font-medium text-gray-900 text-left">Manage</h3>
+
+            <button
+              type="button"
+              className="mt-5 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-gray-700 bg-white hover:bg-gray-50  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              onClick={() => {
+                //todo - wire up vault address
+                // TODO - only available to investor and vault is timedout
+                const vaultContract = new Contract("vaultAddress", RBFVAULTABI, userSigner);
+                tx(vaultContract.activate());
+              }}
+            >
+              Get Refund
+            </button>
+
+
+            <button
+              type="button"
+              className="mt-5 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-gray-700 bg-white hover:bg-gray-50  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              onClick={() => {
+                //todo - wire up vault address
+                // TODO - only available to origianl collection owner, after the terms end
+                const vaultContract = new Contract("vaultAddress", RBFVAULTABI, userSigner);
+                tx(vaultContract.activate());
+              }}
+            >
+              Get Ownership back
+            </button>
           </div>
         </div>
       </div>
@@ -162,4 +209,4 @@ const VaultView = ({
   );
 };
 
-export default VaultView;
+export default BidView;
