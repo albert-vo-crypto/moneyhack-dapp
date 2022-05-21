@@ -4,7 +4,7 @@ import { Table } from "antd";
 import _ from "lodash";
 import { useHistory } from "react-router-dom";
 
-import { DEFAULT_BID_SLIDER_PERCENTAGE, DEFAULT_NFT_COLL_IMAGE_SRC } from "../constants";
+import { DEFAULT_BID_SLIDER_PERCENTAGE, DEFAULT_NFT_COLL_IMAGE_SRC, ROUTE_PATH_REVEFIN_DASHBOARD } from "../constants";
 import { nftSelectedCollectionSelector } from "../stores/reducers/nft";
 import SecondaryButton from "../components/Buttons/SecondaryButton";
 import PercentageSlider from "../components/Inputs/PercentageSlider";
@@ -44,6 +44,7 @@ const AcceptBidView = ({
   const collectionAddress = selectedNFTCollection?.collectionAddress || "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
 
   const [isOwnershipTransferred, setIsOwnershipTransferred] = useState(false);
+  const [isAcceptFundsTransferred, setIsAcceptFundsTransferred] = useState(false);
 
   const OWNABLEABI = externalContracts[1].contracts.OWNABLE.abi;
   const RBFVAULTABI = externalContracts[1].contracts.RBFVAULT.abi;
@@ -190,10 +191,20 @@ const AcceptBidView = ({
           <button
             type="button"
             className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            onClick={() => {
+            onClick={async () => {
               //pass in the address for the vault in context below
               const vaultContract = new Contract(vaultAddress, RBFVAULTABI, userSigner);
-              tx(vaultContract.activate());
+              const result = await tx(vaultContract.activate(), update => {
+                log({ update });
+                if (update?.status === "confirmed" || update?.status === 1) {
+                  dispatch(showNotificationAction("Funds transferred successfully"));
+                  setIsAcceptFundsTransferred(true);
+                  history.push(ROUTE_PATH_REVEFIN_DASHBOARD);
+                } else {
+                  dispatch(showErrorNotificationAction(update?.data?.message));
+                }
+              });
+              log({ result });
             }}
           >
             Accept fund
@@ -203,6 +214,7 @@ const AcceptBidView = ({
             type="button"
             className="float-right inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
             onClick={props.nextStep}
+            disabled={!isAcceptFundsTransferred}
           >
             Finish
           </button>
