@@ -42,7 +42,7 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
       dataIndex: "rating",
       key: "rating",
       render: (rating, nftCollection) => {
-        return <h3 class="text-center">B</h3>;
+        return <h3 class="text-center">{rating || "B"}</h3>;
       },
     },
     {
@@ -50,7 +50,7 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
       dataIndex: "revenuePeriod",
       key: "revenuePeriod",
       render: (revenuePeriod, nftCollection) => {
-        return <h3>12</h3>;
+        return <h3>{revenuePeriod || 12}</h3>;
       },
     },
     {

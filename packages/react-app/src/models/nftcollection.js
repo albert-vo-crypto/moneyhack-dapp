@@ -30,12 +30,16 @@ export const getRevefinFromOpenseaCollection = coll => {
 
 export const getBidableFromRevefinCollection = (coll, fractionForSale, signerAddress) => {
   const listedAt = Date.now();
+  const r = _.random(0, 2);
+  const rating = r === 0 ? "A+" : r === 1 ? "A" : "B";
   return _.assign(_.cloneDeep(coll), {
     isActive: true,
     fractionForSale,
     listedAt,
     collectionAddress: _.size(coll?.primary_asset_contracts) > 0 ? coll.primary_asset_contracts[0]?.address : "0x01",
     signerAddress: signerAddress || "0x01",
+    revenuePeriod: 12,
+    rating,
   });
 };
 
