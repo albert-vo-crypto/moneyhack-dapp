@@ -28,13 +28,14 @@ export const getRevefinFromOpenseaCollection = coll => {
   });
 };
 
-export const getBidableFromRevefinCollection = (coll, fractionForSale) => {
+export const getBidableFromRevefinCollection = (coll, fractionForSale, signerAddress) => {
   const listedAt = Date.now();
   return _.assign(_.cloneDeep(coll), {
     isActive: true,
     fractionForSale,
     listedAt,
     collectionAddress: _.size(coll?.primary_asset_contracts) > 0 ? coll.primary_asset_contracts[0]?.address : "0x01",
+    signerAddress: signerAddress || "0x01",
   });
 };
 
