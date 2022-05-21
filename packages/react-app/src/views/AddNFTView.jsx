@@ -40,7 +40,7 @@ const ListNFTView = () => {
     <div className="mt-10">
       {signerAddress && selectedNFTCollection ? (
         <div>
-          <div className="text-left pb-5 border-b border-gray-200">
+          <div className="text-left pb-2 border-b border-gray-200">
             <HeaderText children="Turn Future Revenue To Capital Now" />
           </div>
           <div className="bg-white">
@@ -76,23 +76,37 @@ const ListNFTView = () => {
 
                 {/* Terms */}
                 <div className="mt-4 lg:mt-0 lg:row-span-3">
-                  <h2 className="sr-only">Product information</h2>
+                  <h3 className="text-lg text-gray-900">TERMS</h3>
+                  <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
 
+                    <div className="py-3 flex justify-between text-sm font-medium">
+                      <dt className="text-gray-500">Revenue Period (Months)</dt>
+                      <dd className="text-gray-900">{selectedNFTCollection?.revenuePeriod || 12}</dd>
+                    </div>
+
+                    <div className="py-3 flex justify-between text-sm font-medium">
+                      <dt className="text-gray-500">Revenue % for sale</dt>
+                      <dd className="text-gray-900">{percentageForSale + "%"}</dd>
+                    </div>
+                  </dl>
                   <div>
                     <div class="grid place-items-center">
-                      <div class="my-10">
+                      <div class="mt-5">
                         <p className="text-lg">Adjust % of royalty for sale</p>
-                        <PercentageSlider
-                          min={1}
-                          max={100}
-                          defaultValue={DEFAULT_LIST_SLIDER_PERCENTAGE}
-                          onChange={onSliderValueChange}
-                        />
-                        <p className="font-bold text-lg">{percentageForSale + "%"}</p>
+                        <div className="w-full">
+                          <PercentageSlider
+                            min={1}
+                            max={100}
+                            defaultValue={DEFAULT_LIST_SLIDER_PERCENTAGE}
+                            onChange={onSliderValueChange}
+                          />
+                          <p className="font-bold text-lg">{percentageForSale + "%"}</p>
+                        </div>
+
                       </div>
 
                       <button
-                        className="mt-10 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         onClick={() => {
                           addBidableCollection(selectedNFTCollection, percentageForSale / 100.0);
                           //TODO: on successful transaction
