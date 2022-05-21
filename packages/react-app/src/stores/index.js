@@ -68,3 +68,7 @@ export const investedCollectionsOfCurrentSignerSelector = createSelector(
     return _.filter(tradingCollections, coll => _.some(coll?.bidDetails, { investorAddress: signerAddress }));
   },
 );
+
+export const selectedCollectionFirstBidDetailSelector = createSelector(nftSelectedCollectionSelector, coll => {
+  return coll?.bidDetails && _.size(coll?.bidDetails) > 0 ? coll?.bidDetails[0] : null;
+});

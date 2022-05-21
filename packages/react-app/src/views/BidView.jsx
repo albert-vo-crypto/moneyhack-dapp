@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Table } from "antd";
 import _ from "lodash";
 import { useHistory } from "react-router-dom";
+import { useEventListener } from "eth-hooks/events/useEventListener";
 
 import { DEFAULT_BID_SLIDER_PERCENTAGE, BID_STATUS_PENDING_ACCEPT, ROUTE_PATH_REVEFIN_DASHBOARD } from "../constants";
 import { nftSelectedCollectionSelector } from "../stores/reducers/nft";
@@ -12,7 +13,11 @@ import HeaderText from "../components/Commons/HeaderText";
 import { getFormatedCurrencyValue } from "../utils/commons";
 import NFTCollectionDetailsList from "../components/NFT/NFTCollectionDetailsList";
 import NFTInvestmentDetail from "../components/NFT/NFTInvestmentDetail";
-import { appContextCurrentSignerAddressSelector, showErrorNotificationAction } from "../stores/reducers/appContext";
+import {
+  appContextCurrentSignerAddressSelector,
+  showErrorNotificationAction,
+  showNotificationAction,
+} from "../stores/reducers/appContext";
 import { selectedTradingCollectionSelector } from "../stores";
 import { tradingCollectionUpdatedAction } from "../stores/reducers/nft";
 import { utils } from "ethers";
@@ -27,10 +32,24 @@ const BidView = ({
   readContracts,
   writeContracts,
   userSigner,
+  mainnetProvider,
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
+
+  const scEvents = useEventListener(readContracts, "RBFVaultFactory", "RBFVaultCreated", localProvider, 1);
+  useEffect(() => {
+    log({ scEvents });
+    if (scEvents && scEvents.length > 0) {
+      const scEvent = scEvents[0];
+      if (scEvent?.args?.vaultAddress) {
+        onSuccessfulBidTransaction(scEvent?.args?.vaultAddress);
+      } else {
+        dispatch(showErrorNotificationAction("Missing vaultAddress"));
+      }
+    }
+  }, [scEvents]);
 
   const rev =
     (selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue || 0) *
@@ -57,7 +76,6 @@ const BidView = ({
       update => {
         log({ update });
         if (update?.status === "confirmed" || update?.status === 1) {
-          onSuccessfulBidTransaction();
         } else {
           dispatch(showErrorNotificationAction(update?.data?.message));
         }
@@ -67,7 +85,7 @@ const BidView = ({
   };
 
   //TODO: reading bidding details from smart contract instead of local data store
-  const onSuccessfulBidTransaction = () => {
+  const onSuccessfulBidTransaction = vaultAddress => {
     //Add bidDetail to selectedNFTCollection
     const bidDetail = {
       collectionAddress: selectedNFTCollection?.primary_asset_contracts[0]?.address,
@@ -75,7 +93,9 @@ const BidView = ({
       investorAddress: signerAddress,
       bidPriceInETH: bidAmount,
       status: BID_STATUS_PENDING_ACCEPT,
+      vaultAddress,
     };
+    log({ bidDetail });
     const coll = _.assign(
       _.cloneDeep(selectedNFTCollection),
       selectedNFTCollection?.bidDetails
@@ -83,6 +103,7 @@ const BidView = ({
         : { bidDetails: [bidDetail] },
     );
     dispatch(tradingCollectionUpdatedAction(coll));
+    dispatch(showNotificationAction("Bid placed successfully"));
     history.push(ROUTE_PATH_REVEFIN_DASHBOARD);
   };
 
@@ -174,19 +195,21 @@ const BidView = ({
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Prior Period Revnue (ETH)</dt>
                         <dd className="text-gray-900">
-                          {selectedNFTCollection?.historicalDatas.stats.ethTotalRoyaltyRevenue}
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue}
                         </dd>
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Floor Volume (ETH)</dt>
-                        <dd className="text-gray-900">{selectedNFTCollection?.historicalDatas.stats.ethFloorVolume}</dd>
+                        <dd className="text-gray-900">
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethFloorVolume}
+                        </dd>
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Coef. of Variation</dt>
                         <dd className="text-gray-900">
-                          {selectedNFTCollection?.historicalDatas.stats.ethCoefofVariationRoyaltyRevenue}
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethCoefofVariationRoyaltyRevenue}
                         </dd>
                       </div>
                     </dl>

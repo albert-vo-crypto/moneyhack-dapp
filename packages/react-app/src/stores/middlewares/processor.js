@@ -8,7 +8,11 @@ import {
   addBidableCollectionAction,
   tradingCollectionUpdatedAction,
 } from "../reducers/nft";
-import { currentSignerAddressUpdatedAction, showErrorNotificationAction } from "../reducers/appContext";
+import {
+  currentSignerAddressUpdatedAction,
+  showErrorNotificationAction,
+  showNotificationAction,
+} from "../reducers/appContext";
 import { openseaGetCollections, openseaGetCollectionsWithAddress } from "../../utils/openseahelper";
 import {
   getRevefinFromOpenseaCollection,
@@ -56,6 +60,8 @@ const processor =
         }
       } else if (action.type === showErrorNotificationAction.type) {
         showNotification("error", action.payload || "Error", "");
+      } else if (action.type === showNotificationAction.type) {
+        showNotification("success", action.payload || "Success", "");
       }
     } catch (err) {
       console.error(err);

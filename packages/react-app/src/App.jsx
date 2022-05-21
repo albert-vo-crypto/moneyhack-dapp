@@ -352,6 +352,7 @@ function App(props) {
               tx={tx}
               writeContracts={writeContracts}
               readContracts={readContracts}
+              mainnetProvider={mainnetProvider}
             />
           </Route>
           <Route exact path={ROUTE_PATH_BID_ACCEPT}>

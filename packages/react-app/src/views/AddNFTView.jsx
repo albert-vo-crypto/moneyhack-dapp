@@ -12,7 +12,7 @@ import SecondaryButton from "../components/Buttons/SecondaryButton";
 import PercentageSlider from "../components/Inputs/PercentageSlider";
 import HeaderText from "../components/Commons/HeaderText";
 import { nftSelectedCollectionSelector, addBidableCollectionAction } from "../stores/reducers/nft";
-import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appContext";
+import { appContextCurrentSignerAddressSelector, showNotificationAction } from "../stores/reducers/appContext";
 import NFTCollectionStats from "../components/NFT/NFTCollectionStats";
 
 const ListNFTView = () => {
@@ -33,12 +33,12 @@ const ListNFTView = () => {
       signerAddress,
     };
     dispatch(addBidableCollectionAction(payload));
+    dispatch(showNotificationAction("Collection revenue listed for sale"));
   };
 
   return (
     <div className="mt-10">
       {signerAddress && selectedNFTCollection ? (
-
         <div>
           <div className="text-left pb-5 border-b border-gray-200">
             <HeaderText children="Turn Future Revenue To Capital Now" />
@@ -50,13 +50,12 @@ const ListNFTView = () => {
                 <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                   <div className="flex justify-start">
                     <div className="hidden w-36 h-36 rounded-lg overflow-hidden lg:block content-center mr-10">
-                      <img
-                        src={selectedNFTCollection.imageSrc}
-                        className="w-full h-full object-center object-cover"
-                      />
+                      <img src={selectedNFTCollection?.imageSrc} className="w-full h-full object-center object-cover" />
                     </div>
                     <div>
-                      <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{selectedNFTCollection.name}</h1>
+                      <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                        {selectedNFTCollection.name}
+                      </h1>
                       <div class="flex space-x-2">
                         <div class="flex items-center h-5">
                           <input
@@ -72,7 +71,6 @@ const ListNFTView = () => {
                         </label>
                       </div>
                     </div>
-
                   </div>
                 </div>
 
@@ -82,7 +80,6 @@ const ListNFTView = () => {
 
                   <div>
                     <div class="grid place-items-center">
-
                       <div class="my-10">
                         <p className="text-lg">Adjust % of royalty for sale</p>
                         <PercentageSlider
@@ -105,7 +102,6 @@ const ListNFTView = () => {
                       />
                     </div>
                   </div>
-
                 </div>
 
                 <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
@@ -140,7 +136,6 @@ const ListNFTView = () => {
                       </dl>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
