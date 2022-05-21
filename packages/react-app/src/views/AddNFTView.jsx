@@ -96,13 +96,16 @@ const ListNFTView = () => {
 
                       <div class="mt-5">
                         <p className="text-lg">Adjust % of royalty for sale</p>
-                        <PercentageSlider
-                          min={1}
-                          max={100}
-                          defaultValue={DEFAULT_LIST_SLIDER_PERCENTAGE}
-                          onChange={onSliderValueChange}
-                        />
-                        <p className="font-bold text-lg">{percentageForSale + "%"}</p>
+                        <div className="w-full">
+                          <PercentageSlider
+                            min={1}
+                            max={100}
+                            defaultValue={DEFAULT_LIST_SLIDER_PERCENTAGE}
+                            onChange={onSliderValueChange}
+                          />
+                          <p className="font-bold text-lg">{percentageForSale + "%"}</p>
+                        </div>
+
                       </div>
 
                       <button

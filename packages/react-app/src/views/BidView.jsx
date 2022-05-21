@@ -128,7 +128,7 @@ const BidView = ({
                     </div>
                   </dl>
                   <div class="grid place-items-center">
-                    <div class="my-10 w-full">
+                    <div class="mt-5 w-full">
                       <PercentageSlider defaultValue={DEFAULT_BID_SLIDER_PERCENTAGE} onChange={onSliderValueChange} />
                       <p className="font-bold text-lg">{bidAmount.toFixed(2) + " ETH"}</p>
                     </div>
