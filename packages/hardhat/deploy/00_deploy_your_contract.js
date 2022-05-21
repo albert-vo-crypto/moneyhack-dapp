@@ -53,7 +53,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     // To take ownership of yourContract using the ownable library uncomment next line and add the 
     // address you want to be the owner. 
     const simpleAndHealthyContract = await ethers.getContract("SimpleAndHealthy", deployer);
-    await simpleAndHealthyContract.transferOwnership('0xEdfdb5f2f02432F1E3271582056ECd0f884126aC');
+    await simpleAndHealthyContract.transferOwnership('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266');
   /*
   //If you want to send value to an address from the deployer
   const deployerWallet = ethers.provider.getSigner()
