@@ -23,7 +23,7 @@ import { tradingCollectionUpdatedAction } from "../stores/reducers/nft";
 import { utils } from "ethers";
 import { log } from "../utils/commons";
 import externalContracts from "../contracts/external_contracts";
-import { useBalance } from "eth-hooks";
+import { useBalance, useContractReader } from "eth-hooks";
 
 const BidView = ({
   ethPrice,
@@ -44,10 +44,15 @@ const BidView = ({
   const selectedBidDetail = useSelector(selectedCollectionFirstBidDetailSelector);
   const vaultAddress = selectedBidDetail?.vaultAddress;
   const vaultBalance = useBalance(localProvider, vaultAddress);
+  const vaultContract = new Contract(vaultAddress, RBFVAULTABI, localProvider);
 
+  const fetchData = async () => {
+    const status = await vaultContract.vaultStatus();
+    log({ vaultAddress, vaultBalance, status });
+  };
   useEffect(() => {
-    log({ vaultAddress, vaultBalance });
-  }, [vaultAddress, vaultBalance]);
+    fetchData();
+  }, [vaultAddress, vaultBalance, vaultContract]);
 
   const scEvents = useEventListener(readContracts, "RBFVaultFactory", "RBFVaultCreated", localProvider, 1);
   useEffect(() => {
