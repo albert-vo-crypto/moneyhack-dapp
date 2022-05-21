@@ -34,6 +34,33 @@ export const openseaGetCollections = async (
   }
 };
 
+export const openseaGetCollectionWithSlug = async (slug, useTestNet = false) => {
+  const options = { method: "GET", headers: { Accept: "application/json" } };
+  const fetchStr = `https://${useTestNet ? "testnets-api" : "api"}.opensea.io/api/v1/collection/${slug}`;
+  try {
+    const response = await fetch(fetchStr, options);
+    const json = await response.json();
+    return json;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+export const getOpenseaCollectionPayoutAddressWithSlug = async (slug, useTestNet = false) => {
+  try {
+    const collectionObj = await openseaGetCollectionWithSlug(slug, useTestNet);
+    return collectionObj?.collection?.payout_address;
+  } catch (err) {
+    return null;
+  }
+};
+
+export const isOpenseaCollectionUsingTargetPayoutAddress = async (coll, useTestNet = false, targetPayoutAddress) => {
+  const payoutAddress = await getOpenseaCollectionPayoutAddressWithSlug(coll?.slug, useTestNet);
+  return payoutAddress === targetPayoutAddress;
+};
+
 export const openseaGetCollectionsWithAddress = async (ownerAddress = DEMO_NFT_COLL_OWNER_ADDRESS, limit = 300) => {
   const openseaColls = await openseaGetCollections(ownerAddress, limit);
   log("openseaColls", _.size(openseaColls));
