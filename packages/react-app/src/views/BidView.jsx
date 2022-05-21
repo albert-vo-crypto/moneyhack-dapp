@@ -37,12 +37,14 @@ const BidView = ({
   const dispatch = useDispatch();
   const history = useHistory();
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
+  const [isWaitForVaultCreation, setIsWaitForVaultCreation] = useState(false);
 
   const scEvents = useEventListener(readContracts, "RBFVaultFactory", "RBFVaultCreated", localProvider, 1);
   useEffect(() => {
     log({ scEvents });
-    if (scEvents && scEvents.length > 0) {
-      const scEvent = scEvents[0];
+    if (scEvents && scEvents.length > 0 && isWaitForVaultCreation) {
+      setIsWaitForVaultCreation(false);
+      const scEvent = scEvents[scEvents.length - 1];
       if (scEvent?.args?.vaultAddress) {
         onSuccessfulBidTransaction(scEvent?.args?.vaultAddress);
       } else {
@@ -69,6 +71,7 @@ const BidView = ({
     const investorAddress = signerAddress;
     const bidPriceInETH = bidAmount.toString();
 
+    setIsWaitForVaultCreation(true);
     const result = await tx(
       writeContracts.RBFVaultFactory.createVault(collectionAddress, ownerAddress, investorAddress, fractionForSale, {
         value: utils.parseEther(bidPriceInETH),
@@ -77,6 +80,7 @@ const BidView = ({
         log({ update });
         if (update?.status === "confirmed" || update?.status === 1) {
         } else {
+          setIsWaitForVaultCreation(false);
           dispatch(showErrorNotificationAction(update?.data?.message));
         }
       },
@@ -129,12 +133,10 @@ const BidView = ({
               </div>
 
               {/* Terms */}
-              <div className="mt-4 lg:mt-0 lg:row-span-3">             
-
+              <div className="mt-4 lg:mt-0 lg:row-span-3">
                 <div>
                   <h3 className="text-lg text-gray-900">TERMS</h3>
                   <dl className="mt-2 border-t border-b border-gray-200 divide-y divide-gray-200">
-
                     <div className="py-3 flex justify-between text-sm font-medium">
                       <dt className="text-gray-500">Revenue Period (Months)</dt>
                       <dd className="text-gray-900">{selectedNFTCollection?.revenuePeriod}</dd>
@@ -198,7 +200,6 @@ const BidView = ({
                         <dd className="text-gray-900">
                           {selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue}
                         </dd>
-
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
@@ -206,7 +207,6 @@ const BidView = ({
                         <dd className="text-gray-900">
                           {selectedNFTCollection?.historicalDatas?.stats?.ethFloorVolume}
                         </dd>
-
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
