@@ -82,25 +82,25 @@ const AcceptBidView = ({
               </p>
               <h1>Instruction:</h1>
               <ol className="list-decimal">
-                  <li>Navigate to your collection editor, button below will take you to your collection at opensea.</li>
-                  <li>
-                    Under the Creator Earnings heading, adjust the Percentage fee field. You can set a percentage of up
-                    to 10% and you can change this percentage at any time.
-                  </li>
-                  <li>
-                    Specify this '0x005143293be22AE74a46b51310DB2ab93c0D5410' payout wallet address which will split
-                    royalty earnings based on agreed terms.
-                  </li>
-                </ol>
-                
+                <li>Navigate to your collection editor, button below will take you to your collection at opensea.</li>
+                <li>
+                  Under the Creator Earnings heading, adjust the Percentage fee field. You can set a percentage of up
+                  to 10% and you can change this percentage at any time.
+                </li>
+                <li>
+                  Specify this '0x005143293be22AE74a46b51310DB2ab93c0D5410' payout wallet address which will split
+                  royalty earnings based on agreed terms.
+                </li>
+              </ol>
+
             </div>
             <div className="mt-5">
               <button
                 type="button"
-                className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 <a
-                  class="button"
+                  class="button text-white"
                   href="https://testnets.opensea.io/collection/simpleandhealthy/edit"
                   target="_blank"
                   rel="noreferrer"
@@ -112,7 +112,7 @@ const AcceptBidView = ({
             {/* TODO: const isPayoutAddressUpdated = await isOpenseaCollectionUsingTargetPayoutAddress(selectedNFTCollection, true, targetPayoutAddress); */}
             <button
               type="button"
-              className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="float-right inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
               onClick={props.nextStep}
             >
               Next
@@ -126,13 +126,14 @@ const AcceptBidView = ({
   const Step2 = props => {
     return (
       <>
-        <div>
+        <div className="text-left">
+          <h3 className="text-lg mt-10 text-gray-900">Transfer onwership to vault</h3>
           <p>
             We'll transfer your collection ownership to the vault contract for the duration of the terms(12 months).
           </p>
           <button
             type="button"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+            className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             onClick={() => {
               //TODO - pass in the address for the vault&collection in context below
               const ownableContract = new Contract(
@@ -148,7 +149,7 @@ const AcceptBidView = ({
 
           <button
             type="button"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+            className="float-right inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
             onClick={props.nextStep}
           >
             Next
@@ -161,11 +162,12 @@ const AcceptBidView = ({
   const Step3 = props => {
     return (
       <>
-        <div>
+        <div className="text-left">
+          <h3 className="text-lg mt-10 text-gray-900">Get Fund</h3>
           <p>Click 'Accept fund' button below to accept the fund and activate the contract.</p>
           <button
             type="button"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+            className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             onClick={() => {
               //TODO - pass in the address for the vault in context below
               const vaultContract = new Contract("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", RBFVAULTABI, userSigner);
@@ -177,7 +179,7 @@ const AcceptBidView = ({
 
           <button
             type="button"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+            className="float-right inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
             onClick={props.nextStep}
           >
             Finish
