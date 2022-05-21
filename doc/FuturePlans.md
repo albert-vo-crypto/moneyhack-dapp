@@ -18,6 +18,9 @@
 13. [Revenue sharing agreement templates](https://bit.ly/3Npssra) can automatically be filled during the transactions in ReveFin, and formally be included as a part of minted revenue-based financing contracts.
 14. Many **other opportunities** for improvement have been identified and listed through brain storming sessions and are available as internal notes.
 
+We, as the ReveFin Project Team, **thank you** for your interest in our project, and reading it to the last line :)
+
+![Project Team](./img/Slide07.png) 
 
 **Index**
 
