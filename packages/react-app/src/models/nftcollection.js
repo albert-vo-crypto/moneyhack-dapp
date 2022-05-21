@@ -36,19 +36,19 @@ export const getBidableFromRevefinCollection = (coll, fractionForSale, signerAdd
   const rating = r === 0 ? "A+" : r === 1 ? "A" : "B";
   if (coll?.name === "Simple & Healthy") {
     //mock this Opensea testnet collection with the local one
-    return _.assign(_.cloneDeep(coll), {
+    const localCollectionAddress = deployedContracts["31337"]?.localhost?.contracts?.SimpleAndHealthy?.address;
+    const coll0 = _.cloneDeep(coll);
+    const outputColl = _.assign(coll0, {
       isActive: true,
       fractionForSale,
       listedAt,
-      collectionAddress:
-        deployedContracts["31337"]?.localhost?.contracts?.SimpleAndHealthy?.address ||
-        _.size(coll?.primary_asset_contracts) > 0
-          ? coll.primary_asset_contracts[0]?.address
-          : "0x01",
+      collectionAddress: localCollectionAddress,
       signerAddress: signerAddress || "0x01",
       revenuePeriod: 12,
       rating,
     });
+    log({ localCollectionAddress, coll0, outputColl });
+    return outputColl;
   }
   return _.assign(_.cloneDeep(coll), {
     isActive: true,
