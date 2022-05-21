@@ -34,36 +34,18 @@ const DashboardView = ({ ethPrice }) => {
           <div>
             <Tabs defaultActiveKey="1" onChange={callback}>
               <TabPane tab="For Sale" key="1">
-                Content of Tab Pane 1
+                <NFTCollectionTradingsList nftCollections={registeredCollection} ethPrice={ethPrice} opMode="creator" />
               </TabPane>
               <TabPane tab="Sold" key="2">
                 Content of Tab Pane 2
               </TabPane>
               <TabPane tab="Bids" key="3">
-                Content of Tab Pane 3
+                <NFTCollectionTradingsList nftCollections={investedCollection} ethPrice={ethPrice} opMode="investor" />
               </TabPane>
               <TabPane tab="Bought" key="4">
                 Content of Tab Pane 4
               </TabPane>
             </Tabs>
-
-            {_.size(registeredCollection) > 0 ? (
-              <div>
-                <h1>Listed for sale</h1>
-                <NFTCollectionTradingsList nftCollections={registeredCollection} ethPrice={ethPrice} opMode="creator" />
-              </div>
-            ) : null}
-            {_.size(investedCollection) > 0 ? (
-              <div>
-                <h1>Bid placed</h1>
-                <NFTCollectionTradingsList nftCollections={investedCollection} ethPrice={ethPrice} opMode="investor" />
-              </div>
-            ) : null}
-            {_.size(registeredCollection) === 0 && _.size(investedCollection) === 0 ? (
-              <div class="grid place-items-center h-[70vh]">
-                <HeaderText children="Time to start trading" />
-              </div>
-            ) : null}
           </div>
         ) : (
           <div class="grid place-items-center h-[70vh]">
