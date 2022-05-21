@@ -62,7 +62,7 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
       key: "historicalDatas.stats.ethTotalRoyaltyRevenue",
       render: (value, nftCollection) => {
         const val = nftCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue || 0;
-        return <h3>{val >= 0.0001 ? val?.toFixed(4) : val}</h3>;
+        return <h3>{val >= 0.0001 ? val?.toFixed(2) : val}</h3>;
       },
       sorter:
         location?.pathname === ROUTE_PATH_EXPLORE_REVENUE_STREAMS ||
@@ -77,7 +77,7 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
       key: "historicalDatas.stats.ethFloorVolume",
       render: (value, nftCollection) => {
         const val = nftCollection?.historicalDatas?.stats?.ethFloorVolume || 0;
-        return <h3>{val >= 0.0001 ? val?.toFixed(4) : val}</h3>;
+        return <h3>{val >= 0.0001 ? val?.toFixed(2) : val}</h3>;
       },
     },
     {
@@ -86,7 +86,7 @@ const NFTCollectionDetailsList = ({ nftCollections }) => {
       key: "historicalDatas.stats.ethCoefofVariationRoyaltyRevenue",
       render: (value, nftCollection) => {
         const val = nftCollection?.historicalDatas?.stats?.ethCoefofVariationRoyaltyRevenue || 0;
-        return <h3>{val > 0.0001 ? val?.toFixed(4) : val}</h3>;
+        return <h3>{val > 0.0001 ? val?.toFixed(2) : val}</h3>;
       },
     },
     {

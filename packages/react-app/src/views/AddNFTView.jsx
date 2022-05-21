@@ -145,7 +145,7 @@ const ListNFTView = () => {
 
                         <div className="py-3 flex justify-between text-sm font-medium">
                           <dt className="text-gray-500">Avg. Price</dt>
-                          <dd className="text-gray-900">{selectedNFTCollection?.stats?.average_price?.toFixed(4)}</dd>
+                          <dd className="text-gray-900">{selectedNFTCollection?.stats?.average_price?.toFixed(2)}</dd>
                         </div>
                       </dl>
                     </div>

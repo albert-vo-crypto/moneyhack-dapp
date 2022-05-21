@@ -151,7 +151,7 @@ const BidView = ({
 
                     <div className="py-3 flex justify-between text-sm font-medium">
                       <dt className="text-gray-500">Implied Purchase Discount</dt>
-                      <dd className="text-lg text-gray-900">{(bidAmount / rev)?.toFixed(4)}</dd>
+                      <dd className="text-lg text-gray-900">{(bidAmount / rev)?.toFixed(2)}</dd>
                     </div>
 
                     <div className="py-3 flex justify-between text-sm font-medium">
@@ -200,21 +200,21 @@ const BidView = ({
                         <dt className="text-gray-500">Prior Period Revnue (ETH)</dt>
 
                         <dd className="text-gray-900">
-                          {selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue}
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue?.toFixed(2) }
                         </dd>
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Floor Volume (ETH)</dt>
                         <dd className="text-gray-900">
-                          {selectedNFTCollection?.historicalDatas?.stats?.ethFloorVolume}
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethFloorVolume?.toFixed(2) }
                         </dd>
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Coef. of Variation</dt>
                         <dd className="text-gray-900">
-                          {selectedNFTCollection?.historicalDatas?.stats?.ethCoefofVariationRoyaltyRevenue}
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethCoefofVariationRoyaltyRevenue?.toFixed(2) }
                         </dd>
                       </div>
                     </dl>
