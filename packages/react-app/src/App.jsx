@@ -29,7 +29,7 @@ import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
-import { Home, ExampleUI, Hints, Subgraph } from "./views";
+import { Home, ExampleUI, Hints, Subgraph, EPNS } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 
 import "./output.css";
@@ -473,6 +473,12 @@ function App(props) {
               writeContracts={writeContracts}
               mainnetProvider={mainnetProvider}
             />
+          </Route>
+          <Route path="/health">
+            <h3>ok</h3>
+          </Route>
+          <Route path="/EPNS">
+            <EPNS/>
           </Route>
           <Route path="/health">
             <h3>ok</h3>

@@ -71,7 +71,8 @@
     "chokidar": "^3.5.3",
     "fast-glob": "^3.2.11",
     "postcss": "^8.4.13",
-    "tailwindcss": "^3.0.24"
+    "tailwindcss": "^3.0.24",
+    "web3-react": "^5.0.5"
   },
   "devDependencies": {
     "husky": "^7.0.2"

@@ -9,7 +9,7 @@ import {
 } from "@epnsproject/frontend-sdk-staging";
 import { useEffect, useState } from "react";
 import "./App.scss";
-import ConnectButton from "./components/connect";
+import ConnectButton from "../components/connect";
 import { useWeb3React } from "@web3-react/core";
 import { fakePromise, addSecretNotifications } from './utils'
 
@@ -23,7 +23,9 @@ const BASE_URL = "https://backend-kovan.epns.io/apis";
 const CHANNEL_ADDRESS = "0x94c3016ef3e503774630fC71F59B8Da9f7D470B7";
 
 
-function App() {
+//function App() {
+export function EPNS ({
+}) {
   const { library, active, account, chainId } = useWeb3React();
 
   // create state components to fetch all the notifications.
@@ -211,4 +213,4 @@ function App() {
   );
 }
 
-export default App;
+export default EPNS;
