@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { notification } from "antd";
 
 import {
   reloadBidableCollectionsAction,
@@ -7,7 +8,7 @@ import {
   addBidableCollectionAction,
   tradingCollectionUpdatedAction,
 } from "../reducers/nft";
-import { currentSignerAddressUpdatedAction } from "../reducers/appContext";
+import { currentSignerAddressUpdatedAction, showErrorNotificationAction } from "../reducers/appContext";
 import { openseaGetCollections, openseaGetCollectionsWithAddress } from "../../utils/openseahelper";
 import {
   getRevefinFromOpenseaCollection,
@@ -53,6 +54,8 @@ const processor =
         } else {
           throw new Error(`addBidableCollectionAction: invalid payload ${action.payload}`);
         }
+      } else if (action.type === showErrorNotificationAction.type) {
+        showNotification("error", action.payload || "Error", "");
       }
     } catch (err) {
       console.error(err);
@@ -86,6 +89,13 @@ const addBidableCollection = async (dispatch, getState, collection, fractionForS
   log("addBidableCollection", bidableColl);
   dispatch(tradingCollectionUpdatedAction(bidableColl));
   dispatch(bidableCollectionsUpdatedAction([...getState().nft.bidableCollections, bidableColl]));
+};
+
+const showNotification = (type, message, description) => {
+  notification[type]({
+    message,
+    description,
+  });
 };
 
 export default processor;

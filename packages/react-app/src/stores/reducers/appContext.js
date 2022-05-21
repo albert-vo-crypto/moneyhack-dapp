@@ -15,6 +15,7 @@ const slice = createSlice({
 });
 
 export const { currentSignerAddressUpdatedAction } = slice.actions;
+export const showErrorNotificationAction = createAction("appContext/showErrorNotificationAction");
 
 export const appContextStateSelector = state => state.appContext;
 export const appContextCurrentSignerAddressSelector = state => state.appContext.currentSignerAddress;

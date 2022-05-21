@@ -12,7 +12,7 @@ import HeaderText from "../components/Commons/HeaderText";
 import { getFormatedCurrencyValue } from "../utils/commons";
 import NFTCollectionDetailsList from "../components/NFT/NFTCollectionDetailsList";
 import NFTInvestmentDetail from "../components/NFT/NFTInvestmentDetail";
-import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appContext";
+import { appContextCurrentSignerAddressSelector, showErrorNotificationAction } from "../stores/reducers/appContext";
 import { selectedTradingCollectionSelector } from "../stores";
 import { tradingCollectionUpdatedAction } from "../stores/reducers/nft";
 import { utils } from "ethers";
@@ -56,8 +56,10 @@ const BidView = ({
       }),
       update => {
         log({ update });
-        if (update.status === "confirmed" || update.status === 1) {
+        if (update?.status === "confirmed" || update?.status === 1) {
           onSuccessfulBidTransaction();
+        } else {
+          dispatch(showErrorNotificationAction(update?.data?.message));
         }
       },
     );
