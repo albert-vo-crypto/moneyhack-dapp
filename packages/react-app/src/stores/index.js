@@ -11,7 +11,11 @@ import nftReducer, {
 import logger from "./middlewares/logger";
 import processor from "./middlewares/processor";
 import { appContextCurrentSignerAddressSelector } from "./reducers/appContext";
-import { TEST_CREATOR_NFT_COLL_OWNER_ADDRESS, DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS } from "../constants";
+import {
+  TEST_CREATOR_NFT_COLL_OWNER_ADDRESS,
+  DEMO_CREATOR_NFT_COLL_OWNER_ADDRESS,
+  BID_STATUS_SOLD,
+} from "../constants";
 import { log } from "../utils/commons";
 
 const combinedReducer = combineReducers({
@@ -61,14 +65,15 @@ export const registeredCollectionsOfCurrentSignerSelector = createSelector(
 );
 
 export const soldCollectionsOfCurrentSignerSelector = createSelector(
-  appContextCurrentSignerAddressSelector,
-  nftTradingCollectionsMapSelector,
-  (signerAddress, nftTradingCollectionsMap) => {
-    const tradingCollections = _.values(nftTradingCollectionsMap);
-    return _.filter(
-      tradingCollections,
-      coll => coll?.ownerAddress === signerAddress || coll?.signerAddress === signerAddress,
-    );
+  registeredCollectionsOfCurrentSignerSelector,
+  regColls => {
+    return _.filter(regColls, coll => {
+      if (coll?.bidDetails && _.size(coll?.bidDetails) > 0) {
+        const bidDetail = coll?.bidDetails[0];
+        return bidDetail?.status === BID_STATUS_SOLD;
+      }
+      return false;
+    });
   },
 );
 
