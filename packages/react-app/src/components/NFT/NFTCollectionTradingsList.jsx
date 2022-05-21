@@ -34,7 +34,7 @@ const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator
       key: "imageSrc",
       render: (imageSrc, nftCollection) => {
         return (
-          <div class="group block w-[20vw] aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-primary overflow-hidden">
+          <div class="group block w-[10vw] aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-primary overflow-hidden">
             <img src={imageSrc} alt="" class="object-cover pointer-events-none group-hover:opacity-75" />
           </div>
         );

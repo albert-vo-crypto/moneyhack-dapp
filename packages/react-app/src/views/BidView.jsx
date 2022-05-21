@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Table } from "antd";
 import _ from "lodash";
 import { useHistory } from "react-router-dom";
+import { useEventListener } from "eth-hooks/events/useEventListener";
 
 import { DEFAULT_BID_SLIDER_PERCENTAGE, BID_STATUS_PENDING_ACCEPT, ROUTE_PATH_REVEFIN_DASHBOARD } from "../constants";
 import { nftSelectedCollectionSelector } from "../stores/reducers/nft";
@@ -12,10 +13,15 @@ import HeaderText from "../components/Commons/HeaderText";
 import { getFormatedCurrencyValue } from "../utils/commons";
 import NFTCollectionDetailsList from "../components/NFT/NFTCollectionDetailsList";
 import NFTInvestmentDetail from "../components/NFT/NFTInvestmentDetail";
-import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appContext";
+import {
+  appContextCurrentSignerAddressSelector,
+  showErrorNotificationAction,
+  showNotificationAction,
+} from "../stores/reducers/appContext";
 import { selectedTradingCollectionSelector } from "../stores";
 import { tradingCollectionUpdatedAction } from "../stores/reducers/nft";
 import { utils } from "ethers";
+import { log } from "../utils/commons";
 
 const BidView = ({
   ethPrice,
@@ -25,10 +31,25 @@ const BidView = ({
   tx,
   readContracts,
   writeContracts,
-  userSigner }) => {
+  userSigner,
+  mainnetProvider,
+}) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
+
+  const scEvents = useEventListener(readContracts, "RBFVaultFactory", "RBFVaultCreated", localProvider, 1);
+  useEffect(() => {
+    log({ scEvents });
+    if (scEvents && scEvents.length > 0) {
+      const scEvent = scEvents[0];
+      if (scEvent?.args?.vaultAddress) {
+        onSuccessfulBidTransaction(scEvent?.args?.vaultAddress);
+      } else {
+        dispatch(showErrorNotificationAction("Missing vaultAddress"));
+      }
+    }
+  }, [scEvents]);
 
   const rev =
     (selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue || 0) *
@@ -41,24 +62,30 @@ const BidView = ({
 
   const signerAddress = useSelector(appContextCurrentSignerAddressSelector);
 
-  const onBidClick = () => {
+  const onBidClick = async () => {
     const collectionAddress = selectedNFTCollection?.primary_asset_contracts[0]?.address;
     const ownerAddress = selectedNFTCollection?.ownerAddress;
     const fractionForSale = selectedNFTCollection?.fractionForSale * 100 || 0;
     const investorAddress = signerAddress;
-    const bidPriceInETH = bidAmount.toString();;
+    const bidPriceInETH = bidAmount.toString();
 
-    tx(
+    const result = await tx(
       writeContracts.RBFVaultFactory.createVault(collectionAddress, ownerAddress, investorAddress, fractionForSale, {
         value: utils.parseEther(bidPriceInETH),
       }),
+      update => {
+        log({ update });
+        if (update?.status === "confirmed" || update?.status === 1) {
+        } else {
+          dispatch(showErrorNotificationAction(update?.data?.message));
+        }
+      },
     );
-    onSuccessfulBidTransaction(); //For testing //TODO: move to after getting a success response from smart contract
+    log({ result });
   };
 
-  //TODO: call onSuccessfulBidTransaction upon successful bid staking transaction
   //TODO: reading bidding details from smart contract instead of local data store
-  const onSuccessfulBidTransaction = () => {
+  const onSuccessfulBidTransaction = vaultAddress => {
     //Add bidDetail to selectedNFTCollection
     const bidDetail = {
       collectionAddress: selectedNFTCollection?.primary_asset_contracts[0]?.address,
@@ -66,7 +93,9 @@ const BidView = ({
       investorAddress: signerAddress,
       bidPriceInETH: bidAmount,
       status: BID_STATUS_PENDING_ACCEPT,
+      vaultAddress,
     };
+    log({ bidDetail });
     const coll = _.assign(
       _.cloneDeep(selectedNFTCollection),
       selectedNFTCollection?.bidDetails
@@ -74,9 +103,9 @@ const BidView = ({
         : { bidDetails: [bidDetail] },
     );
     dispatch(tradingCollectionUpdatedAction(coll));
+    dispatch(showNotificationAction("Bid placed successfully"));
     history.push(ROUTE_PATH_REVEFIN_DASHBOARD);
   };
-
 
   return (
     <div className="mt-10">
@@ -91,12 +120,11 @@ const BidView = ({
               <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                 <div className="flex justify-start">
                   <div className="hidden w-36 h-36 rounded-lg overflow-hidden lg:block content-center mr-10">
-                    <img
-                      src={selectedNFTCollection.imageSrc}
-                      className="w-full h-full object-center object-cover"
-                    />
+                    <img src={selectedNFTCollection.imageSrc} className="w-full h-full object-center object-cover" />
                   </div>
-                  <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{selectedNFTCollection.name}</h1>
+                  <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                    {selectedNFTCollection.name}
+                  </h1>
                 </div>
               </div>
 
@@ -124,7 +152,9 @@ const BidView = ({
 
                     <div className="py-3 flex justify-between text-sm font-medium">
                       <dt className="text-gray-500">Bid Price</dt>
-                      <dd className="text-lg text-gray-900">{"$" + getFormatedCurrencyValue(bidAmount * ethPrice) + " USD"}</dd>
+                      <dd className="text-lg text-gray-900">
+                        {"$" + getFormatedCurrencyValue(bidAmount * ethPrice) + " USD"}
+                      </dd>
                     </div>
                   </dl>
                   <div class="grid place-items-center">
@@ -141,7 +171,6 @@ const BidView = ({
                     />
                   </div>
                 </div>
-
               </div>
 
               <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
@@ -165,31 +194,37 @@ const BidView = ({
                       </div>
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Prior Period Revnue (ETH)</dt>
-                        <dd className="text-gray-900">{selectedNFTCollection?.historicalDatas?.stats.ethTotalRoyaltyRevenue}</dd>
+
+                        <dd className="text-gray-900">
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue}
+                        </dd>
+
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Floor Volume (ETH)</dt>
-                        <dd className="text-gray-900">{selectedNFTCollection?.historicalDatas?.stats.ethFloorVolume}</dd>
+                        <dd className="text-gray-900">
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethFloorVolume}
+                        </dd>
+
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Coef. of Variation</dt>
-                        <dd className="text-gray-900">{selectedNFTCollection?.historicalDatas?.stats.ethCoefofVariationRoyaltyRevenue}</dd>
+                        <dd className="text-gray-900">
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethCoefofVariationRoyaltyRevenue}
+                        </dd>
                       </div>
                     </dl>
                   </div>
                 </div>
                 <NFTInvestmentDetail nftCollection={selectedNFTCollection} rev={rev} bidAmount={bidAmount} />
-
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
   );
 };
 
