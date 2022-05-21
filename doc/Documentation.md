@@ -13,17 +13,6 @@ This documentation presents details on the AutoML.NFT dapp and project.
 - **[YouTube Video**](https://youtu.be/________)** is the demo video for the hackathon.
 
 
-### ReveFin Main Window
-![Main Window](./img/Screen01.png)
-
-
-### ReveFin Project Team
-
-Our team consists of professionals from varying backgrounds, united with the ethos of **creating value through innovation**.
-
-![Project Team](./img/Slide07.png) 
-
-
 ## Index
 
 1. [Background](Background.md)
@@ -42,3 +31,15 @@ Our team consists of professionals from varying backgrounds, united with the eth
 <hline></hline>
 
 [Back to Main GitHub Page](../README.md) | [Back to Documentation Index Page](Documentation.md)
+
+
+
+### ReveFin Main Window
+![Main Window](./img/Screen01.png)
+
+
+### ReveFin Project Team
+
+Our team consists of professionals from varying backgrounds, united with the ethos of **creating value through innovation**.
+
+![Project Team](./img/Slide07.png) 
