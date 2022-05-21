@@ -66,8 +66,8 @@ export const registeredCollectionsOfCurrentSignerSelector = createSelector(
 
 export const soldCollectionsOfCurrentSignerSelector = createSelector(
   registeredCollectionsOfCurrentSignerSelector,
-  regColls => {
-    return _.filter(regColls, coll => {
+  colls => {
+    return _.filter(colls, coll => {
       if (coll?.bidDetails && _.size(coll?.bidDetails) > 0) {
         const bidDetail = coll?.bidDetails[0];
         return bidDetail?.status === BID_STATUS_SOLD;
@@ -83,6 +83,19 @@ export const investedCollectionsOfCurrentSignerSelector = createSelector(
   (signerAddress, nftTradingCollectionsMap) => {
     const tradingCollections = _.values(nftTradingCollectionsMap);
     return _.filter(tradingCollections, coll => _.some(coll?.bidDetails, { investorAddress: signerAddress }));
+  },
+);
+
+export const boughtCollectionsOfCurrentSignerSelector = createSelector(
+  investedCollectionsOfCurrentSignerSelector,
+  colls => {
+    return _.filter(colls, coll => {
+      if (coll?.bidDetails && _.size(coll?.bidDetails) > 0) {
+        const bidDetail = coll?.bidDetails[0];
+        return bidDetail?.status === BID_STATUS_SOLD;
+      }
+      return false;
+    });
   },
 );
 
