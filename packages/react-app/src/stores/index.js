@@ -60,6 +60,18 @@ export const registeredCollectionsOfCurrentSignerSelector = createSelector(
   },
 );
 
+export const soldCollectionsOfCurrentSignerSelector = createSelector(
+  appContextCurrentSignerAddressSelector,
+  nftTradingCollectionsMapSelector,
+  (signerAddress, nftTradingCollectionsMap) => {
+    const tradingCollections = _.values(nftTradingCollectionsMap);
+    return _.filter(
+      tradingCollections,
+      coll => coll?.ownerAddress === signerAddress || coll?.signerAddress === signerAddress,
+    );
+  },
+);
+
 export const investedCollectionsOfCurrentSignerSelector = createSelector(
   appContextCurrentSignerAddressSelector,
   nftTradingCollectionsMapSelector,

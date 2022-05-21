@@ -102,12 +102,8 @@ const BidView = ({
       vaultAddress,
     };
     log({ bidDetail });
-    const coll = _.assign(
-      _.cloneDeep(selectedNFTCollection),
-      selectedNFTCollection?.bidDetails
-        ? { bidDetails: [...selectedNFTCollection.bidDetails, bidDetail] }
-        : { bidDetails: [bidDetail] },
-    );
+    //TODO: support multiple bidDetail
+    const coll = _.assign(_.cloneDeep(selectedNFTCollection), { bidDetails: [bidDetail] });
     dispatch(tradingCollectionUpdatedAction(coll));
     dispatch(showNotificationAction("Bid placed successfully"));
     history.push(ROUTE_PATH_REVEFIN_DASHBOARD);

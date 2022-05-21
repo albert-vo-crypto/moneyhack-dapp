@@ -252,5 +252,7 @@ export const ROUTE_PATH_BID_REVENUE_STREAM = "/bid/revenue-stream";
 export const ROUTE_PATH_REG_REVENUE_STREAM = "/reg/revenue-stream";
 export const ROUTE_PATH_EXPLORE_CREATOR_COLLECTIONS = "/explore/creator-collections";
 export const ROUTE_PATH_REVEFIN_DASHBOARD = "/dashboard";
-export const BID_STATUS_PENDING_ACCEPT = "Pending Acceptance";
 export const ROUTE_PATH_BID_ACCEPT = "/bid/accept";
+
+export const BID_STATUS_PENDING_ACCEPT = "Pending Acceptance";
+export const BID_STATUS_SOLD = "SOLD";
