@@ -72,16 +72,16 @@ const AcceptBidView = ({
   const Step1 = props => {
     return (
       <>
-        <div className="bg-gray-50 sm:rounded-lg">
+        <div className="sm:rounded-lg text-left">
           <div className="px-4 py-5 sm:p-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900">Update royalty payout wallet address</h3>
-            <div className="mt-2 max-w-xl text-sm text-gray-500">
+            <h3 className="text-lg text-gray-900 text-left">Update royalty payout wallet address</h3>
+            <div className="mt-2 max-w-xl ">
               <p>
                 You have to update the royalty payout address on opensea. This has to be done because this payout
                 address is maintained off-chain by opensea. Plese follow the direction below.
               </p>
-              <p>
-                <ol type="1">
+              <h1>Instruction:</h1>
+              <ol className="list-decimal">
                   <li>Navigate to your collection editor, button below will take you to your collection at opensea.</li>
                   <li>
                     Under the Creator Earnings heading, adjust the Percentage fee field. You can set a percentage of up
@@ -92,7 +92,7 @@ const AcceptBidView = ({
                     royalty earnings based on agreed terms.
                   </li>
                 </ol>
-              </p>
+                
             </div>
             <div className="mt-5">
               <button
@@ -112,7 +112,7 @@ const AcceptBidView = ({
             {/* TODO: const isPayoutAddressUpdated = await isOpenseaCollectionUsingTargetPayoutAddress(selectedNFTCollection, true, targetPayoutAddress); */}
             <button
               type="button"
-              className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+              className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               onClick={props.nextStep}
             >
               Next
@@ -188,7 +188,7 @@ const AcceptBidView = ({
   };
 
   return (
-    <div>
+    <div className="mt-10 mb-10 p-10 bg-white">
       <nav aria-label="Progress">
         <ol role="list" className="space-y-4 md:flex md:space-y-0 md:space-x-8">
           {steps.map(step => (
