@@ -5,14 +5,13 @@
 
 ### Hackathon Sponsor Technologies
 
-- Compound for staking
-- Covalent for indexing and fetching on-chain metadata
-- EPNS for notification
-- WalletConnect for wallet
-- IPFS for storing NFT images
-- *[In development]* CoinWallet
-- *[In development]* IPFS for hosting dApp
-- APWine
+- **[Compound Protocol](https://compound.finance/)** for staking
+- **[Covalent API](https://www.covalenthq.com/docs/api/#/0/0/USD/1)** for indexing and fetching on-chain metadata
+- **[EPNS](https://epns.io/)** for Ethereum push notifications
+- **[WalletConnect](https://walletconnect.com/)** for wallet connection functionality
+- **[IPFS](https://ipfs.io/)** for storing NFT images
+- **[Coinbase Wallet](https://www.coinbase.com/wallet)** *[In development]* 
+- **[IPFS](https://ipfs.io/)** for hosting dApp *[In development]* 
 
 
 ### Frontend
@@ -22,24 +21,19 @@
 
 ### Backend
 - **[scaffold-eth boilerplate](https://github.com/scaffold-eth/scaffold-eth)** for rapid prototyping
-- **Solidity** for the backend smart contracts
-- **Hardhat**
-- **Remix**
-- **Compound** for staking
-- **EPNS** for notification
-- **WalletConnect** for wallet functionality
+- **[Solidity](https://docs.soliditylang.org/en/)** for the backend smart contracts
+- **[Hardhat](https://hardhat.org/)** as Ethereum development
+- **[Compound Protocol](https://compound.finance/)** for staking
+- **[EPNS](https://epns.io/)** for Ethereum push notifications
+- **[WalletConnect](https://walletconnect.com/)** for wallet connection functionality
 - **[IPFS](https://ipfs.io/)** for storing NFT images
-- **CoinWallet** *[In development]* 
+- **[Coinbase Wallet](https://www.coinbase.com/wallet)** *[In development]* 
 - **[IPFS](https://ipfs.io/)** for hosting dApp *[In development]* 
-- NodeJS
-- Express
-- MongoDB
-- AWS
 
 
 ### Data & Analytics
+- **[Redux Toolkit](https://redux-toolkit.js.org/)** for storage of data in json files
 - **[Covalent API](https://www.covalenthq.com/docs/api/#/0/0/USD/1)** and **[OpenSea API](https://docs.opensea.io/reference/api-overview)** for indexing and fetching on-chain metadata
-- **Redux** for storage of data in json files
 
 
 ### Content Curation
