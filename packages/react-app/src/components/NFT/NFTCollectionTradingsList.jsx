@@ -60,7 +60,7 @@ const NFTCollectionTradingsList = ({ nftCollections, ethPrice, opMode = "creator
       },
     },
     {
-      title: "Prior Period Revnue (ETH)",
+      title: "Prior Period Revenue (ETH)",
       dataIndex: "historicalDatas.stats.ethTotalRoyaltyRevenue",
       key: "historicalDatas.stats.ethTotalRoyaltyRevenue",
       render: (value, nftCollection) => {
