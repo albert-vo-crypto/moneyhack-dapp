@@ -145,6 +145,7 @@ const BidView = ({
                 <div className="bg-gray-100 p-10 shadow">
                     <div className="flex justify-between mb-10">
                         <div className="text-3xl text-left font-extrabold text-gray-900 ">Vault - {selectedNFTCollection.name}</div>
+                        <div className="text-left text-gray-900 ">{vaultAddress}</div>
                         <button
                             type="button"
                             className="float-right bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
