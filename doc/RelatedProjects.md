@@ -24,7 +24,7 @@ There are multiple platforms for the trading of future revenues, referred to as 
 - A list of **lists** for NFT analytics platforms, as well as a **curated list of our own**, can be found under [Other Resources](./OtherResources.md) section.
 
 
-### Investment Decision-Support Systems (DSS)
+### Analytics for Investing
 
 - [Token Metrics](https://tokenmetrics.com) is a leading analytics and decision-support system, that provides *very* extensive analytics data/metrics/statistics for thousands of crypto coins. The platform, which is built on both human experts' knowledge and AI algorithms, also summarizes the viability of each coin with respect to investing at that moment of usage through a single overall score.
 - [TYKR](https://tykr.com/) is a stock-screening platform that can support better decision making while investing in stocks.
