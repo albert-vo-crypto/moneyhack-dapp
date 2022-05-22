@@ -45,8 +45,9 @@ contract RBFVault is PaymentSplitter, CompoundEth {
     constructor(
         address _collectionAddress,
         address[2] memory _parties,
-        uint256[2] memory _shares
-    ) payable PaymentSplitter(_parties, _shares) {
+        uint256[2] memory _shares,
+        address _cEtherContract
+    ) payable PaymentSplitter(_parties, _shares) CompoundEth(_cEtherContract) {
         collectionAddress = _collectionAddress;
         collectionOwner = _parties[1];
         status = Status.Pending;

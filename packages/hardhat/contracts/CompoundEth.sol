@@ -21,9 +21,12 @@ interface CEth {
  * @notice Contract allows to lend ETH to Compound protocol to generate the yield
  */
    contract CompoundEth {
-    // Rinkeby add   
-    address public _cEtherContract = 0xd6801a1DfFCd0a410336Ef88DeF4320D6DF1883e;
-    event MyLog(string, uint256);
+     event MyLog(string, uint256);
+     CEth public cToken;
+
+    constructor(address _cEtherContract) {
+        cToken = CEth(_cEtherContract);
+    }
     
      /**
      * @dev Lend ETH to Compound to generate yield, compound provides cETH ERC20 token based on current exchange rate
@@ -32,8 +35,7 @@ interface CEth {
     function supplyEthToCompound(
         uint256 amount
     ) internal returns (bool) {
-        CEth cToken = CEth(_cEtherContract);
-
+        
         // Amount of current exchange rate from cToken to underlying
         uint256 exchangeRateMantissa = cToken.exchangeRateCurrent();
         emit MyLog("Exchange Rate (scaled up by 1e18): ", exchangeRateMantissa);
@@ -55,8 +57,7 @@ interface CEth {
         uint256 amount,
         bool redeemType       
     ) internal returns (bool) {
-        CEth cToken = CEth(_cEtherContract);
-
+       
         // `amount` is scaled up by 1e18 to avoid decimals
         uint256 redeemResult;
 
@@ -76,7 +77,6 @@ interface CEth {
     }
     
      function getCompoundETHBalance() public returns (uint256) {
-        CEth cToken = CEth(_cEtherContract);
         return cToken.balanceOf(address(this));
     }
 }
