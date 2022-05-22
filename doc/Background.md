@@ -38,8 +38,7 @@ The pivotal idea of the ReveFin project can be summarized as follows:
 
 The initial motivation and objective of the ReveFin project were to **develop a decentralized system of trading future (smart contract) revenue streams**, with smart contracts enforcing future royalty payments to the investors.
 
-
-![Project Intro](./img/Slide01.png) 
+### ReveFin Project Team
 
 Our team consists of professionals from varying backgrounds, united with the ethos of **creating value through innovation**.
 
