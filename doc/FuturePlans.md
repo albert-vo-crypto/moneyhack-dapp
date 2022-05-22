@@ -15,8 +15,7 @@
 11. With respect to documentation, [automated code documentation tools](https://solidity-domain-for-sphinx.readthedocs.io/en/latest/autodoc.html) can be used to obtain detailed documentation for smart contracts and other code collections.
 12. The user interfaces for both the borrower (NFT Creator in the MVB) and lender (Investor in the MVP) can be enhanced to enable financial simulations. To this end, the following research paper can provide useful insights:
 - Putilov, A., Baranova, I., & Myakota, E. A. (2018). Financial simulation model of the Income-Share Agreement. *Revista Espacios Education,* 20, 1-12.
-13. [Revenue sharing agreement templates](https://bit.ly/3Npssra) can automatically be filled during the transactions in ReveFin, and formally be included as a part of minted revenue-based financing contracts.
-14. Many **other opportunities** for improvement have been identified and listed through brain storming sessions and are available as internal notes.
+13. Many **other opportunities** for improvement have been identified and listed through brain storming sessions and are available as internal notes.
 
 We, as the ReveFin Project Team, **thank you** for your interest in our project, and reading it to the last line :)
 
