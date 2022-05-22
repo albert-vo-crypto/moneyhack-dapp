@@ -17,13 +17,12 @@ interface CEth {
 }
 
 /**
- * @title RBFVault
- * @notice Contract allowing Lender to secure royalty revenue streams from a NFT collection of borrower and split payments between them based on agreed terms
- * @dev Should be deployed per NFT collection.
+ * @title CompoundEthPool
+ * @notice Contract allows to lend ETH to Compound protocol to generate the yield
  */
-contract CompoundEthPool {
-address public _cEtherContract = '0xd6801a1DfFCd0a410336Ef88DeF4320D6DF1883e';
-event MyLog(string, uint256);
+   contract CompoundEthPool {
+    address public _cEtherContract = 0xd6801a1DfFCd0a410336Ef88DeF4320D6DF1883e;
+    event MyLog(string, uint256);
     
      /**
      * @dev Lend ETH to Compound to generate yield, compound provides cETH ERC20 token based on current exchange rate
@@ -31,7 +30,7 @@ event MyLog(string, uint256);
      */
     function supplyEthToCompound(
         uint256 amount
-    ) private returns (bool) {
+    ) internal returns (bool) {
         CEth cToken = CEth(_cEtherContract);
 
         // Amount of current exchange rate from cToken to underlying
@@ -54,7 +53,7 @@ event MyLog(string, uint256);
     function redeemCEth(
         uint256 amount,
         bool redeemType       
-    ) private returns (bool) {
+    ) internal returns (bool) {
         CEth cToken = CEth(_cEtherContract);
 
         // `amount` is scaled up by 1e18 to avoid decimals
@@ -75,7 +74,7 @@ event MyLog(string, uint256);
         return true;
     }
     
-     function getCompoundETHBalance() public view returns (uint256) {
+     function getCompoundETHBalance() public returns (uint256) {
         CEth cToken = CEth(_cEtherContract);
         return cToken.balanceOf(address(this));
     }
