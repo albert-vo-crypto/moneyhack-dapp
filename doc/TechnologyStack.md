@@ -10,7 +10,6 @@
 - **[EPNS](https://epns.io/)** for Ethereum push notifications
 - **[WalletConnect](https://walletconnect.com/)** for wallet connection functionality
 - **[IPFS](https://ipfs.io/)** for storing NFT images
-- **[scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)** boilerplate
 - **[Coinbase Wallet](https://www.coinbase.com/wallet)** *[In development]* 
 - **[IPFS](https://ipfs.io/)** for hosting dApp *[In development]* 
 
