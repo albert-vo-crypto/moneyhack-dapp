@@ -22,6 +22,7 @@ import { selectedTradingCollectionSelector } from "../stores";
 import { tradingCollectionUpdatedAction } from "../stores/reducers/nft";
 import { utils } from "ethers";
 import { log } from "../utils/commons";
+import { publishEpnsNotification } from "../utils/epnshelper";
 
 const BidView = ({
   ethPrice,
@@ -37,7 +38,7 @@ const BidView = ({
   const dispatch = useDispatch();
   const history = useHistory();
   const selectedNFTCollection = useSelector(nftSelectedCollectionSelector);
-  const pageTitle = "Buy "+ (selectedNFTCollection?.name || "NFT Collection") + " Royalty Revenue"; ;
+  const pageTitle = "Buy " + (selectedNFTCollection?.name || "NFT Collection") + " Royalty Revenue";
   const [isWaitForVaultCreation, setIsWaitForVaultCreation] = useState(false);
 
   const scEvents = useEventListener(readContracts, "RBFVaultFactory", "RBFVaultCreated", localProvider, 1);
@@ -108,6 +109,11 @@ const BidView = ({
     dispatch(tradingCollectionUpdatedAction(coll));
     dispatch(showNotificationAction("Bid placed successfully"));
     history.push(ROUTE_PATH_REVEFIN_DASHBOARD);
+    publishEpnsNotification({
+      address: selectedNFTCollection?.ownerAddress,
+      title: "Bid received",
+      msg: `for NFT royalty revenue of collection ${selectedNFTCollection?.name}`,
+    });
   };
 
   return (
@@ -197,21 +203,21 @@ const BidView = ({
                         <dt className="text-gray-500">Prior Period Revnue (ETH)</dt>
 
                         <dd className="text-gray-900">
-                          {selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue?.toFixed(2) }
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethTotalRoyaltyRevenue?.toFixed(2)}
                         </dd>
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Floor Volume (ETH)</dt>
                         <dd className="text-gray-900">
-                          {selectedNFTCollection?.historicalDatas?.stats?.ethFloorVolume?.toFixed(2) }
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethFloorVolume?.toFixed(2)}
                         </dd>
                       </div>
 
                       <div className="py-3 flex justify-between text-sm font-medium">
                         <dt className="text-gray-500">Coef. of Variation</dt>
                         <dd className="text-gray-900">
-                          {selectedNFTCollection?.historicalDatas?.stats?.ethCoefofVariationRoyaltyRevenue?.toFixed(2) }
+                          {selectedNFTCollection?.historicalDatas?.stats?.ethCoefofVariationRoyaltyRevenue?.toFixed(2)}
                         </dd>
                       </div>
                     </dl>

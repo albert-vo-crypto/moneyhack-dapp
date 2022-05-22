@@ -257,3 +257,6 @@ export const ROUTE_PATH_REVEFIN_VAULT = "/vault";
 
 export const BID_STATUS_PENDING_ACCEPT = "Pending Acceptance";
 export const BID_STATUS_SOLD = "SOLD";
+export const EPNS_CHANNEL_PK =
+  process.env.REACT_APP_EPNS_CHANNEL_PK || "0x0000000000000000000000000000000000000000000000000000000000000fff";
+export const EPNS_CTA_URL = "https://moneyhack-dapp.onrender.com";
