@@ -28,7 +28,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   await deploy("RBFVaultFactory", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    // args: [ "Hello", ethers.utils.parseEther("1.5") ],
+    args: ["0xd6801a1DfFCd0a410336Ef88DeF4320D6DF1883e"],
     log: true,
     waitConfirmations: 5,
   });
