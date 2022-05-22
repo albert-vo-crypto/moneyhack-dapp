@@ -29,7 +29,7 @@ The following illustration gives examples of how financial innovations and insti
 
 ### Pivotal Idea: Tradeable Future Smart Contract Revenues
 
-The pirvotal idea of the ReveFin project can be summarized as follows: 
+The pivotal idea of the ReveFin project can be summarized as follows: 
 
 "Future (smart contract) revenue that is programmatically certain is a *financial asset,* and it *should be tradeable*."
 
