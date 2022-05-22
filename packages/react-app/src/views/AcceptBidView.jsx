@@ -181,8 +181,8 @@ const AcceptBidView = ({
     return (
       <>
         <div className="text-left">
-          <h3 className="text-lg mt-10 text-gray-900">Get Fund</h3>
-          <p>Click 'Accept fund' button below to accept the fund and activate the contract.</p>
+          <h3 className="text-lg mt-10 text-gray-900">Get Funds</h3>
+          <p>Click 'Accept funds' button below to accept the fund and activate the contract.</p>
           <button
             type="button"
             className="bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -201,7 +201,7 @@ const AcceptBidView = ({
               log({ result });
             }}
           >
-            Accept fund
+            Accept funds
           </button>
 
           <button
