@@ -13,6 +13,14 @@ import ConnectButton from "../components/connect";
 import { useWeb3React } from "@web3-react/core";
 import { fakePromise, addSecretNotifications } from './utils'
 
+
+import { appContextCurrentSignerAddressSelector } from "../stores/reducers/appContext";
+import { nftCreatorCollectionsSelector } from "../stores/reducers/nft";
+import HeaderText from "../components/Commons/HeaderText";
+import NFTCollectionTradingsList from "../components/NFT/NFTCollectionTradingsList";
+import { registeredCollectionsOfCurrentSignerSelector, investedCollectionsOfCurrentSignerSelector } from "../stores";
+
+
 //const WALLET_ADDRESS = "0x57c1D4dbFBc9F8cB77709493cc43eaA3CD505432";
 const WALLET_ADDRESS = "0x417bC635C793E77F8C67D2e3a1392Ba1d85EeE90";
 const PAGINATION_PARAMS = {
@@ -21,6 +29,9 @@ const PAGINATION_PARAMS = {
 };
 const BASE_URL = "https://backend-kovan.epns.io/apis";
 const CHANNEL_ADDRESS = "0x94c3016ef3e503774630fC71F59B8Da9f7D470B7";
+
+
+
 
 
 //function App() {
@@ -121,7 +132,7 @@ export function EPNS ({
 }, [account, active]);
 
   return (
-    <div className="App">
+    <div className="EPNS">
       {modalOpen && <OnSubscribeModal onClose={() => setModalOpen(false)} />}
       {/* define the header */}
       <h2 className="App__header">
@@ -214,3 +225,15 @@ export function EPNS ({
 }
 
 export default EPNS;
+
+
+// const EPNS = ({  }) => {
+
+//   return (
+//     <div>
+//     OK
+//     </div>
+//   );
+// };
+
+// export default EPNS;

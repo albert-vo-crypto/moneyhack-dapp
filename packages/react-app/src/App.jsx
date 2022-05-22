@@ -50,7 +50,7 @@ import {
 } from "./constants";
 import AcceptBidView from "./views/AcceptBidView";
 import DashboardView from "./views/DashboardView";
-
+import EPNSView from "./views/EPNS";
 
 const { ethers } = require("ethers");
 /*
@@ -371,6 +371,9 @@ function App(props) {
           </Route>
           <Route exact path={ROUTE_PATH_REVEFIN_DASHBOARD}>
             <DashboardView ethPrice={price} />
+          </Route>
+          <Route exact path="/EPNS">
+            <EPNS />
           </Route>
           <Route exact path="/debug">
             {/*
