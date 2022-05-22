@@ -7,7 +7,7 @@ This section describes each screen of AutoML.NFT.
 ### Home Page
 This is the home/landing page that welcomes the user. `Get Starter`button directs the user to `Buy Revenue`page. There are three menus that lead to their respective pages, respectively, `Buy Revenue`, `Sell Revenue`, and `Dashboard`.
 
-![Screenshot](./img/Screen01.png)
+![Screenshot](./img/Screen01_New.png)
 
 ### Buy Revenue
 When the `Buy Revenue` menu item is selected, the page displayed shows `Revenue Streams for Sale`. This is a list of revenue streams on sale. Each revenue stream, in the MVP, is an NFT collection. Each cell in the table displays information about that collection, including computed metrics/statistics. When the image for any of the rows is clicked, details of that revenue stream are displayed for bidding and buying.
