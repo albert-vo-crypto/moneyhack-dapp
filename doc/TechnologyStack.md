@@ -5,7 +5,7 @@
 
 ### Hackathon Sponsor Technologies
 
-- **[Compound Protocol](https://compound.finance/)** for staking
+- **[Compound Protocol](https://compound.finance/)** for yield generation
 - **[Covalent API](https://www.covalenthq.com/docs/api/#/0/0/USD/1)** for indexing and fetching on-chain metadata
 - **[EPNS](https://epns.io/)** for Ethereum push notifications
 - **[WalletConnect](https://walletconnect.com/)** for wallet connection functionality
@@ -16,7 +16,8 @@
 
 ### Frontend
 - **[scaffold-eth boilerplate](https://github.com/scaffold-eth/scaffold-eth)** for rapid prototyping
-- **[React.js](https://reactjs.org/)** Javascript library for the front end. 
+- **[React.js](https://reactjs.org/)** Javascript library for the front end.
+- **[TailwindCSS](https://tailwindcss.com/)** for prototyping UI
 
 
 ### Backend
@@ -26,12 +27,11 @@
 - **[Compound Protocol](https://compound.finance/)** for staking
 - **[EPNS](https://epns.io/)** for Ethereum push notifications
 - **[WalletConnect](https://walletconnect.com/)** for wallet connection functionality
-- **[IPFS](https://ipfs.io/)** for storing NFT images
+- **[IPFS](https://ipfs.io/)** ([NFT.STORAGE](https://nft.storage/)) for storing NFT images
 - **[scaffold-eth boilerplate](https://github.com/scaffold-eth/scaffold-eth)** for rapid prototyping
-- **[Coinbase Wallet](https://www.coinbase.com/wallet)** *[In development]* 
+- **[Coinbase Wallet](https://www.coinbase.com/wallet)**
 - **[IPFS](https://ipfs.io/)** for hosting dApp *[In development]* 
 - **ethers.js**
-- **web3.js**
 
 ### Data & Analytics
 - **[Redux Toolkit](https://redux-toolkit.js.org/)** for storage of data in json files
