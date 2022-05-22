@@ -75,12 +75,12 @@ const { ethers } = require("ethers");
 */
 
 /// 📡 What chain are your contracts deployed to?
-const initialNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+const initialNetwork = NETWORKS.rinkeby; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
-const DEBUG = true;
+const DEBUG = false;
 const NETWORKCHECK = true;
-const USE_BURNER_WALLET = true; // toggle burner wallet feature
+const USE_BURNER_WALLET = false; // toggle burner wallet feature
 const USE_NETWORK_SELECTOR = false;
 
 const web3Modal = Web3ModalSetup();
@@ -196,7 +196,7 @@ function App(props) {
   ]);
 
   // keep track of a variable from the contract in the local React state:
-  const purpose = useContractReader(readContracts, "YourContract", "purpose");
+  // const purpose = useContractReader(readContracts, "YourContract", "purpose");
 
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
@@ -429,7 +429,7 @@ function App(props) {
               chainId={1}
             />
 
-            <Contract
+            {/*<Contract
               name="YourContract"
               price={price}
               signer={userSigner}
@@ -437,7 +437,7 @@ function App(props) {
               address={address}
               blockExplorer={blockExplorer}
               contractConfig={contractConfig}
-            />
+          />*/}
           </Route>
           <Route path="/hints">
             <Hints
@@ -458,7 +458,7 @@ function App(props) {
               tx={tx}
               writeContracts={writeContracts}
               readContracts={readContracts}
-              purpose={purpose}
+              //purpose={purpose}
             />
           </Route>
           <Route path="/mainnetdai">
