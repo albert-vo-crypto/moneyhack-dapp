@@ -20,25 +20,6 @@ Here are explanations for the smart contracts:
 - Contract allows to create vaults which allows Lender to secure royalty revenue streams from a NFT collection of borrower and split payments between them based on agreed terms
 - Should be deployed once for the app
 
-
-
-1.  Connect to Testnet
-2.  Get Credentials
-3.  Configure Issuer (cold address) setting
-4.  Configure hot address setting
-5.  Creat trust line from hot to cold address
-6.  Send token FOO
-7.  Check balances
-
-Here are tested functionalities related to **IPFS and NFT minting**:
-
-1.  Create IPFS
-2.  Create XRPL Price Prediction Report
-3.  Mint NFT ( Non Fungible Token:  Proof of Ownership)
-4.  Create Sell Offer
-5.  Accept Sell Offer
-6.  Complete NFT transaction successfully
-
     
 **Index**
 
