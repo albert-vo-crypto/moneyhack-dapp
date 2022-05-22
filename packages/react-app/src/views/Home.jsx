@@ -42,7 +42,7 @@ function Home({ yourLocalBalance, readContracts }) {
         </div>
       </div>
       <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
-        <img src="/Hero1.jpg" alt="" class="object-cover pointer-events-none group-hover:opacity-75" />
+        <img src="hero1.jpg" alt="" class="object-cover pointer-events-none group-hover:opacity-75" />
       </div>
     </main>
   );
