@@ -9,8 +9,8 @@
 - **[Covalent API](https://www.covalenthq.com/docs/api/#/0/0/USD/1)** for indexing and fetching on-chain metadata
 - **[EPNS](https://epns.io/)** for Ethereum push notifications
 - **[WalletConnect](https://walletconnect.com/)** for wallet connection functionality
-- **[IPFS](https://ipfs.io/)** for storing NFT images
-- **[Coinbase Wallet](https://www.coinbase.com/wallet)** *[In development]* 
+- **[IPFS](https://ipfs.io/)** ([NFT.STORAGE](https://nft.storage/)) for storing NFT images
+- **[Coinbase Wallet](https://www.coinbase.com/wallet)**
 - **[IPFS](https://ipfs.io/)** for hosting dApp *[In development]* 
 
 
