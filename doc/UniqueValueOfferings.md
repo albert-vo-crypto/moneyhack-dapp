@@ -28,11 +28,10 @@ ReveFin is a superior form of financing for web3 dApps and protocols, as shown i
 
 ### How Big Can ReveFin Get?
 
-1. ReveFin is a **financing alternative for practically all types of revenue on the blockchain**. Its competitors are revenue-based financing projects in the blockchain world, as explained in [Related Projects](./RelatedProjects.md) page.
+1. ReveFin is a **financing alternative for all types of revenue on the blockchain**. ReveFin has no established competitors. The closest analogy is Pipe in TradFi. Its benchmarks are revenue-based financing projects in the blockchain world, as explained in [Related Projects](./RelatedProjects.md) page.
 2. ReveFin is part of a new financial sector in blockchain, which is a novel innovative sub-sector within **DeFi 3.0.**
-3. ReveFin project can get *really* big. For 2021, on-chain revenues were estimated to be around 6 billion USD. ReveFin and other revenue-based financing platforms can enable a volume up to 20% of this amount, in the scale of 1 billion USD. If the blockchain technology replaces the legacy financial systems and centralized database technologies, reaching volumes in the scale of 100s of trillions of USD, the new **DeFi 3.0** sector of **trading future smart contract revenues** can easily reach a volume **above 50 billion USD/year.** 
-4. ReveFin is one of the first applications of its kind and the **first dapp** that opens up **revenue-based financing to NFT revenues**.
-5. While ReveFin and the trade of future revenues can be extended/expanded to cover all revenue types on the blockchain, as the following figure illustrates, the **scope of the ReveFin MVP** for the HackMoney hackathon is **only NFT art**, specifically NFT art on OpenSea.
+3. The potential for ReveFin is endless. [According to The Insight Partners](https://www.globenewswire.com/news-release/2022/02/11/2383531/0/en/Blockchain-Market-Size-Worth-227-99Bn-Globally-by-2028-at-72-9-CAGR-Exclusive-Report-by-The-Insight-Partners.html), the market size of blockchain enabled businesses is expected to reach $228bn by 2028, which represents a 73% compound annual growth rate (CAGR). Assuming ReveFin captures 10% of that market in terms of annual volume, and assuming a 5% take rate on every transaction, ReveFin could generate over $1bn of revenue in 2028.
+4. While ReveFin and the trade of future revenues can be extended/expanded to cover all revenue types on the blockchain, as the following figure illustrates, the **scope of the ReveFin MVP** for the HackMoney hackathon is **only NFT art**, specifically NFT art on OpenSea.
 
 ![Scope of ReveFin](./img/Slide06.png) 
 
