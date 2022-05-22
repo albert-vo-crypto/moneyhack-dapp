@@ -29,6 +29,7 @@ import {
   showErrorNotificationAction,
   showNotificationAction,
 } from "../stores/reducers/appContext";
+import { publishEpnsNotification } from "../utils/epnshelper";
 
 const AcceptBidView = ({
   ethPrice,
@@ -64,6 +65,11 @@ const AcceptBidView = ({
     const coll = _.assign(_.cloneDeep(selectedNFTCollection), { bidDetails: [updatedBidDetail] });
     dispatch(tradingCollectionUpdatedAction(coll));
     dispatch(showNotificationAction("Funds transferred successfully"));
+    publishEpnsNotification({
+      address: bidDetail?.investorAddress,
+      title: "Bid Accepted",
+      msg: `for NFT royalty revenue of collection ${selectedNFTCollection?.name}`,
+    });
     history.push(ROUTE_PATH_REVEFIN_DASHBOARD);
   };
 
