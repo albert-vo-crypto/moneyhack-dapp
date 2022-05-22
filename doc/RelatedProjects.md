@@ -15,6 +15,7 @@ There are multiple platforms for the trading of future revenues, referred to as 
 
 - [APWINE](https://www.apwine.fi/) is a platform for investing in future yields from DeFi protocols
 - [DebtDAO](https://debtdao.finance/) is a debt [marketplace](https://debtdao.gitbook.io/debtdao-docs/overview/what-is-debt-dao), especially for DAOs, yet also for DeFi protocols. Initial focus of DebtDAO is growth stage DAOs with readily existing revenue flows.
+- [Porter Finance](https://www.porter.finance/) is a platforms where DAOs can obtain fixed-rate financing using their project tokens as collateral.
 
 
 ### NFT Analytics Platforms
