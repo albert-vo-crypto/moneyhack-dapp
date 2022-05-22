@@ -14,7 +14,7 @@
 
 
 ### ReveFin Main Window
-![Main Window](./doc/img/Screen01.png)
+![Main Window](./doc/img/Screen01_New.png)
 
 
 ### ReveFin Project Team
