@@ -7,34 +7,47 @@ This section describes each screen of AutoML.NFT.
 ### Home Page
 This is the home/landing page that welcomes the user. `Get Starter`button directs the user to `Buy Revenue`page. There are three menus that lead to their respective pages, respectively, `Buy Revenue`, `Sell Revenue`, and `Dashboard`.
 
-![Screen](./img/Screen01.png)
+![Screenshot](./img/Screen01.png)
 
 ### Buy Revenue
 When the `Buy Revenue` menu item is selected, the page displayed shows `Revenue Streams for Sale`. This is a list of revenue streams on sale. Each revenue stream, in the MVP, is an NFT collection. Each cell in the table displays information about that collection, including computed metrics/statistics. When the image for any of the rows is clicked, details of that revenue stream are displayed for bidding and buying.
 
-![Screen](./img/Screen02.png)
+![Screenshot](./img/Screen02.png)
 
 ### Buy Revenue - Details and Bid 
 When the image for any of the rows is clicked, details of that revenue stream are displayed for bidding and buying. The Investor/Lender/Buyer can, using the slider, bid a certain `Purchase price (ETH)` and its `Implied Purchase Discount`, which is the proportion of the revenue stream paid upfront. Clicking the `BID ... ETH` button calls the MetaMask wallet for transaction confirmation.
 
-![Screen](./img/Screen03.png)
+![Screenshot](./img/Screen03.png)
 
 ### Sell Revenue
 When the `Sell Revenue` menu item is selected, the page displays a list to `Select your NFT Collections to list`. This is a list of revenue streams that the NFT Creator/Seller/Borrower can put on sale. Each revenue stream, in the MVP, is an NFT collection. Each cell in the table displays information about that collection, including computed metrics/statistics. When the image for any of the rows is clicked, details of that revenue stream are displayed for bidding and buying.
 
-![Screen](./img/Screen04.png)
+![Screenshot](./img/Screen04.png)
 
 ### Sell Revenue - Details and Listing
 When one of the revenue streams is collected, the page displayed shows interface to `Sell XYZ's future revenue`, where XYZ is the name of the selected collection. This is the screen where the NFT Creator/Seller/Borrower adjusts the percentage of royatly for sale. This would of course be a number between 0 and 100 (percent). When the `List ..% royalty revenue for sale` button is clicked, the NFT collection is put on listing for sale.
 
-![Screen](./img/Screen05.png)
+![Screenshot](./img/Screen05.png)
 
 
 ### Dashboard
 When the `Dashboard` menu item is clicked, the user sees the `Dashboard`, which shows the NFT collections `For Sale` and `Sold`, as well as the `Bids` and `Bought` revenue streams, with their respective data.
 
-![Screen13](./img/Screen06.png)
+The following screenshot shows the NFT collections `For Sale`:
 
+![Screenshot](./img/Screen06.png)
+
+The following screenshot shows the `Bids` for the NFT collections that are listed for sale:
+
+![Screenshot](./img/Screen07.png)
+
+### Sale Transaction
+Once a revenue stream on sale receives a bid, and once the NFT Creator/Seller/Borrower decides to accept the bid, the actual sale transaction, as shown in the figure below, takes place in three steps:
+1. **NFT Creator** updates the payout adress.
+2. **NFT Creator** transfers ownership of the collection (whose future revenue is being sold) to the ReveFin Vault.
+3. **NFT Creator** gets the fund from the ReveFin vault.
+
+![Screenshot](./img/Screen08.png)
 
 
 **Index**
