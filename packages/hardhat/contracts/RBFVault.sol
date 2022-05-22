@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "./PaymentSplitter.sol";
-import "./CompoundEthPool.sol";
+import "./CompoundEth.sol";
 
 //import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -17,7 +17,7 @@ interface ICollectionContract {
  * @notice Contract allowing Lender to secure royalty revenue streams from a NFT collection of borrower and split payments between them based on agreed terms
  * @dev Should be deployed per NFT collection.
  */
-contract RBFVault is PaymentSplitter, CompoundEthPool {
+contract RBFVault is PaymentSplitter, CompoundEth {
     enum Status {
         Pending,
         Active,

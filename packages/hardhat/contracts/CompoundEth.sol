@@ -17,10 +17,11 @@ interface CEth {
 }
 
 /**
- * @title CompoundEthPool
+ * @title CompoundEth
  * @notice Contract allows to lend ETH to Compound protocol to generate the yield
  */
-   contract CompoundEthPool {
+   contract CompoundEth {
+    // Rinkeby add   
     address public _cEtherContract = 0xd6801a1DfFCd0a410336Ef88DeF4320D6DF1883e;
     event MyLog(string, uint256);
     
