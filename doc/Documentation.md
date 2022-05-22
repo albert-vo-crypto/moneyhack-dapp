@@ -35,7 +35,7 @@ This documentation presents details on the ReveFin dapp and project.
 
 
 ### ReveFin Main Window
-![Main Window](./img/Screen01.png)
+![Main Window](./img/Screen01_New.png)
 
 
 ### ReveFin Project Team
