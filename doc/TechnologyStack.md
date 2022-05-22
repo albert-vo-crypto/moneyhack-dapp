@@ -10,6 +10,7 @@
 - **[EPNS](https://epns.io/)** for Ethereum push notifications
 - **[WalletConnect](https://walletconnect.com/)** for wallet connection functionality
 - **[IPFS](https://ipfs.io/)** for storing NFT images
+- **[scaffold-eth](https://github.com/scaffold-eth/scaffold-eth)** boilerplate
 - **[Coinbase Wallet](https://www.coinbase.com/wallet)** *[In development]* 
 - **[IPFS](https://ipfs.io/)** for hosting dApp *[In development]* 
 
@@ -20,13 +21,13 @@
 
 
 ### Backend
-- **[scaffold-eth boilerplate](https://github.com/scaffold-eth/scaffold-eth)** for rapid prototyping
 - **[Solidity](https://docs.soliditylang.org/en/)** for the backend smart contracts
 - **[Hardhat](https://hardhat.org/)** as Ethereum development
 - **[Compound Protocol](https://compound.finance/)** for staking
 - **[EPNS](https://epns.io/)** for Ethereum push notifications
 - **[WalletConnect](https://walletconnect.com/)** for wallet connection functionality
 - **[IPFS](https://ipfs.io/)** for storing NFT images
+- **[scaffold-eth boilerplate](https://github.com/scaffold-eth/scaffold-eth)** for rapid prototyping
 - **[Coinbase Wallet](https://www.coinbase.com/wallet)** *[In development]* 
 - **[IPFS](https://ipfs.io/)** for hosting dApp *[In development]* 
 
