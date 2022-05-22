@@ -138,7 +138,7 @@ const AcceptBidView = ({
     return (
       <>
         <div className="text-left">
-          <h3 className="text-lg mt-10 text-gray-900">Transfer onwership to vault</h3>
+          <h3 className="text-lg mt-10 text-gray-900">Transfer ownership to vault</h3>
           <p>
             We'll transfer your collection ownership to the vault contract for the duration of the terms(12 months).
           </p>
