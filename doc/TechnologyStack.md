@@ -50,6 +50,7 @@
 - **[CyberLink PowerDirector](https://www.cyberlink.com/products/powerdirector-video-editing-software/overview_en_US.html)** for video production
 - **[Ant Renamer](https://antp.be/software/renamer)** for automated sequential file renaming
 - **[XnConvert](https://www.xnview.com/en/xnconvert/)** for batch editing/conversion of images
+- **[Aspose App - Words Conversion](https://products.aspose.app/words/conversion)** for converting MS Word `.docx` files to `.md` files
 
 
 ### Other
