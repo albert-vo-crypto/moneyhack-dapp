@@ -4,7 +4,7 @@
 - **ReveFin** is a marketplace for future smart contract revenue. 
 - It connects participants who deploy capital ("Buyers") with entities that control a wallet address that receives regular smart contract-generated on-chain payments ("Sellers").
 
-This documentation presents details on the AutoML.NFT dapp and project.
+This documentation presents details on the ReveFin dapp and project.
 
 ## START HERE
 - **[ReveFin dapp](https://moneyhack-dapp.onrender.com/)** is running live on the cloud. The dapp requires MetaMask wallet connection for full functionality.
