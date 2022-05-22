@@ -23,6 +23,7 @@
 ### Backend
 - **[Solidity](https://docs.soliditylang.org/en/)** for the backend smart contracts
 - **[Hardhat](https://hardhat.org/)** as Ethereum development
+- **Remix**
 - **[Compound Protocol](https://compound.finance/)** for staking
 - **[EPNS](https://epns.io/)** for Ethereum push notifications
 - **[WalletConnect](https://walletconnect.com/)** for wallet connection functionality
@@ -30,7 +31,8 @@
 - **[scaffold-eth boilerplate](https://github.com/scaffold-eth/scaffold-eth)** for rapid prototyping
 - **[Coinbase Wallet](https://www.coinbase.com/wallet)** *[In development]* 
 - **[IPFS](https://ipfs.io/)** for hosting dApp *[In development]* 
-
+- **ethers.js**
+- **web3.js**
 
 ### Data & Analytics
 - **[Redux Toolkit](https://redux-toolkit.js.org/)** for storage of data in json files
