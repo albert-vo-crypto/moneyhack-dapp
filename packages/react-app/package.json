@@ -18,6 +18,7 @@
     "@ant-design/icons": "^4.2.2",
     "@apollo/client": "^3.3.21",
     "@apollo/react-hooks": "^4.0.0",
+    "@epnsproject/frontend-sdk": "^1.5.2",
     "@epnsproject/frontend-sdk-staging": "^1.8.0",
     "@eth-optimism/sdk": "^1.0.0",
     "@portis/web3": "^4.0.5",

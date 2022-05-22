@@ -10,6 +10,7 @@ import NFTCollectionTradingsList from "../components/NFT/NFTCollectionTradingsLi
 import { registeredCollectionsOfCurrentSignerSelector, investedCollectionsOfCurrentSignerSelector } from "../stores";
 
 
+
 import { DEFAULT_NOTIFICATIONS } from "./data";
 import {
   OnSubscribeModal,
@@ -138,6 +139,7 @@ const DashboardView = ({ ethPrice }) => {
 
   }, [account, active]);
 
+
   
   return (
     <div>
@@ -167,6 +169,7 @@ const DashboardView = ({ ethPrice }) => {
           <HeaderText children="Please connect wallet with owner account" />
         </div>
       )}
+      
       {modalOpen && <OnSubscribeModal onClose={() => setModalOpen(false)} />}
       {/* define the header */}
       <h2 className="App__header">
@@ -174,6 +177,87 @@ const DashboardView = ({ ethPrice }) => {
         <ConnectButton />
       </h2>
       {/* define the header */}
+
+
+      {active ? (
+        <>
+          {/* section for Embed SDK */}
+          <div style={{ backgroundColor: '#fff', padding: 20, display: 'flex' }}>
+            <button id="sdk-trigger-id" style={{ cursor: 'pointer' }}>trigger SDK button</button>
+          </div>
+          
+
+          {/* section for channels */}
+          {channel && (
+            <div>
+              <h3>Channel</h3>
+              <div className="sample__channel">
+                <div>
+                  <img src={channel.icon} className="channel__image" alt="channel" />
+                  <h2>{channel.name}</h2>
+                </div>
+                <div
+                  onClick={() => {
+                    isSubscribed
+                      ? channels.optOut(
+                          library.getSigner(account),
+                          channel.addr,
+                          chainId,
+                          account,
+                          {baseApiUrl: BASE_URL}
+                        )
+                      : channels.optIn(
+                          library.getSigner(account),
+                          channel.addr,
+                          chainId,
+                          account,
+                          {baseApiUrl: BASE_URL, onSuccess: () => setModalOpen(true)}
+                        );
+                  }}
+                  className="subscribebutton"
+                >
+                  {isSubscribed ? "unsubscribe" : "subscribe"}
+                </div>
+              </div>
+            </div>
+          )}
+          {/* section for channels */}
+
+          {/* section for notifications */}
+          <div>
+            <h3>Notifications</h3>
+            {notifications.map((oneNotification, i) => {
+              const { cta, title, message, app, icon, image, url, blockchain, secret, notification } =
+                oneNotification;
+                
+              // render the notification item
+              return (
+                <NotificationItem
+                  key={i}
+                  notificationTitle={!!secret ? notification.title : title}
+                  notificationBody={!!secret ? notification.body : message}
+                  cta={cta}
+                  app={app}
+                  icon={icon}
+                  image={image}
+                  url={url}
+                  isSecret={!!secret && !testSpamCondition(i)} // since we are adding random secret notifs in this test app
+                  decryptFn={() => onDecrypt(i)}
+                  // optional parameters for rendering spambox
+                  isSpam={testSpamCondition(i)}
+                  subscribeFn={async () => alert("yayy")}
+                  isSubscribedFn={async () => false}
+                  theme={"dark"}
+                  chainName={blockchain}
+                />
+              );
+            })}
+          </div>
+          {/* section for notifications */}
+        </>
+      ) : (
+        <p>Please connect to your wallet to proceed</p>
+      )}
 
 
       
