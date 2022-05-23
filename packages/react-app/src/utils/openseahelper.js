@@ -24,10 +24,13 @@ export const openseaGetCollections = async (
   }.opensea.io/api/v1/collections?asset_owner=${ownerAddress}&offset=0&limit=${limit}`;
   try {
     const response = await fetch(fetchStr, options);
-    const json = await response.json();
-    return json?.map(coll => {
-      return { ...coll, ownerAddress };
-    });
+    const jsonRes = await response.json();
+    log({ jsonRes });
+    return jsonRes && _.size(jsonRes) > 0
+      ? _.map(jsonRes, coll => {
+          return { ...coll, ownerAddress };
+        })
+      : [];
   } catch (err) {
     console.error(err);
     throw err;

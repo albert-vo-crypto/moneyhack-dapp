@@ -87,10 +87,10 @@ const reloadCreatorNFTCollections = async (dispatch, getState, ownerAddress) => 
     : null;
 
   const openseaColls = [...openseaCollsTest, ...openseaCollsDemo, ...openseaCollsThis];
-  const revefinColls = openseaColls.map(coll => {
-    const rColl = getRevefinFromOpenseaCollection(coll);
-    return _.assign(rColl, { historicalDatas: mockHistoricalDatas });
-  });
+  const revefinColls = openseaColls.filter(coll => coll?.primary_asset_contracts && _.size(coll?.primary_asset_contracts) > 0).map(coll => {
+      const rColl = getRevefinFromOpenseaCollection(coll);
+      return _.assign(rColl, { historicalDatas: mockHistoricalDatas });
+    });
   log({ revefinColls });
   dispatch(creatorCollectionsUpdatedAction(revefinColls));
 };
